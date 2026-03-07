@@ -34,7 +34,7 @@ jobs:
           port: 22
           script: |
             # প্রজেক্ট ফোল্ডারে যাওয়া
-            cd /home/${{ secrets.USERNAME }}/app
+            cd /home/${{ secrets.USERNAME }}/kloudteck
             
             # আগের কন্টেইনার বন্ধ করা (সার্ভারের .env ফাইলটি ব্যবহার করে)
             sudo docker-compose --env-file .env down
