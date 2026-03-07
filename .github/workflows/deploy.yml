@@ -22,7 +22,7 @@ jobs:
           port: 22
           # এখানে সব প্রয়োজনীয় ফোল্ডার ও ফাইল উল্লেখ করা হয়েছে
           source: "docker-compose.yml,nginx/,postgres-init/,kloudteck-site/,mikrotik-site/"
-          target: "/home/${{ secrets.USERNAME }}/app"
+          target: "/home/${{ secrets.USERNAME }}/kloudteck"
 
       # ২. সার্ভারে ঢুকে Docker Compose চালানো
       - name: Execute Remote SSH Commands
