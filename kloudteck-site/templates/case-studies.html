@@ -1,0 +1,427 @@
+{% extends "layout.html" %}
+
+{% block title %}Case Studies · Success Stories & Results | KLOUDTECK{% endblock %}
+
+{% block head %}
+<!-- Font Awesome & Google Fonts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --navy-dark: #050c16;
+        --navy-light: #0a192f;
+        --teal: #33ccff;
+        --teal-glow: rgba(51, 204, 255, 0.4);
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --font-main: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body { 
+        background-color: var(--navy-dark) !important; 
+        color: #e2e8f0 !important;
+        font-family: var(--font-main);
+        overflow-x: hidden;
+    }
+
+    /* --- Animated Hero Section --- */
+    .case-hero {
+        padding: 160px 0 100px;
+        background: radial-gradient(circle at top right, rgba(51, 204, 255, 0.05), transparent),
+                    radial-gradient(circle at bottom left, rgba(51, 204, 255, 0.05), transparent);
+        position: relative;
+    }
+
+    .hero-badge {
+        background: rgba(51, 204, 255, 0.1);
+        color: var(--teal);
+        padding: 8px 20px;
+        border-radius: 100px;
+        border: 1px solid var(--teal-glow);
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    /* --- Stats Section --- */
+    .stats-container {
+        margin-top: -50px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .stat-card {
+        background: rgba(10, 25, 47, 0.7);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        padding: 30px;
+        border-radius: 24px;
+        transition: 0.3s;
+    }
+    .stat-card:hover {
+        border-color: var(--teal);
+        transform: translateY(-5px);
+    }
+
+    /* --- Filter Tabs --- */
+    .filter-wrapper {
+        background: var(--glass);
+        padding: 8px;
+        border-radius: 100px;
+        border: 1px solid var(--glass-border);
+        display: inline-flex;
+        gap: 5px;
+    }
+
+    .filter-btn {
+        border: none;
+        background: transparent;
+        color: #94a3b8;
+        padding: 10px 25px;
+        border-radius: 100px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .filter-btn.active {
+        background: var(--teal);
+        color: var(--navy-dark);
+        box-shadow: 0 4px 15px var(--teal-glow);
+    }
+
+    /* --- Modern Case Cards --- */
+    .case-card {
+        background: var(--navy-light);
+        border-radius: 30px;
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        height: 100%;
+        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .case-card:hover {
+        transform: translateY(-15px);
+        border-color: var(--teal-glow);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .case-img-box {
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .case-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.6s;
+    }
+
+    .case-card:hover .case-img-box img {
+        transform: scale(1.1);
+    }
+
+    .case-content {
+        padding: 30px;
+    }
+
+    .case-category {
+        color: var(--teal);
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .case-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .case-desc {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .btn-case {
+        background: transparent;
+        border: 1px solid var(--teal);
+        color: var(--teal);
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: 0.3s;
+    }
+
+    .btn-case:hover {
+        background: var(--teal);
+        color: var(--navy-dark);
+    }
+
+    /* --- Testimonials --- */
+    .testimonial-card {
+        background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        border: 1px solid var(--glass-border);
+        padding: 40px;
+        border-radius: 30px;
+        position: relative;
+    }
+
+    .quote-icon {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 3rem;
+        opacity: 0.1;
+        color: var(--teal);
+    }
+
+    .client-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .client-avatar {
+        width: 50px;
+        height: 50px;
+        background: var(--teal);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: var(--navy-dark);
+    }
+
+    .hidden { display: none !important; }
+
+    /* Animations */
+    .fade-up {
+        animation: fadeUp 0.8s ease forwards;
+    }
+
+    .case-card {
+        background: var(--navy-light);
+        border-radius: 30px;
+        overflow: hidden;
+        border: 1px solid var(--glass-border);
+        height: 100%; 
+        display: flex;
+        flex-direction: column;
+        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .case-content {
+        padding: 30px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .case-desc {
+        color: #94a3b8;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        flex-grow: 1; 
+        display: -webkit-box;
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* --- Testimonials (Updated for Equal Height) --- */
+    .testimonial-card {
+        background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        border: 1px solid var(--glass-border);
+        padding: 40px;
+        border-radius: 30px;
+        position: relative;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .testimonial-text {
+        flex-grow: 1;
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- 1. HERO SECTION -->
+<section class="case-hero text-center services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <span class="hero-badge fade-up">Case Studies</span>
+        <h1 class="display-3 fw-800 mb-4 fade-up" style="letter-spacing: -1px;">Proven <span class="text-teal">Infrastructure</span> <br>Success Stories</h1>
+        <p class="lead text-white-50 mx-auto fade-up" style="max-width: 700px;">Explore how we help global brands scale their IT infrastructure, security, and digital operations.</p>
+    </div>
+</section>
+
+<!-- 2. STATS SECTION -->
+<div class="container stats-container">
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <h2 class="fw-bold text-teal mb-1">500+</h2>
+                <p class="small text-white-50 text-uppercase mb-0">Projects Managed</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <h2 class="fw-bold text-teal mb-1">99.9%</h2>
+                <p class="small text-white-50 text-uppercase mb-0">Uptime Rate</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card text-center">
+                <h2 class="fw-bold text-teal mb-1">40%</h2>
+                <p class="small text-white-50 text-uppercase mb-0">Cost Optimization</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. FILTER & CASE STUDIES -->
+<section class="py-5 mt-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="filter-wrapper">
+                <button class="filter-btn active" onclick="filterItems('all', this)">All Projects</button>
+                <button class="filter-btn" onclick="filterItems('hospitality', this)">Hospitality</button>
+                <button class="filter-btn" onclick="filterItems('retail', this)">Retail</button>
+                <button class="filter-btn" onclick="filterItems('warehouse', this)">Warehouse</button>
+                <button class="filter-btn" onclick="filterItems('security', this)">Security</button>
+            </div>
+        </div>
+
+        <div class="row g-4" id="mainGrid">
+            {% for study in studies %}
+            <div class="col-lg-4 col-md-6 grid-item {{ study.category.lower() }} fade-up">
+                <div class="case-card">
+                    <div class="case-img-box">
+                        <img src="{{ study.bg_image }}" alt="{{ study.title }}">
+                    </div>
+                    <div class="case-content">
+                        <span class="case-category">{{ study.category }}</span>
+                        <h3 class="case-title">{{ study.title }}</h3>
+                        <p class="case-desc">{{ study.content }}</p>
+                        
+                        {% if study.pdf_url %}
+                        <a href="{{ study.pdf_url }}" target="_blank" class="btn-case">
+                            View Case Study <i class="fas fa-arrow-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 4. TESTIMONIALS SECTION -->
+
+<section class="services-wrapper process-section-bg shadow-sm py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Client <span class="text-teal">Feedback</span></h2>
+        <div class="row g-4">
+            {% for testi in testimonials %}
+            <div class="col-md-6 col-lg-4">
+                <div class="testimonial-card">
+                    <div class="text-warning mb-3">
+                        {% for i in range(testi.rating) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                        {% for i in range(5 - testi.rating) %}
+                            <i class="far fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="text-white-50 fst-italic">"{{ testi.quote }}"</p>
+                    <h4 class="h6 fw-bold text-teal mt-3 mb-0">— {{ testi.author }}, {{ testi.designation }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- 5. FINAL CALL TO ACTION -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="p-5 rounded-5 text-center position-relative overflow-hidden" 
+             style="background: linear-gradient(45deg, #0a192f 0%, #050c16 100%); border: 1px solid var(--glass-border);">
+            <div style="position: relative; z-index: 2;">
+                <h2 class="display-5 fw-bold mb-4">Ready to start your project?</h2>
+                <p class="lead text-white-50 mb-5">Let's build something exceptional together. Our experts are ready to help.</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="/quote" class="btn btn-teal px-5 py-3 fw-bold shadow-lg" style="background: #33ccff; color: #050c16; border-radius: 15px;">Get a Free Quote</a>
+                    <a href="/contact" class="btn btn-outline-light px-5 py-3 fw-bold" style="border-radius: 15px;">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function filterItems(category, btn) {
+        // Filter Logic
+        const items = document.querySelectorAll('.grid-item, .testimonial-item');
+        
+        items.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.classList.remove('hidden');
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1)';
+                } else {
+                    item.classList.add('hidden');
+                }
+            }, 300);
+        });
+
+        // Update Button Active State
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    // Initial Animation for stats or cards can be added here
+</script>
+{% endblock %}

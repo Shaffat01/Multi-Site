@@ -1,0 +1,272 @@
+     :root {
+        --navy-bg: #212121;   
+        --navy-deep: #1a1a1a;   
+        --sky-blue: #33ccff;    
+        --teal: #33ccff;        
+        --text-dim: rgba(255, 255, 255, 0.7);
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(51, 204, 255, 0.15);
+    }
+
+    section { padding: 90px 0; overflow: hidden; }
+    .bg-dark-custom { background-color: var(--navy-bg); color: white; }
+    .bg-deep-custom { background-color: var(--navy-deep); color: white; }
+    .bg-white-section { background-color: #ffffff; color: #333; }
+
+    /* Text Effects */
+    .text-sky { color: var(--sky-blue) !important; }
+    .text-teal { color: var(--sky-blue) !important; }
+    .text-shine {
+        background: linear-gradient(90deg, #33ccff, #ffffff, #00ffff, #33ccff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shineText 4s linear infinite;
+        font-weight: 800;
+    }
+    @keyframes shineText { to { background-position: 200% center; } }
+
+    .modern-card {
+        background: var(--glass);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 30px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+    }
+    .modern-card:hover {
+        transform: translateY(-12px);
+        border-color: var(--sky-blue);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(51, 204, 255, 0.15);
+    }
+
+    .cctv-feature-card {
+        background: rgba(255,255,255,0.02);
+        padding: 25px;
+        border-radius: 15px;
+        border-left: 4px solid var(--sky-blue);
+        transition: 0.3s;
+        height: 100%;
+    }
+    .cctv-feature-card:hover { background: rgba(51, 204, 255, 0.05); }
+    .cctv-feature-card i { font-size: 1.8rem; color: var(--sky-blue); margin-bottom: 15px; display: block; }
+    .cctv-feature-card h4 { font-size: 1.2rem; color: #fff; margin-bottom: 10px; }
+
+    .breadcrumb-modern .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,0.3); content: "→"; }
+
+    .check-list li { margin-bottom: 14px; display: flex; align-items: flex-start; }
+    .check-list i { margin-right: 12px; margin-top: 5px; font-size: 1.1rem; }
+
+    .process-step { position: relative; padding-left: 70px; margin-bottom: 40px; }
+    .process-num { 
+        position: absolute; left: 0; top: 0; width: 50px; height: 50px; 
+        background: var(--sky-blue); color: #000; border-radius: 50%; 
+        display: flex; align-items: center; justify-content: center; 
+        font-weight: 800; font-size: 1.2rem; box-shadow: 0 0 20px rgba(51, 204, 255, 0.3);
+    }
+
+    .btn-custom { border-radius: 50px; padding: 14px 35px; font-weight: 700; transition: 0.3s; }
+    .btn-teal-fill { background: var(--sky-blue); color: #000; border: none; }
+    .btn-teal-fill:hover { background: #fff; transform: scale(1.05); }
+
+    .accordion-item { background: transparent; border: 1px solid var(--glass-border); margin-bottom: 10px; border-radius: 12px !important; overflow: hidden; }
+    .accordion-button { background: rgba(255,255,255,0.03); color: white !important; box-shadow: none !important; }
+    .accordion-button:not(.collapsed) { background: rgba(51, 204, 255, 0.1); color: var(--sky-blue) !important; }
+    .accordion-button::after { filter: invert(1); }
+
+    .badge-outline { border: 1px solid var(--sky-blue); color: var(--sky-blue); padding: 7px 15px; border-radius: 50px; font-size: 0.85rem; }
+       .services-wrapper.process-section-bg {
+        background: linear-gradient(-45deg, #050c16, #0a192f, #050c16, #081e33);
+        background-size: 400% 400%;
+        animation: bgGradientMove 15s ease infinite;
+        position: relative;
+    }
+
+
+    .services-wrapper.process-section-bg::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: 
+            linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    @keyframes bgGradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+
+    .network-card {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;
+        border-radius: 16px;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        z-index: 1;
+    }
+
+    .network-card:hover {
+        border-color: #00ffff !important;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .network-card i {
+        transition: transform 0.4s ease;
+    }
+
+    .network-card:hover i {
+        transform: scale(1.2);
+        color: #00ffff !important;
+    }
+
+
+    .sidebar-box {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 100px; 
+        z-index: 10;
+    }
+
+    .badge-custom {
+        background: rgba(255, 255, 255, 0.05);
+        color: #f8fafc;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 6px 15px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        transition: 0.3s;
+    }
+
+    .badge-custom:hover {
+        border-color: #00ffff;
+        color: #00ffff;
+    }
+
+    .text-teal {
+        color: #00ffff !important;
+    }
+
+    .text-white-50 {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+
+    .reveal {
+        transition: all 0.8s ease-out;
+    }
+
+    hr.border-secondary {
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    .services-wrapper {
+        overflow: visible !important; 
+    }
+
+    .process-section-bg {
+        overflow: visible !important;
+    }
+
+    .sidebar-box {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        position: -webkit-sticky; 
+        position: sticky;
+        top: 100px; 
+    }
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    .camera-types-wrapper {
+        background: linear-gradient(-45deg, #050c16, #0a192f, #050c16, #081e33);
+        background-size: 400% 400%;
+        animation: bgGradientMove 15s ease infinite;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .camera-tech-card {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;
+        border-radius: 20px;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        z-index: 1;
+    }
+
+    .camera-tech-card:hover {
+        transform: translateY(-10px);
+        border-color: #00ffff !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        box-shadow: 0 15px 35px rgba(0, 255, 255, 0.1);
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+        background: rgba(0, 255, 255, 0.05);
+        color: #00ffff;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        transition: 0.4s ease;
+        border: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .camera-tech-card:hover .icon-circle {
+        background: #00ffff;
+        color: #050c16;
+        transform: rotateY(180deg);
+    }
+
+    .camera-tech-card h4 {
+        letter-spacing: 0.5px;
+        line-height: 1.4;
+    }
+
+    .camera-tech-card p {
+        line-height: 1.7;
+        letter-spacing: 0.2px;
+    }
+
+    .text-teal {
+        color: #00ffff !important;
+    }
+
+    .text-shine {
+        background: linear-gradient(90deg, #ffffff, #00ffff, #ffffff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shineText 4s linear infinite;
+    }
+
+    @keyframes shineText {
+        to { background-position: 200% center; }
+    }
+
+    @keyframes bgGradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .reveal {
+        opacity: 1; 
+    }

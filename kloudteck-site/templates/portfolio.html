@@ -1,0 +1,256 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    /* 1. Hero Section Styling */
+    .portfolio-hero {
+        background: linear-gradient(135deg, var(--navy) 0%, #1a3a5f 100%);
+        padding: 120px 0 80px;
+        color: white;
+        text-align: center;
+        position: relative;
+    }
+
+    .portfolio-hero::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: linear-gradient(to top right, #f8fafc 50%, transparent 50.5%);
+    }
+
+    /* 2. Filter Button Styling */
+    .filter-group {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 10px 25px;
+        border-radius: 50px;
+        border: 1px solid #ddd;
+        background: white;
+        color: var(--navy);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+        background: var(--teal);
+        color: white;
+        border-color: var(--teal);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 128, 128, 0.2);
+    }
+
+    /* 3. Portfolio Grid & Cards */
+    .portfolio-item {
+        transition: all 0.5s ease;
+    }
+
+    .project-card {
+        background: white;
+        border-radius: 30px;
+        overflow: hidden;
+        border: 1px solid #f1f5f9;
+        height: 100%;
+        transition: all 0.4s ease;
+    }
+
+    .project-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 40px 80px rgba(15, 42, 74, 0.1);
+    }
+
+    .project-img {
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .tech-stack {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        display: flex;
+        gap: 8px;
+    }
+
+    .tech-badge {
+        background: var(--teal);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        backdrop-filter: blur(5px);
+    }
+
+    .project-body {
+        padding: 30px;
+    }
+
+    .project-category {
+        color: var(--teal);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+
+    .project-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--navy);
+        margin: 10px 0;
+    }
+
+    .project-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        font-size: 0.85rem;
+        color: #64748b;
+    }
+
+    /* Hidden elements for filtering animation */
+    .hidden { display: none !important; }
+</style>
+
+<!-- HERO -->
+<section class="portfolio-hero services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-3 reveal">Engineering the <span class="text-teal">Digital Backbone</span></h1>
+        <p class="lead opacity-75 mx-auto" style="max-width: 700px;">Explore how KLOUDTECK designs, deploys, and manages mission-critical technology for world-class enterprises.</p>
+    </div>
+</section>
+
+<!-- PORTFOLIO SECTION -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-5">
+        
+        <!-- Filters -->
+        <div class="filter-group reveal">
+            <button class="filter-btn active" onclick="filterProjects('all')">All Projects</button>
+            <button class="filter-btn" onclick="filterProjects('hospitality')">Hospitality</button>
+            <button class="filter-btn" onclick="filterProjects('retail')">Retail & Commercial</button>
+            <button class="filter-btn" onclick="filterProjects('software')">Software & Dev</button>
+            <button class="filter-btn" onclick="filterProjects('security')">Security Systems</button>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="row g-4" id="portfolio-grid">
+            {% for project in projects %}
+            <div class="col-lg-4 portfolio-item {{ project.category.lower() }} reveal">
+                <div class="project-card">
+                    <div class="project-img" style="background-image: url('{{ project.bg_image }}'); height: 250px; background-size: cover; position: relative;">
+                        <div class="tech-stack" style="position: absolute; bottom: 15px; left: 15px; display: flex; gap: 8px;">
+                            {% if project.blue_cta %}
+                                {% for tech in project.blue_cta.split(',') %}
+                                <span class="tech-badge" style="background: #1e3a5f; color: white; padding: 6px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1);">
+                                    {{ tech.strip() }}
+                                </span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="project-body" style="padding: 30px;">
+                        <span class="project-category" style="color: #00d2d2; font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px;">
+                            {{ project.category }}
+                        </span>
+                        <h3 class="project-title" style="font-size: 1.6rem; font-weight: 800; color: #0f2a4a; margin: 12px 0;">
+                            {{ project.project_name }}
+                        </h3>
+                        <p class="text-secondary" style="font-size: 0.95rem; line-height: 1.6;">
+                            {{ project.summary }}
+                        </p>
+
+                        <div class="project-meta" style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f5f9;">
+                            <div class="d-flex align-items-center text-secondary small mb-2">
+                                <i class="far fa-calendar-alt me-2"></i> 
+                                <span class="fw-bold">{{ project.project_date }}</span>
+                            </div>
+                            <div class="d-flex align-items-center small" style="color: #64748b;">
+                                <i class="fas fa-check-circle text-teal me-2" style="color: #00d2d2;"></i>
+                                <span class="fw-bold">{{ project.status }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="py-5 bg-navy text-white text-center services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4 reveal">
+        <h2 class="display-5 fw-bold text-white mb-4">Have a complex project in mind?</h2>
+        <p class="lead mb-5 opacity-75">Let our engineers design a solution tailored to your operational needs.</p>
+        <a href="/contact" class="btn btn-teal btn-lg px-5 py-3 shadow">Start a Consultation</a>
+    </div>
+</section>
+
+<!-- JAVASCRIPT FOR FILTERING -->
+<script>
+    function filterProjects(category) {
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        const items = document.querySelectorAll('.portfolio-item');
+        
+        items.forEach(item => {
+            if (category === 'all') {
+                item.classList.remove('hidden');
+                // Re-trigger reveal animation
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            } else {
+                if (item.classList.contains(category)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            }
+        });
+    }
+
+    const reveal = () => {
+        const reveals = document.querySelectorAll(".reveal");
+        reveals.forEach((el) => {
+            const windowHeight = window.innerHeight;
+            const elementTop = el.getBoundingClientRect().top;
+            const elementVisible = 100;
+            if (elementTop < windowHeight - elementVisible) {
+                el.classList.add("active");
+                el.style.opacity = "1";
+                el.style.transform = "translateY(0)";
+            }
+        });
+    };
+    window.addEventListener("scroll", reveal);
+    window.onload = reveal;
+</script>
+
+<style>
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+    }
+    .active {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+</style>
+{% endblock %}

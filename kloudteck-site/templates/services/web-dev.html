@@ -1,0 +1,220 @@
+{% extends "layout.html" %}
+
+{% block title %}Software Engineering & Web Development | Python, Django, Flask | KLOUDTECK{% endblock %}
+
+{% block head %}
+<!-- Custom CSS for Web Engineering -->
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/web.css')}}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="hero-software services-wrapper process-section-bg shadow-sm text-white">
+        <div class="container">
+            <nav aria-label="breadcrumb" class="mb-4 reveal">
+                <ol class="breadcrumb-modern">
+                    <li class="breadcrumb-item"><a href="/" class="text-white-50">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/solutions" class="text-white-50">Solutions</a></li>
+                    <li class="breadcrumb-item active text-white">Full Stack Architecture</li>
+                </ol>
+            </nav>
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7 reveal">
+                    <h1 class="display-lead fw-bold mb-4 text-teal">Enterprise <span class="text-shine">Software Engineering</span> & Architecture</h1>
+                    <p class="lead text-white-50 mb-5">We engineer high-performance ecosystems using Python, Django, and Flask. From secure FinTech dashboards to scalable SaaS platforms, we turn complex logic into seamless digital experiences.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="/quote" class="btn btn-teal px-5 py-3 fw-bold shadow">Request Quote</a>
+                        <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light px-5 py-3 fw-bold">View Portfolio</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block reveal">
+                    <div class="code-window p-4">
+                        <div class="d-flex gap-2 mb-3">
+                            <span style="width:12px; height:12px; border-radius:50%; background:#ff5f56"></span>
+                            <span style="width:12px; height:12px; border-radius:50%; background:#ffbd2e"></span>
+                            <span style="width:12px; height:12px; border-radius:50%; background:#27c93f"></span>
+                        </div>
+                        <code class="small" style="color: #a5d6ff;">
+                            <span style="color: #ff7b72;">import</span> kloudteck_engine<br><br>
+                            <span style="color: #d2a8ff;">class</span> <span style="color: #ffa657;">DigitalTransformation</span>:<br>
+                            &nbsp;&nbsp;<span style="color: #ff7b72;">def</span> <span style="color: #d2a8ff;">build_success</span>(client_idea):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;stack = [<span style="color: #a5d6ff;">'Django'</span>, <span style="color: #a5d6ff;">'PostgreSQL'</span>, <span style="color: #a5d6ff;">'Flask'</span>]<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #ff7b72;">return</span> kloudteck_engine.deploy(stack)<br><br>
+                            <span style="color: #8b949e;"># Output: Application Scaled Globally</span>
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solutions " class=" services-wrapper process-section-bg shadow-sm py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5 reveal">
+                <h2 class="display-6 fw-bold text-navy">Custom Solutions Built for <span class="text-teal">Scale</span></h2>
+                <p class="text-secondary">We don't just build websites; we build strategic business assets.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="solution-card" style="background: white;">
+                        <i class="fas fa-rocket"></i>
+                        <h4 class="fw-bold">SaaS Platforms</h4>
+                        <p class="text-secondary">Subscription-based software with multi-tenant architecture, automated billing, and secure user roles.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="solution-card" style="background: white;">
+                        <i class="fas fa-chart-line"></i>
+                        <h4 class="fw-bold">Enterprise ERP & CRM</h4>
+                        <p class="text-secondary">Internal business tools to manage inventory, staff, and customer relations with real-time data sync.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="solution-card" style="background: white;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h4 class="fw-bold">Advanced E-Commerce</h4>
+                        <p class="text-secondary">Custom marketplaces with complex shipping logic, payment gateways, and AI-driven recommendations.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="solution-card" style="background: white;">
+                        <i class="fas fa-database"></i>
+                        <h4 class="fw-bold">FinTech & Dashboards</h4>
+                        <p class="text-secondary">Secure financial applications with interactive charts, encrypted transactions, and heavy data processing.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="solution-card" style="background: white;">
+                        <i class="fas fa-project-diagram"></i>
+                        <h4 class="fw-bold">API & Microservices</h4>
+                        <p class="text-secondary">Building the "brain" of your ecosystem that connects mobile apps and web platforms seamlessly.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="solution-card" style="background: white;">
+                        <i class="fas fa-brain"></i>
+                        <h4 class="fw-bold">AI & Automation Tools</h4>
+                        <p class="text-secondary">Integrating GPT models and machine learning to automate repetitive business tasks and workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK SHOWCASE -->
+    <section class="py-5 services-wrapper process-section-bg shadow-sm">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5 reveal">
+                    <h2 class="fw-bold text-navy mb-4">Our Technology <span class="text-teal">Arsenal</span></h2>
+                    <p class="text-secondary mb-4">We select the most robust tools in the industry to ensure your application is fast, secure, and ready for the future.</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-light text-dark border p-2">Python 3.12</span>
+                        <span class="badge bg-light text-dark border p-2">Django 5.0</span>
+                        <span class="badge bg-light text-dark border p-2">Flask</span>
+                        <span class="badge bg-light text-dark border p-2">PostgreSQL</span>
+                        <span class="badge bg-light text-dark border p-2">Redis</span>
+                        <span class="badge bg-light text-dark border p-2">Docker</span>
+                        <span class="badge bg-light text-dark border p-2">AWS</span>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="row g-3 reveal">
+                        <div class="col-6 col-md-3">
+                            <div class="stack-item">
+                                <i class="fab fa-python fa-3x text-primary mb-3"></i>
+                                <h6 class="fw-bold">Python</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stack-item">
+                                <i class="fab fa-flask fa-3x text-info mb-3"></i>
+                                <h6 class="fw-bold">Flask</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stack-item">
+                                <i class="fas fa-leaf fa-3x text-success mb-3"></i>
+                                <h6 class="fw-bold">Django</h6>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="stack-item">
+                                <i class="fas fa-database fa-3x text-secondary mb-3"></i>
+                                <h6 class="fw-bold">SQL</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKFLOW PROCESS -->
+    <section class="services-wrapper process-section-bg shadow-sm py-5" >
+        <div class="container py-5">
+            <h2 class="text-center fw-bold mb-5 reveal">Strategic Development <span class="text-teal">Workflow</span></h2>
+            <div class="row g-4">
+                <div class="col-md-3 reveal">
+                    <div class="workflow-step">
+                        <div class="step-num">1</div>
+                        <h5 class="fw-bold">Architecture</h5>
+                        <p class="small text-white-50">Planning the database and logic for infinite scalability.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 reveal">
+                    <div class="workflow-step">
+                        <div class="step-num">2</div>
+                        <h5 class="fw-bold">Engineering</h5>
+                        <p class="small text-white-50">Clean, PEP8 compliant coding with Python & Django.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 reveal">
+                    <div class="workflow-step">
+                        <div class="step-num">3</div>
+                        <h5 class="fw-bold">Optimization</h5>
+                        <p class="small text-white-50">Rigorous security testing and performance tuning.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 reveal">
+                    <div class="workflow-step">
+                        <div class="step-num">4</div>
+                        <h5 class="fw-bold">Deployment</h5>
+                        <p class="small text-white-50">Zero-downtime deployment using modern CI/CD pipelines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+   <section class="services-wrapper process-section-bg shadow-sm">
+        <div class="container  my-5 py-5 reveal">
+            <div class="p-5 rounded-5 text-center text-white shadow-lg" style="background: linear-gradient(135deg, #050c16 0%, #0a192f 100%); border: 1px solid var(--teal);">
+                <h2 class="display-6 fw-bold mb-3">Ready to Build Something <span class="text-teal">Extraordinary?</span></h2>
+                <p class="text-white-50 mb-4 fs-5">Consult with our engineers today and get a technical roadmap for your vision.</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="/quote" class="btn btn-lg btn-teal px-5 py-2 fw-bold">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/contact" class="btn btn-lg btn-outline-light px-5 py-2">Contact Us</a>
+                </div>
+            </div>
+        </div>
+   </section> 
+</main>
+
+<script>
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal(); // Run on load
+</script>
+{% endblock %}

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>{% block title %}KLOUDTECK · Commercial IT Infrastructure & Security Solutions{% endblock %}</title>
+    
+    <meta name="description" content="KLOUDTECK provides managed network, CCTV, access control, structured cabling, business phone systems & digital displays.">
+    <meta name="keywords" content="Commercial IT infrastructure solutions, Managed network provider, Commercial security systems, Structured cabling, WiFi installation">
+    
+    <!-- Bootstrap 5.3 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+        :root {
+            --navy-deep: #000d1a; 
+            --navy-main: #0a1e32; 
+            --orange-action: #ff7300; 
+            --teal: #33ccff;
+            --soft-bg: #f8f9fa;
+        }
+
+        /* 1. Top Utility Bar */
+        .utility-bar {
+            background-color: var(--navy-deep);
+            padding: 8px 0;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .utility-bar .container { display: flex; justify-content: center; }
+        .utility-bar a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin: 0 20px; 
+            transition: 0.2s;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .utility-bar a:hover { color: var(--teal); }
+
+        /* 2. Main Navbar */
+        .navbar-main {
+            background-color: var(--navy-main) !important;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .navbar-brand img { height: 70px; transition: 0.3s; }
+        
+        .navbar-main .nav-link {
+            color: white !important;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            padding: 25px 20px !important; /* Space for hover trigger */
+            transition: color 0.3s;
+        }
+        .navbar-main .nav-link:hover { color: var(--teal) !important; }
+
+        /* Mega Menu Hover Fix Logic */
+        .nav-item.dropdown { position: static; } 
+        
+        .mega-menu {
+            width: 100%;
+            left: 0;
+            right: 0;
+            border: none;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            padding: 40px 0;
+            margin-top: 0;
+            background: white;
+            display: block;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none; /* Prevent accidental triggers */
+        }
+        .nav-item.dropdown:hover .mega-menu {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .mega-menu-link {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            border: 1px solid transparent;
+        }
+        .mega-menu-link:hover {
+            background-color: var(--soft-bg);
+            border-color: rgba(0,180,179,0.1);
+            transform: translateX(5px);
+        }
+        .mega-menu {
+            margin-top: 0 !important; 
+            top: 100%;
+        }
+
+        .mega-menu::before {
+            content: "";
+            position: absolute;
+            top: -30px; 
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: transparent;
+        }
+
+        .nav-item.dropdown:hover .mega-menu {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            display: block; 
+        }
+
+        .mega-menu {
+            transform: translateY(5px); 
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .mega-icon {
+            font-size: 24px;
+            color: var(--teal);
+            margin-right: 18px;
+            margin-top: 2px;
+            width: 40px;
+            height: 40px;
+            background: var(--light-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .mega-menu-link:hover .mega-icon {
+            background: var(--teal);
+            color: white;
+        }
+
+        .mega-title {
+            display: block;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--navy-main);
+            margin-bottom: 2px;
+        }
+        .mega-desc {
+            display: block;
+            font-size: 12px;
+            color: #6c757d;
+            line-height: 1.4;
+            text-transform: none;
+        }
+
+        /* Footer Styling */
+        .footer { background-color: var(--navy-deep); color: white; padding: 80px 0 40px; }
+        .footer a { color: rgba(255,255,255,0.6); text-decoration: none; transition: 0.3s; }
+        .footer a:hover { color: var(--teal); padding-left: 5px; }
+
+        /* Responsive Mobile Fix */
+        @media (max-width: 991px) {
+            .navbar-main .nav-link { padding: 15px 0 !important; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .mega-menu { 
+                position: relative; visibility: visible; opacity: 1; 
+                display: none; transform: none; padding: 20px; 
+            }
+            .dropdown-menu.show { display: block; }
+            .btn-support { width: 100%; margin: 20px 0; }
+        }
+        .utility-bar {
+            background: rgba(0, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .navbar-main {
+            background: rgba(10, 30, 50, 0.8) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 10px 0;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.2)); }
+            50% { transform: translateY(-5px) scale(1.05); filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.6)); }
+        }
+
+        .navbar-main .nav-link {
+            position: relative;
+            background: linear-gradient(90deg, #fff, #33ccff, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shineText 5s linear infinite;
+        }
+
+        @keyframes shineText {
+            to { background-position: 200% center; }
+        }
+
+        .btn-support {
+            color: orange;
+            background: white; !important;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-support::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: orange;
+            color: white;
+            text:white;
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn-support:hover::before { left: 100%; }
+
+        .btn-support:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            transform: translateY(-3px);
+            color: white;
+            text:white;
+            background: orange;
+
+        }
+    </style>
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <!-- 2. MAIN NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-main sticky-top">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand " href="/">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="KLOUDTECK" ></a>
+            
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <!-- Navigation Links -->
+                <ul class="navbar-nav mx-auto">
+                    
+                    <!-- SOLUTIONS MEGA MENU -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/solutions">Solutions <i class="fas fa-chevron-down small ms-1"></i></a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <!-- Column 1 -->
+                                    <div class="col-lg-4">
+                                        <a class="mega-menu-link" href="/services/managed-network-wifi-solutions">
+                                            <div class="mega-icon"><i class="fas fa-wifi"></i></div>
+                                            <div><span class="mega-title">Managed Network & WiFi</span><span class="mega-desc">Enterprise wireless & secure segmentation.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/services/commercial-cctv-surveillance">
+                                            <div class="mega-icon"><i class="fas fa-video"></i></div>
+                                            <div><span class="mega-title">CCTV & Surveillance</span><span class="mega-desc">4K IP cameras with AI analytics.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/services/full-stack-web-development">
+                                            <div class="mega-icon"><i class="fas fa-code"></i></div>
+                                            <div><span class="mega-title">Full Stack Web Dev</span><span class="mega-desc">Python, Django & Modern Frameworks.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/services/business-voip-phone-systems">
+                                            <div class="mega-icon"><i class="fas fa-phone-alt"></i></div>
+                                            <div><span class="mega-title">VoIP & IPBX Systems</span><span class="mega-desc">Enterprise-grade voice solutions.</span></div>
+                                        </a>
+                                    </div>
+                                    <!-- Column 2 -->
+                                    <div class="col-lg-4">
+                                        <a class="mega-menu-link" href="/services/commercial-access-control-systems">
+                                            <div class="mega-icon"><i class="fas fa-door-open"></i></div>
+                                            <div><span class="mega-title">Access Control</span><span class="mega-desc">Keyless entry & RFID management.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/services/structured-cabling-fiber-installation">
+                                            <div class="mega-icon"><i class="fas fa-project-diagram"></i></div>
+                                            <div><span class="mega-title">Structured Cabling & Fiber</span><span class="mega-desc">Cat6, Fiber & Server room buildouts.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/services/mikrotik-device-orchestration">
+                                            <div class="mega-icon"><i class="fas fa-server"></i></div>
+                                            <div><span class="mega-title">Device Orchestration</span><span class="mega-desc">Centralized MikroTik fleet control.</span></div>
+                                        </a>
+                                    </div>
+                                    <!-- Column 3 -->
+                                    <div class="col-lg-4">
+                                        <a class="mega-menu-link" href="/services/network-monitoring-log-servers">
+                                            <div class="mega-icon"><i class="fas fa-chart-line"></i></div>
+                                            <div><span class="mega-title">Network Monitoring</span><span class="mega-desc">Real-time log servers & uptime tracking.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/services/commercial-tv-digital-display-solutions">
+                                            <div class="mega-icon"><i class="fas fa-tv"></i></div>
+                                            <div><span class="mega-title">TV & Digital Display</span><span class="mega-desc">Hospitality IPTV & Signage systems.</span></div>
+                                        </a>
+                                        <div class="p-4 mt-3 rounded-4" style="background-color: #f0fdfa; border: 1px dashed var(--teal);">
+                                            <h6 class="fw-bold text-navy-main mb-1">Need help choosing?</h6>
+                                            <p class="small text-muted mb-3">Our engineers can help architect your solution.</p>
+                                            <a href="/quote" class="btn btn-sm btn-teal w-100 py-2">Get a Quote</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- INDUSTRIES MEGA MENU -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/industries">Industries <i class="fas fa-chevron-down small ms-1"></i></a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <a class="mega-menu-link" href="/industries/hospitality">
+                                            <div class="mega-icon"><i class="fas fa-hotel"></i></div>
+                                            <div><span class="mega-title">Hospitality</span><span class="mega-desc">Hotels, Resorts & Guest connectivity.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/industries/retail">
+                                            <div class="mega-icon"><i class="fas fa-store"></i></div>
+                                            <div><span class="mega-title">Retail</span><span class="mega-desc">Secure POS networks & theft prevention.</span></div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <a class="mega-menu-link" href="/industries/warehouses-distribution">
+                                            <div class="mega-icon"><i class="fas fa-warehouse"></i></div>
+                                            <div><span class="mega-title">Warehouses</span><span class="mega-desc">Rugged WiFi & Distribution logistics.</span></div>
+                                        </a>
+                                        <a class="mega-menu-link" href="/industries/multi-family-communities">
+                                            <div class="mega-icon"><i class="fas fa-building"></i></div>
+                                            <div><span class="mega-title">Multi-Family</span><span class="mega-desc">Apartments, HOAs & communities.</span></div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <a class="mega-menu-link" href="/industries/commercial-office">
+                                            <div class="mega-icon"><i class="fas fa-briefcase"></i></div>
+                                            <div><span class="mega-title">Commercial Office</span><span class="mega-desc">Workspace & hybrid office tech.</span></div>
+                                        </a>
+                                        <div class="p-4 mt-3 rounded-4" style="background-color: #f0fdfa; border: 1px dashed var(--teal);">
+                                            <h6 class="fw-bold text-navy-main mb-1">Need help choosing?</h6>
+                                            <p class="small text-muted mb-3">Our engineers can help to manage your industry</p>
+                                            <a href="/quote" class="btn btn-sm btn-teal w-100 py-2">Talk to a Specialist</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/case-studies">Case Studies</a></li>
+                </ul>
+
+                <!-- Customer Support Button -->
+                 <div class="d-flex align-items-center">
+                    <a class="btn btn-support" href="/support">
+                        <i class="fas fa-headset me-2"></i> Support Desk
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    {% block content %}{% endblock %}
+
+    <!-- 3. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="KLOUDTECK" style="height: 60px;" class="mb-4">
+                    <p style="color: rgba(255,255,255,0.6);">Architecting reliable, scalable, and secure IT infrastructure for commercial facilities nationwide.</p>
+                    <div class="mt-4">
+                        <a href="#" class="me-3 fs-5 text-white-50"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="me-3 fs-5 text-white-50"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" class="fs-5 text-white-50"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-white fw-bold mb-4">Solutions</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/services/managed-network-wifi-solutions">Network & WiFi</a></li>
+                        <li class="mb-2"><a href="/services/commercial-cctv-surveillance">Surveillance</a></li>
+                        <li class="mb-2"><a href="/services/commercial-access-control-systems">Access Control</a></li>
+                        <li class="mb-2"><a href="/services/structured-cabling-fiber-installation">Cabling</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-white fw-bold mb-4">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/about">About Us</a></li>
+                        <li class="mb-2"><a href="/case-studies">Case Studies</a></li>
+                        <li class="mb-2"><a href="/support">Support Desk</a></li>
+                        <li class="mb-2"><a href="/privacy">Privacy Notice</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-white fw-bold mb-4">Contact information </h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="">Number: +1-(877)-863-0011</a></li>
+                        <li class="mb-2"><a href="">Address: 587 Bethlehem Pike, Montgomeryville, PA 18936</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-5 opacity-25">
+            <div class="text-center small opacity-50">
+                © 2025 KLOUDTECK. All rights reserved. Professional IT Infrastructure Solutions.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth hover for desktop
+        if (window.innerWidth > 991) {
+            document.querySelectorAll('.navbar-main .dropdown').forEach(function(everydropdown) {
+                everydropdown.addEventListener('mouseenter', function(e){
+                    let el_link = this.querySelector('a[data-bs-toggle]');
+                    if(el_link != null){
+                        let nextEl = el_link.nextElementSibling;
+                        el_link.classList.add('show');
+                        nextEl.classList.add('show');
+                    }
+                });
+                everydropdown.addEventListener('mouseleave', function(e){
+                    let el_link = this.querySelector('a[data-bs-toggle]');
+                    if(el_link != null){
+                        let nextEl = el_link.nextElementSibling;
+                        el_link.classList.remove('show');
+                        nextEl.classList.remove('show');
+                    }
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>

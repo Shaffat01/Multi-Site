@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block title %}24/7 Technical Support & Service Desk | KLOUDTECK{% endblock %}
+
+{% block head %}
+  <meta name="description" content="Get immediate technical support for your business infrastructure. Contact our 24/7 service desk for network, security, and VoIP assistance.">
+  <link rel="canonical" href="https://www.kloudteck.com/support">
+  <style>
+    .support-card {
+        border: 1px solid #eee;
+        border-radius: 20px;
+        padding: 40px;
+        transition: all 0.3s ease;
+        background: transparent;
+        height: 100%;
+    }
+    .support-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        border-color: var(--teal);
+    }
+    .sla-badge {
+        background: rgba(0, 180, 179, 0.1);
+        color: var(--teal);
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    .remote-box {
+        background: linear-gradient(135deg, var(--navy-main) 0%, #1e3a5f 100%);
+        border-radius: 30px;
+        color: white;
+        padding: 50px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<main>
+    <!-- HERO SECTION -->
+    <section class="hero services-wrapper process-section-bg shadow-sm" style="padding: 100px 0 60px;">
+      <div class="container text-center">
+        <span class="sla-badge mb-3 d-inline-block">✓ Global Service Level Agreement (SLA) Active</span>
+        <h1 class="display-lead fw-bold" style="color:white;">How can we <span style="color: var(--teal);">help you</span> today?</h1>
+        <p class="lead text-secondary mx-auto" style="max-width: 700px;">Our dedicated engineers are standing by 24/7 to ensure your critical business infrastructure stays online and secure.</p>
+      </div>
+    </section>
+
+    <!-- SUPPORT CHANNELS -->
+    <section class="services-wrapper process-section-bg">
+      <div class="container shadow-sm my-5">
+        <div class="row g-4">
+          <!-- 1. Phone Support -->
+          <div class="col-md-6">
+            <div class="support-card text-center">
+              <div class="mb-4"><i class="fas fa-phone-alt fa-3x" style="color: var(--orange-action);"></i></div>
+              <h3 class="fw-bold">24/7 Hotline</h3>
+              <p class="text-secondary">For mission-critical emergencies and immediate assistance.</p>
+              <h4 class="fw-bold text-navy mt-3">+1-(877)-863-0011</h4>
+              <p class="small text-secondary">Average wait time: < 2 mins</p>
+            </div>
+          </div>
+
+          <!-- 2. Email Support -->
+          <div class="col-md-6">
+            <div class="support-card text-center">
+              <div class="mb-4"><i class="fas fa-ticket-alt fa-3x" style="color: var(--teal);"></i></div>
+              <h3 class="fw-bold">Service Desk</h3>
+              <p class="text-secondary">Open a new ticket for technical issues or service requests.</p>
+              <a href="mailto:service@kloudteck.com" class="btn btn-outline-teal mt-3 px-4">Email Support</a>
+              <p class="small text-secondary mt-2">Response within 4 hours</p>
+            </div>
+          </div>
+
+          <!-- 3. WhatsApp Support -->
+<!--           <div class="col-md-4">
+            <div class="support-card text-center">
+              <div class="mb-4"><i class="fab fa-whatsapp fa-3x" style="color: #25d366;"></i></div>
+              <h3 class="fw-bold">WhatsApp Chat</h3>
+              <p class="text-secondary">Quick questions and photo/video troubleshooting with our team.</p>
+              <a href="https://wa.me/18884568324" target="_blank" class="btn btn-success mt-3 px-4" style="background: #25d366; border:none;">Start Chat</a>
+              <p class="small text-secondary mt-2">Available 9 AM - 6 PM EST</p>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- REMOTE SUPPORT SECTION -->
+    <section class="services-wrapper process-section-bg shadow-sm">
+      <div class="container services-wrapper process-section-bg shadow-sm my-5 py-5">
+        <div class="remote-box">
+          <div class="row align-items-center">
+            <div class="col-lg-7">
+              <h2 class="fw-bold mb-3">Live Remote Assistance</h2>
+              <p class="opacity-75 fs-5">Need an engineer to look at your system right now? Download our secure remote support tool, and we'll solve your issue instantly.</p>
+              <div class="d-flex flex-wrap gap-3 mt-4">
+                <a href="#" class="btn btn-light fw-bold px-4 py-2"><i class="fa-brands fa-windows me-2"></i>Windows</a>
+                <a style="border:solid 1px white;" href="#" class="btn btn-outline-light px-4 py-2"><i class="fa-brands fa-apple me-2"></i>Mac</a>
+              </div>
+            </div>
+            <div class="col-lg-5 text-center mt-4 mt-lg-0">
+              <i class="fas fa-user-headset" style="font-size: 180px; opacity: 0.1;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER PORTAL CTA -->
+    <section class=" services-wrapper process-section-bg shadow-sm  text-center py-5">
+      <div class="container">
+        <h3 class="fw-bold">Looking for your Billing & Invoices?</h3>
+        <p class="text-secondary">Log in to the Client Portal to manage your account and view service history.</p>
+        <a href="#" class="btn btn-teal px-5 py-2 mt-2">Access Client Portal</a>
+      </div>
+    </section>
+</main>
+{% endblock %}

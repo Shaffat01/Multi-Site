@@ -1,0 +1,215 @@
+{% extends "layout.html" %}
+
+{% block title %}MikroTik Device Orchestration · Centralized Network Management | KLOUDTECK{% endblock %}
+
+{% block head %}
+ <link rel="stylesheet" href="{{url_for('static',filename='css/mikrotik.css')}}">
+
+{% endblock %}
+
+{% block content %}
+<main>
+    <!-- HERO SECTION -->
+    <section class=" services-wrapper process-section-bg shadow-sm">
+        <div class="container">
+              <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-modern">
+                        <li class="breadcrumb-item">
+                            <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/solutions" class="text-white-50">Solutions</a>
+                        </li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Device Orchestration</li>
+                    </ol>
+              </nav>
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <span class="badge bg-teal text-white mb-3">ROUTEROS V6 & V7 READY</span>
+                    <h1 class="display-lead fw-bold text-white mb-4">Unified <span class="text-teal">MikroTik</span> Device Orchestration</h1>
+                    <p class="lead opacity-75 mb-5">Manage hundreds of MikroTik routers from a single interface. Automate configurations, monitor real-time logs, and execute API/SSH commands across your entire fleet.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="/quote" class="btn btn-teal px-5 py-3 fw-bold shadow">Request Quote</a>
+                        <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light px-5 py-3 fw-bold">View Portfolio</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <!-- Dashboard Mockup Image/SVG -->
+                    <div class="p-4 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-10 backdrop-blur">
+                        <div class="d-flex justify-content-between mb-3 small opacity-75">
+                            <span><i class="status-pulse"></i> 12 Devices Online</span>
+                            <span>CPU Load: 14%</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 6px; background: rgba(255,255,255,0.1);">
+                            <div class="progress-bar bg-teal" style="width: 85%"></div>
+                        </div>
+                        <div class="terminal-box">
+                            <div>> system resource print</div>
+                            <div class="opacity-50 mt-1">uptime: 4w2d15h32s</div>
+                            <div class="opacity-50">version: 7.12.1 (stable)</div>
+                            <div class="mt-2">> ip address add ... [DONE]</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE MANAGEMENT CAPABILITIES -->
+    <section class="services-wrapper process-section-bg shadow-sm" id="features">
+       <div class="container py-5">
+           <div class="text-center mb-5">
+                <h2 class="fw-bold text-navy">One Dashboard. Total Control.</h2>
+                <p class="text-secondary">Our orchestration engine eliminates the need for manual WinBox sessions.</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Multi-Device -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="device-card p-4 h-100">
+                        <div class="feature-icon-box"><i class="fas fa-network-wired fa-lg"></i></div>
+                        <h5 class="fw-bold">Multi-Device View</h5>
+                        <p class="small text-secondary">See all your branches, data centers, and customer routers in a single unified grid.</p>
+                    </div>
+                </div>
+                <!-- API Control -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="device-card p-4 h-100">
+                        <div class="feature-icon-box"><i class="fas fa-project-diagram fa-lg"></i></div>
+                        <h5 class="fw-bold">REST API Integration</h5>
+                        <p class="small text-secondary">Leverage the power of RouterOS REST API for lightning-fast configuration changes.</p>
+                    </div>
+                </div>
+                <!-- SSH Terminal -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="device-card p-4 h-100">
+                        <div class="feature-icon-box"><i class="fas fa-terminal fa-lg"></i></div>
+                        <h5 class="fw-bold">Web-SSH Console</h5>
+                        <p class="small text-secondary">Execute CLI commands directly from your browser with our secure SSH tunnel.</p>
+                    </div>
+                </div>
+                <!-- Log Management -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="device-card p-4 h-100">
+                        <div class="feature-icon-box"><i class="fas fa-list-ul fa-lg"></i></div>
+                        <h5 class="fw-bold">Centralized Logging</h5>
+                        <p class="small text-secondary">Real-time log streaming with instant alerts for critical system events.</p>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </section>
+
+    <!-- INTERACTIVE MANAGEMENT DEMO SECTION -->
+    <section class="services-wrapper process-section-bg shadow-sm py-5">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-6 fw-bold text-navy mb-4">Centralized <span class="text-teal">Configuration</span> & Orchestration</h2>
+                    <p class="text-secondary mb-4">Forget manual work. Our platform allows you to push configurations to multiple devices simultaneously.</p>
+                    
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-check-circle text-teal me-3 mt-1"></i>
+                            <div>
+                                <strong>Bulk Updates:</strong> Push firewall rules or firmware updates to 50+ devices with one click.
+                            </div>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-check-circle text-teal me-3 mt-1"></i>
+                            <div>
+                                <strong>Zero-Touch Provisioning:</strong> Automatically configure new devices as soon as they reach the internet.
+                            </div>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-check-circle text-teal me-3 mt-1"></i>
+                            <div>
+                                <strong>Auto Backups:</strong> Daily automated configuration backups stored securely in the cloud.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Device Status Mockup -->
+                    <div class="p-4 bg-white rounded-4 shadow-sm border">
+                        <h6 class="fw-bold mb-4">Live Device Inventory</h6>
+                        <div class="table-responsive">
+                            <table class="table text-white align-middle">
+                                <thead class="table-light">
+                                    <tr class="small">
+                                        <th>Device Name</th>
+                                        <th>IP Address</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="small">
+                                    <tr>
+                                        <td><strong>Edge-Router-01</strong></td>
+                                        <td>192.168.10.1</td>
+                                        <td><span class="badge bg-success">Online</span></td>
+                                        <td><button class="btn btn-sm btn-teal py-0">Manage</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Warehouse-CCR</strong></td>
+                                        <td>10.0.5.254</td>
+                                        <td><span class="badge bg-success">Online</span></td>
+                                        <td><button class="btn btn-sm btn-teal py-0">Manage</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Retail-Branch-A</strong></td>
+                                        <td>172.16.2.10</td>
+                                        <td><span class="badge bg-danger">Offline</span></td>
+                                        <td><button class="btn btn-sm btn-secondary py-0" disabled>Manage</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADVANCED FEATURES -->
+    <section class="services-wrapper process-section-bg shadow-sm">
+        <h2 class="display-6 fw-bold text-center text-navy mb-4">What <span class="text-teal">We</span> Offer</h2>
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="p-5 rounded-4 h-100" style="background: var(--navy-main); color: white;">
+                        <i class="fas fa-shield-alt fa-3x text-teal mb-4"></i>
+                        <h3 class="fw-bold">Security Orchestration</h3>
+                        <p class="opacity-75">Centrally manage VPN users (L2TP/IPsec/WireGuard), update DNS filtering, and block malicious IPs across all your MikroTik devices in real-time.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-5 rounded-4 h-100" style="background: var(--teal); color: white;">
+                        <i class="fas fa-chart-line fa-3x text-navy mb-4"></i>
+                        <h3 class="fw-bold">Traffic & Bandwidth Monitoring</h3>
+                        <p class="text-white opacity-75">Visual bandwidth graphs for every interface. Identify top talkers and set Queue limits without ever touching WinBox.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="services-wrapper process-section-bg shadow-sm">
+        <div class="container my-5">
+            <div class="p-5 rounded-5 text-center text-white shadow-lg" style="background: linear-gradient(135deg, #00152a, #00334e);">
+                <h2 class="fw-bold mb-3">Ready to Orchestrate Your Network?</h2>
+                <p class="opacity-75 mb-4">Stop wasting time logging into individual devices. Let KLOUDTECK automate your network management.</p>
+                <div class="d-flex gap-3 flex-wrap justify-content-center">
+                    <a href="/quote" class="btn btn-teal px-5 py-3 fw-bold shadow">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/contact" class="btn btn-outline-light px-5 py-3 fw-bold">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- WHATSAPP FLOAT -->
+<!--     <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Commercial%20Access%20Control" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+        <i class="fab fa-whatsapp"></i>
+    </a> -->
+</main>
+{% endblock %}

@@ -1,0 +1,285 @@
+{% extends "layout.html" %}
+
+{% block title %}Contact KLOUDTECK · Enterprise Technology Solutions | Montgomeryville, PA{% endblock %}
+
+{% block head %}
+<!-- SEO Meta Tags -->
+<meta name="description" content="Contact KLOUDTECK for enterprise-grade security, networking, and software engineering. Reach our Montgomeryville office at 1-877-863-0011.">
+<meta name="keywords" content="KLOUDTECK contact, IT support Montgomeryville, security systems PA, software engineering contact">
+<link rel="canonical" href="https://www.kloudteck.com/contact">
+
+<!-- Social Media Tags (Open Graph) -->
+<meta property="og:title" content="Contact KLOUDTECK · Enterprise Technology Solutions">
+<meta property="og:description" content="Get in touch with our experts for networking, CCTV, and software solutions.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kloudteck.com/contact">
+
+<!-- Schema.org JSON-LD for Local Business -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "KLOUDTECK",
+  "telephone": "+1-877-863-0011",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "587 Bethlehem Pike",
+    "addressLocality": "Montgomeryville",
+    "addressRegion": "PA",
+    "postalCode": "18936",
+    "addressCountry": "US"
+  },
+  "url": "https://www.kloudteck.com/contact"
+}
+</script>
+
+<!-- CSS Dependencies -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<style>
+    :root {
+        --navy-dark: #050c16;
+        --teal: #33ccff;
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(51, 204, 255, 0.15);
+    }
+
+    body { background-color: var(--navy-dark) !important; color: white !important; overflow-x: hidden; }
+
+    /* Responsive Typography */
+    @media (max-width: 768px) {
+        .display-4 { font-size: 2.5rem !important; }
+        .glass-form-card { padding: 25px !important; }
+    }
+
+    /* Form Styles */
+    .form-control {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid var(--glass-border) !important;
+        border-radius: 8px !important;
+        color: #ffffff !important; 
+        padding: 12px 15px !important;
+        margin-bottom: 5px;
+    }
+
+    .form-control::placeholder { color: rgba(255, 255, 255, 0.4) !important; }
+
+    label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+        color: var(--teal); 
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .glass-form-card {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(15px);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+
+    .btn-premium {
+        background: var(--teal);
+        color: #050c16;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        width: 100%;
+        transition: 0.3s;
+    }
+
+    .btn-premium:hover { background: white; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(51, 204, 255, 0.3); }
+
+    .info-card { 
+        background: var(--glass); 
+        border: 1px solid var(--glass-border); 
+        border-radius: 20px; 
+        padding: 30px; 
+        text-align: center; 
+        margin-bottom: 20px;
+        height: 100%;
+    }
+    .info-card i { font-size: 2rem; color: var(--teal); margin-bottom: 15px; }
+
+    .testimonial-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--glass-border);
+        padding: 30px;
+        border-radius: 20px;
+        height: 100%;
+        transition: 0.3s;
+    }
+    .testimonial-card:hover { border-color: var(--teal); }
+
+    /* Phone Input Mobile Fix */
+    .iti { width: 100% !important; margin-bottom: 5px; }
+    .iti__country-list { background-color: #0a1e32; color: white; max-width: 300px; }
+    
+    .text-teal { color: var(--teal) !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<main>
+    <!-- HERO SECTION -->
+    <section class="services-wrapper process-section-bg shadow-sm text-center py-5 mt-5">
+        <div class="container py-lg-5">
+            <h1 class="display-4 fw-bold">Get In <span class="text-teal">Touch</span></h1>
+            <p class="lead text-white-50 mx-auto" style="max-width: 700px;">Enterprise-grade engineering solutions and 24/7 technical support for your business infrastructure.</p>
+        </div>
+    </section>
+
+    <!-- MAIN FORM & INFO SECTION -->
+    <section class="services-wrapper process-section-bg shadow-sm py-5">
+        <div class="container">
+            <div class="row g-4 g-lg-5">
+                
+                <!-- LEFT: CONTACT FORM -->
+                <div class="col-lg-7 order-2 order-lg-1">
+                    <div class="glass-form-card">
+                        <h2 class="h3 fw-bold mb-4">Send us a Message</h2>
+                        <form action="#" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="e.g. John Doe" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="email">Work Email</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="name@company.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="How can we help?">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" class="form-control" rows="4" placeholder="Tell us about your project requirements..."></textarea>
+                            </div>
+
+                            <!-- Google reCAPTCHA (Ensure to replace Site Key) -->
+                            <div class="form-group overflow-hidden">
+                                <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE" data-theme="dark"></div>
+                            </div>
+
+                            <button type="submit" class="btn-premium mt-2">Initiate Consultation</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- RIGHT: CONTACT INFO -->
+                <div class="col-lg-5 order-1 order-lg-2">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="info-card">
+                                <i class="fas fa-phone-volume" aria-hidden="true"></i>
+                                <h3 class="h4 fw-bold">Call Our Experts</h3>
+                                <p class="text-white-50 small">Monday - Friday, 9am - 6pm EST</p>
+                                <a href="tel:18778630011" class="h3 text-teal fw-bold text-decoration-none">1-877-863-0011</a>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="info-card">
+                                <i class="fas fa-map-location-dot" aria-hidden="true"></i>
+                                <h3 class="h4 fw-bold">Office Address</h3>
+                                <address class="h6 text-white-50 mb-0">
+                                    587 Bethlehem Pike, <br> 
+                                    Montgomeryville, PA 18936
+                                </address>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="row g-3 text-center">
+                                <div class="col-6">
+                                    <div class="p-3 border border-secondary rounded-4">
+                                        <div class="h4 fw-bold text-teal mb-0">99.9%</div>
+                                        <small class="text-white-50">Uptime SLA</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 border border-secondary rounded-4">
+                                        <div class="h4 fw-bold text-teal mb-0">24/7</div>
+                                        <small class="text-white-50">Support</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="services-wrapper process-section-bg shadow-sm py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Client <span class="text-teal">Feedback</span></h2>
+        <div class="row g-4">
+            {% for testi in testimonials %}
+            <div class="col-md-6 col-lg-4">
+                <div class="testimonial-card">
+                    <div class="text-warning mb-3">
+                        {% for i in range(testi.rating) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                        {% for i in range(5 - testi.rating) %}
+                            <i class="far fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="text-white-50 fst-italic">"{{ testi.quote }}"</p>
+                    <h4 class="h6 fw-bold text-teal mt-3 mb-0">— {{ testi.author }}, {{ testi.designation }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/18778630011" class="d-flex align-items-center justify-content-center" style="position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; font-size: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a> -->
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    // Initialize International Phone Input
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        preferredCountries: ["us", "gb", "ca"],
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    // Fix for Google reCAPTCHA responsive width on very small screens
+    window.addEventListener('resize', () => {
+        const recaptcha = document.querySelector('.g-recaptcha');
+        if (recaptcha && window.innerWidth < 350) {
+            recaptcha.setAttribute('data-size', 'compact');
+        }
+    });
+</script>
+{% endblock %}

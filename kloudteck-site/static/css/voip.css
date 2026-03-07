@@ -1,0 +1,149 @@
+body { font-family: 'Inter', sans-serif; color: #333; line-height: 1.6; }
+    .text-navy { color: var(--navy) !important; }
+    .text-teal { color: var(--teal) !important; }
+    .bg-navy { background-color: var(--navy) !important; }
+    .bg-teal { background-color: var(--teal) !important; }
+    .bg-soft { background-color: var(--soft-bg) !important; }
+
+
+    .voip-hero {
+        background: linear-gradient(135deg, var(--navy) 0%, #162e44 100%);
+        color: white;
+        padding: 100px 0 80px;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;
+        border-radius: 15px;
+        padding: 30px;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid #eee;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        border-color: var(--teal);
+    }
+
+    .icon-box {
+        width: 60px; height: 60px; background: var(--light-teal); color: var(--teal);
+        border-radius: 12px; display: flex; align-items: center; justify-content: center;
+        font-size: 24px; margin-bottom: 20px;
+    }
+
+
+    .check-list { list-style: none; padding-left: 0; }
+    .check-list li { position: relative; padding-left: 30px; margin-bottom: 12px; }
+    .check-list li::before {
+        content: "\f058"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+        position: absolute; left: 0; color: var(--teal);
+    }
+
+    .failover-box {
+        background: white; border-left: 5px solid var(--teal);
+        padding: 40px; border-radius: 0 15px 15px 0;
+    }
+
+
+    .step-box { position: relative; padding-left: 60px; margin-bottom: 30px; }
+    .step-num {
+        position: absolute; left: 0; top: 0; width: 45px; height: 45px;
+        background: var(--teal); color: white; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-weight: bold;
+    }
+
+    [data-aos] { opacity: 1 !important; transform: none !important; }
+    :root {
+        --navy-bg: #212121;
+        --sky-blue: #33ccff;
+        --glass-bg: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(51, 204, 255, 0.2);
+    }
+
+    .faq-dark-section {
+        background-color: var(--navy-bg);
+        padding: 90px 0;
+    }
+
+
+    .faq-title-modern {
+        font-weight: 800;
+        background: linear-gradient(90deg, #33ccff, #ffffff, #00ffff, #33ccff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shineText 4s linear infinite;
+        margin-bottom: 50px;
+    }
+    @keyframes shineText { to { background-position: 200% center; } }
+
+
+    .custom-voip-accordion {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .custom-voip-accordion .accordion-item {
+        background: var(--glass-bg) !important;
+        border: 1px solid var(--glass-border) !important;
+        margin-bottom: 15px;
+        border-radius: 12px !important;
+        overflow: hidden;
+        transition: 0.3s all ease-in-out;
+    }
+
+    .custom-voip-accordion .accordion-button {
+        background: transparent !important;
+        color: #ffffff !important;
+        padding: 22px 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        box-shadow: none !important;
+    }
+
+    .custom-voip-accordion .accordion-button:not(.collapsed) {
+        background: var(--sky-blue) !important;
+        color: #000000 !important; 
+    }
+
+    /* Arrow Icon Color */
+    .custom-voip-accordion .accordion-button::after {
+        filter: brightness(0) invert(1); 
+    }
+    .custom-voip-accordion .accordion-button:not(.collapsed)::after {
+        filter: brightness(0); 
+    }
+
+    /* Answer Body Styling */
+    .custom-voip-accordion .accordion-body {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgba(255, 255, 255, 0.8);
+        padding: 25px 35px;
+        line-height: 1.7;
+        font-size: 1rem;
+        border-top: 1px solid var(--glass-border);
+    }
+
+    .custom-voip-accordion .accordion-item:hover {
+        border-color: var(--sky-blue) !important;
+        transform: scale(1.01);
+    }
+    .img-responsive-oval {
+        width: 380px;
+        height: 460px;
+        border-radius: 50%;
+        object-fit: cover; 
+        max-width: 100%;   
+        height: auto;      
+        aspect-ratio: 380 / 460; 
+    }
+
+
+    @media (max-width: 768px) {
+        .img-responsive-oval {
+            width: 100%; 
+            max-width: 300px; 
+        }
+    }

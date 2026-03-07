@@ -1,0 +1,315 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    
+    <!-- ✅ Professional Header -->
+    <div class="top-bar d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Portfolio <span style="color: var(--teal);">Manager</span></h2>
+            <p class="text-secondary small mb-0">Control center for infrastructure projects and digital deployments.</p>
+        </div>
+        <button class="btn-publish px-4 shadow" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+            <i class="fas fa-plus-circle me-2"></i> CREATE NEW PROJECT
+        </button>
+    </div>
+
+    <!-- ✅ Elegant Table Section -->
+    <div class="panel border-0 shadow-lg">
+        <div class="table-responsive">
+            <table class="table custom-dark-table align-middle">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Preview</th>
+                        <th>Project Details</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in projects %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="preview-img-box">
+                                <img src="{{ item.bg_image }}" alt="Preview">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="fw-bold text-white mb-1">{{ item.project_name }}</div>
+                            <div class="text-secondary" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> {{ item.project_date }}</div>
+                        </td>
+                        <td>
+                            <span class="badge-category">{{ item.category }}</span>
+                        </td>
+                        <td>
+                            {% if item.status == 'Completed' %}
+                                <div class="status-indicator text-success">
+                                    <span class="dot bg-success"></span> Completed
+                                </div>
+                            {% else %}
+                                <div class="status-indicator text-warning">
+                                    <span class="dot bg-warning animate-pulse"></span> {{ item.status }}
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="d-flex justify-content-end gap-2">
+                                <button class="btn-action-icon edit" data-bs-toggle="modal" data-bs-target="#editModal{{ item.id }}">
+                                    <i class="fas fa-sliders"></i>
+                                </button>
+                                <a href="{{ url_for('delete_portfolio', id=item.id) }}" class="btn-action-icon delete" onclick="return confirm('Permanently remove this project?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- ✅ UPGRADED Edit Project Modal (Matches Create Style) -->
+                    <div class="modal fade" id="editModal{{ item.id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content custom-modal shadow-lg">
+                                <div class="modal-header border-0 pb-0 px-4 pt-4">
+                                    <h5 class="modal-title fw-800 text-white d-flex align-items-center">
+                                        <div class="title-icon-box me-3"><i class="fas fa-edit"></i></div>
+                                        EDIT PROJECT: {{ item.id }}
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form action="{{ url_for('edit_portfolio', id=item.id) }}" method="POST" enctype="multipart/form-data">
+                                    <div class="modal-body p-4">
+                                        <div class="row g-4">
+                                            <div class="col-md-7">
+                                                <label class="form-label-tech">PROJECT NAME</label>
+                                                <div class="input-group-tech">
+                                                    <i class="fas fa-project-diagram"></i>
+                                                    <input type="text" name="project_name" class="form-control-tech" value="{{ item.project_name }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label class="form-label-tech">CATEGORY</label>
+                                                <div class="input-group-tech">
+                                                    <i class="fas fa-tags"></i>
+                                                    <input type="text" name="category" class="form-control-tech" value="{{ item.category }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="form-label-tech">PROJECT SUMMARY</label>
+                                                <div class="input-group-tech align-items-start">
+                                                    <i class="fas fa-align-left mt-3"></i>
+                                                    <textarea name="summary" class="form-control-tech" rows="3" required>{{ item.summary }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label-tech">CHANGE IMAGE (FILE)</label>
+                                                <div class="file-upload-wrapper">
+                                                    <input type="file" name="bg_image_file" id="fileEdit{{ item.id }}">
+                                                    <label for="fileEdit{{ item.id }}" class="file-label">
+                                                        <i class="fas fa-image me-2"></i> New Image
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label-tech">OR CHANGE IMAGE URL</label>
+                                                <div class="input-group-tech">
+                                                    <i class="fas fa-link"></i>
+                                                    <input type="text" name="bg_image_url" class="form-control-tech" value="{{ item.bg_image }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label-tech">BLUE CTA</label>
+                                                <div class="input-group-tech">
+                                                    <i class="fas fa-code"></i>
+                                                    <input type="text" name="blue_cta" class="form-control-tech" value="{{ item.blue_cta }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label-tech">MONTH/YEAR</label>
+                                                <div class="input-group-tech">
+                                                    <i class="fas fa-calendar-day"></i>
+                                                    <input type="month" name="project_date" class="form-control-tech" value="{{ item.project_date }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label-tech">STATUS</label>
+                                                <div class="input-group-tech">
+                                                    <i class="fas fa-circle-notch"></i>
+                                                    <select  name="status" class="form-control-tech form-select">
+                                                        <option value="Completed" {% if item.status == 'Completed' %}selected{% endif %}>Completed</option>
+                                                        <option value="In Progress" {% if item.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                                                        <option value="Planning" {% if item.status == 'Planning' %}selected{% endif %}>Planning</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-0 p-4 pt-0">
+                                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">CANCEL</button>
+                                        <button type="submit" class="btn btn-publish shadow">SAVE CHANGES</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ Professional Create New Project Modal -->
+<div class="modal fade" id="createProjectModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content custom-modal shadow-lg">
+            <div class="modal-header border-0 pb-0 px-4 pt-4">
+                <h5 class="modal-title fw-800 text-white d-flex align-items-center">
+                    <div class="title-icon-box me-3"><i class="fas fa-plus"></i></div>
+                    CREATE NEW PROJECT
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="modal-body p-4">
+                    <div class="row g-4">
+                        <div class="col-md-7">
+                            <label class="form-label-tech">PROJECT NAME</label>
+                            <div class="input-group-tech">
+                                <i class="fas fa-project-diagram"></i>
+                                <input type="text" name="project_name" class="form-control-tech" placeholder="e.g. Grand Hyatt WiFi" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label-tech">CATEGORY</label>
+                            <div class="input-group-tech">
+                                <i class="fas fa-tags"></i>
+                                <input type="text" name="category" class="form-control-tech" placeholder="e.g. INFRASTRUCTURE" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label-tech">PROJECT SUMMARY</label>
+                            <div class="input-group-tech align-items-start">
+                                <i class="fas fa-align-left mt-3"></i>
+                                <textarea name="summary" class="form-control-tech" rows="3" placeholder="Description of the project..." required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label-tech">IMAGE SETUP (UPLOAD OR URL)</label>
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" name="bg_image_file" id="fileCreate">
+                                        <label for="fileCreate" class="file-label"><i class="fas fa-cloud-upload-alt me-2"></i> Choose Image</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group-tech">
+                                        <i class="fas fa-link"></i>
+                                        <input type="text" name="bg_image_url" class="form-control-tech" placeholder="Paste image URL">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-tech">CTA (TAGS)</label>
+                            <div class="input-group-tech">
+                                <i class="fas fa-code"></i>
+                                <input type="text" name="blue_cta" class="form-control-tech" placeholder="Ruckus, Fiber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-tech">MONTH/YEAR</label>
+                            <div class="input-group-tech">
+                                <i class="fas fa-calendar-day"></i>
+                                <input type="month" name="project_date" class="form-control-tech" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-tech">STATUS</label>
+                            <div class="input-group-tech">
+                                <i class="fas fa-circle-notch"></i>
+                                <select name="status" class="form-control-tech form-select" required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Planning">Planning</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 p-4 pt-0">
+                    <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">CANCEL</button>
+                    <button type="submit" class="btn btn-publish shadow">PUBLISH PROJECT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ✅ Combined & Refined Professional CSS */
+    .custom-dark-table { --bs-table-bg: transparent !important; background: transparent !important; border-collapse: separate; border-spacing: 0 10px; }
+    .custom-dark-table thead th { color: var(--teal) !important; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; border-bottom: 1px solid var(--glass-border) !important; padding-bottom: 15px; }
+    .custom-dark-table tbody tr { background: rgba(255, 255, 255, 0.02) !important; transition: 0.3s; }
+    .custom-dark-table tbody tr:hover { background: rgba(0, 210, 210, 0.05) !important; transform: scale(1.005); }
+    .custom-dark-table td { border: none !important; padding: 15px 10px; color: var(--text-main); }
+
+    .preview-img-box { width: 60px; height: 45px; border-radius: 8px; overflow: hidden; border: 1px solid var(--glass-border); }
+    .preview-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    .badge-category { background: var(--teal-dim); color: var(--teal); padding: 5px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .status-indicator { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+    .btn-action-icon { width: 35px; height: 35px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); transition: 0.3s; text-decoration: none; }
+    .btn-action-icon.edit:hover { color: var(--teal); border-color: var(--teal); background: var(--teal-dim); }
+    .btn-action-icon.delete:hover { color: #f87171; border-color: #f87171; background: rgba(248, 113, 113, 0.1); }
+
+    /* Modal Tech Styling */
+    .custom-modal { background: #0d1117 !important; border: 1px solid rgba(0, 210, 210, 0.15) !important; border-radius: 28px !important; }
+    .title-icon-box { width: 35px; height: 35px; background: var(--teal-dim); color: var(--teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .form-label-tech { font-size: 0.65rem; font-weight: 800; color: var(--text-secondary); letter-spacing: 1.5px; margin-bottom: 10px; display: block; }
+    
+    .input-group-tech { display: flex; align-items: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; transition: 0.3s; }
+    .input-group-tech:focus-within { border-color: var(--teal); background: #000; box-shadow: 0 0 15px rgba(0, 210, 210, 0.1); }
+    .input-group-tech i { padding: 0 15px; color: var(--text-secondary); font-size: 0.9rem; }
+    .form-control-tech { background: transparent !important; border: none !important; color: white !important; padding: 12px 15px 12px 0; font-size: 0.9rem; width: 100%; }
+
+    .file-upload-wrapper { position: relative; width: 100%; }
+    .file-upload-wrapper input[type="file"] { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2; }
+    .file-label { display: block; background: rgba(255, 255, 255, 0.05); border: 1px dashed rgba(255, 255, 255, 0.2); color: var(--text-secondary); padding: 11px; border-radius: 14px; text-align: center; font-size: 0.85rem; transition: 0.3s; }
+    .file-upload-wrapper:hover .file-label { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+    .btn-cancel { background: rgba(255, 255, 255, 0.05); color: white; font-weight: 700; padding: 12px 25px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.8rem; transition: 0.3s; }
+    .btn-publish { background: linear-gradient(135deg, var(--teal), #00b8b8); color: black; font-weight: 800; padding: 12px 30px; border-radius: 14px; border: none; font-size: 0.8rem; transition: 0.3s; }
+    .btn-publish:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 210, 210, 0.3); }
+    .form-control-tech.form-select {
+        background-color: rgba(255, 255, 255, 0.03) !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        cursor: pointer;
+    }
+
+    .form-control-tech.form-select option {
+        background-color: #0d1117 !important; 
+        color: white !important; 
+        padding: 15px !important;
+    }
+
+    .form-control-tech.form-select:focus {
+        background-color: #000 !important;
+        border-color: var(--teal) !important;
+        box-shadow: 0 0 10px rgba(0, 210, 210, 0.2) !important;
+    }
+    .form-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    input[type="month"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+    .animate-pulse { animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+</style>
+{% endblock %}

@@ -1,0 +1,52 @@
+.orchestration-hero {
+        background: linear-gradient(135deg, #001e3c 0%, #00152a 100%);
+        padding: 100px 0;
+        color: white;
+    }
+    .status-pulse {
+        width: 10px;
+        height: 10px;
+        background: #00ff00;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+        box-shadow: 0 0 8px #00ff00;
+        animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+        0% { opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { opacity: 0.4; }
+    }
+    .device-card {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;
+        border-radius: 15px;
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+    .device-card:hover {
+        border-color: var(--teal);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .terminal-box {
+        background: #1e1e1e;
+        color: #00ff00;
+        font-family: 'Courier New', monospace;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+    .feature-icon-box {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;
+        color: var(--teal);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+    }

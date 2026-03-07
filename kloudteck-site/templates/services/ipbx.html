@@ -1,0 +1,205 @@
+{% extends "layout.html" %}
+
+{% block title %}VoIP & IPBX Systems · Enterprise Voice Solutions | KLOUDTECK{% endblock %}
+
+{% block head %}
+<style>
+    .voip-hero {
+        background: linear-gradient(135deg, #001e3c 0%, #000d1a 100%);
+        padding: 120px 0 80px;
+        color: white !important;
+        position: relative;
+    }
+    .voip-hero h1, .voip-hero p, .voip-hero span { color: white !important; }
+    .text-teal-bright { color: #00d2ff !important; font-weight: 800; }
+
+    /* Voice Wave Animation */
+    .voice-wave { display: flex; align-items: center; gap: 5px; height: 30px; }
+    .wave-bar { width: 4px; background: #00d2ff; border-radius: 10px; animation: wave-anim 1s ease-in-out infinite; }
+    @keyframes wave-anim { 0%, 100% { height: 8px; } 50% { height: 25px; } }
+
+    .glass-box {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        padding: 40px;
+    }
+
+    .ipbx-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    .ipbx-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+
+    /* Comparison Table Styling */
+    .comparison-section { background: #f8f9fa; border-radius: 40px; padding: 60px 40px; }
+    .table-custom { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .table-custom thead { background: var(--navy-main); color: white; }
+    
+    .failover-box {
+        background: #fff5eb;
+        border-left: 5px solid var(--orange-action);
+        padding: 30px;
+        border-radius: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main>
+    <!-- 1. HERO SECTION -->
+    <section class="voip-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="voice-wave mb-4">
+                        <div class="wave-bar" style="animation-delay: 0.1s"></div>
+                        <div class="wave-bar" style="animation-delay: 0.2s"></div>
+                        <div class="wave-bar" style="animation-delay: 0.3s"></div>
+                        <div class="wave-bar" style="animation-delay: 0.4s"></div>
+                        <span class="ms-3 small fw-bold text-uppercase tracking-widest">Ultra-HD Voice Clarity</span>
+                    </div>
+                    <h1 class="display-4 fw-bold mb-4">Smart <span class="text-teal-bright">IP-PBX</span> Systems for Modern Business</h1>
+                    <p class="lead opacity-75 mb-5 fs-5">Replace outdated copper lines with high-performance VoIP. From 5 extensions to 5,000, we architect communication systems that never sleep.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="/quote" class="btn btn-orange-support px-5 py-3 fw-bold">GET FREE AUDIT</a>
+                        <a href="#features" class="btn btn-outline-light px-4 py-3">VIEW ALL FEATURES</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="glass-box text-center">
+                        <div class="display-4 fw-bold text-teal-bright mb-1">60%</div>
+                        <p class="text-white opacity-75 mb-4">Average Cost Savings</p>
+                        <hr class="border-white opacity-25">
+                        <div class="d-flex justify-content-around mt-4">
+                            <div><i class="fas fa-check-circle text-success mb-2"></i><br><small>No Static</small></div>
+                            <div><i class="fas fa-check-circle text-success mb-2"></i><br><small>Mobile Ready</small></div>
+                            <div><i class="fas fa-check-circle text-success mb-2"></i><br><small>Cloud Sync</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. CORE CAPABILITIES -->
+    <section id="features" class="container my-5 py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-navy">Beyond Just Making Calls</h2>
+            <p class="text-secondary">Explore the enterprise features included in every KLOUDTECK installation.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="ipbx-card">
+                    <i class="fas fa-headset fa-2x text-teal mb-3"></i>
+                    <h5 class="fw-bold">Omnichannel Support</h5>
+                    <p class="small text-secondary">Integrate Voice, SMS, and Live Chat into a single dashboard for your agents.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="ipbx-card">
+                    <i class="fas fa-shield-alt fa-2x text-teal mb-3"></i>
+                    <h5 class="fw-bold">Encrypted Streams</h5>
+                    <p class="small text-secondary">SRTP and TLS encryption ensure your business conversations remain private and secure.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="ipbx-card">
+                    <i class="fas fa-chart-pie fa-2x text-teal mb-3"></i>
+                    <h3 class="h5 fw-bold">Live Call Analytics</h3>
+                    <p class="small text-secondary">Monitor peak hours, call duration, and staff performance with real-time data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. HOSPITALITY SPECIALIZATION (New Section) -->
+    <section class="container my-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000" class="img-fluid rounded-5 shadow-lg" alt="Hospitality VoIP">
+            </div>
+            <div class="col-lg-6">
+                <span class="badge bg-teal text-white mb-3">HOSPITALITY SPECIALISTS</span>
+                <h2 class="fw-bold text-navy">Hotel-Specific <span class="text-teal">PMS Integration</span></h2>
+                <p class="text-secondary mb-4">Our IPBX systems talk directly to your Property Management System (Opera, Mews, Cloudbeds).</p>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="fas fa-bed text-teal me-2"></i> <strong>Housekeeping Codes:</strong> Update room status from guest room phones.</li>
+                    <li class="mb-3"><i class="fas fa-bell text-teal me-2"></i> <strong>Auto Wake-up:</strong> Set automated wake-up calls with multi-language support.</li>
+                    <li class="mb-3"><i class="fas fa-file-invoice-dollar text-teal me-2"></i> <strong>Call Accounting:</strong> Automatically post phone charges to guest folios.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. REDUNDANCY & FAILOVER (New Section) -->
+    <section class="container my-5 py-5">
+        <div class="failover-box">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h3 class="fw-bold text-navy"><i class="fas fa-broadcast-tower me-2"></i> Hybrid Failover Protection</h3>
+                    <p class="mb-0 text-secondary">Internet goes down? Your phones stay up. Our systems automatically reroute calls to mobile devices or analog backups within milliseconds of a failure.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a href="/support" class="btn btn-navy px-4">Read about Reliability</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. COMPARISON TABLE -->
+    <section class="container my-5 py-5">
+        <div class="comparison-section">
+            <h2 class="text-center fw-bold text-navy mb-5">Traditional vs. KLOUDTECK VoIP</h2>
+            <div class="table-responsive">
+                <table class="table table-custom border-0">
+                    <thead>
+                        <tr>
+                            <th class="p-4">Feature</th>
+                            <th class="p-4">Old Analog Phone</th>
+                            <th class="p-4 text-teal-bright">KLOUDTECK VoIP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-4 fw-bold">Cost per Extension</td>
+                            <td class="p-4">High (Hardware based)</td>
+                            <td class="p-4 text-success fw-bold">Low (Software based)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 fw-bold">Remote Work</td>
+                            <td class="p-4">Not Possible</td>
+                            <td class="p-4 text-success fw-bold">Full Mobile/Web Access</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 fw-bold">Scalability</td>
+                            <td class="p-4">Hard (Need more wires)</td>
+                            <td class="p-4 text-success fw-bold">Instant (Few Clicks)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 fw-bold">HD Video Meetings</td>
+                            <td class="p-4">No</td>
+                            <td class="p-4 text-success fw-bold">Yes (Included)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FINAL CTA -->
+    <section class="container my-5 text-center py-5">
+        <h2 class="fw-bold text-navy mb-3">Time to Modernize Your Communication?</h2>
+        <p class="text-secondary mb-4">Join hundreds of hotels and businesses who have switched to our smart voice solutions.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/contact" class="btn btn-teal px-5 py-2 fw-bold text-white shadow">Book a Live Demo</a>
+            <a href="tel:+18884568324" class="btn btn-outline-navy px-5 py-2 fw-bold">Call an Expert</a>
+        </div>
+    </section>
+</main>
+{% endblock %}

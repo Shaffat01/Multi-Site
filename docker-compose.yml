@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # --- Shared Database (PostgreSQL) ---
+  db:
+    image: postgres:13
+    container_name: shared_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d
+
+  # --- App 1: KloudTeck ---
+  kloudteck:
+    build: ./kloudteck-site
+    container_name: kloudteck_app
+    restart: always
+    expose:
+      - "9000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/db_kloudteck
+      - SECRET_KEY=${SECRET_KEY_A}
+
+  # --- App 2: Mikrotik ---
+  mikrotik:
+    build: ./mikrotik-site
+    container_name: mikrotik_app
+    restart: always
+    expose:
+      - "9000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/db_mikrotik
+      - SECRET_KEY=${SECRET_KEY_B}
+
+  # --- Nginx Reverse Proxy ---
+  nginx:
+    image: nginx:latest
+    container_name: gateway_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - kloudteck
+      - mikrotik
+
+volumes:
+  postgres_data:

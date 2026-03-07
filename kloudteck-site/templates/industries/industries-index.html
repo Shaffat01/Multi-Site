@@ -1,0 +1,318 @@
+{% extends "layout.html" %}
+
+{% block title %}Industries We Serve · Specialized IT Infrastructure | KLOUDTECK{% endblock %}
+
+{% block head %}
+<!-- Font Awesome & AOS Animation CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+    :root {
+        --navy: #33ccff;
+        --teal: #33ccff;
+        --light-bg: #f8fafc;
+        --accent: #00d2ff;
+    }
+
+    body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); color: #334155; overflow-x: hidden; }
+
+    /* CRITICAL FIX: Ensures no blank screen even if JS/AOS fails */
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    /* Modern Hero Section */
+    .industry-hero-section {
+        background: linear-gradient(rgba(10, 30, 50, 0.9), rgba(10, 30, 50, 0.9)), 
+                    url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop');
+        background-size: cover; background-position: center;
+        padding: 140px 0 100px; color: white;
+    }
+
+    /* Industry Horizontal Card */
+    .industry-box {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .industry-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(10, 30, 50, 0.1);
+        border-color: var(--teal);
+    }
+    .industry-box::after {
+        content: ""; position: absolute; top: 0; left: 0; width: 6px; height: 0;
+        background: var(--teal); border-radius: 24px 0 0 24px; transition: 0.4s;
+    }
+    .industry-box:hover::after { height: 100%; }
+
+    /* Icon Styling */
+    .industry-icon-circle {
+        width: 70px; height: 70px; background: var(--light-bg); color: var(--teal);
+        border-radius: 18px; display: flex; align-items: center; justify-content: center;
+        font-size: 2rem; margin-bottom: 25px; transition: 0.3s;
+    }
+    .industry-box:hover .industry-icon-circle {
+        background: var(--teal); color: white;
+    }
+
+    /* Service List */
+    .service-list { list-style: none; padding-left: 0; margin-top: 20px; }
+    .service-list li { 
+        position: relative; padding-left: 25px; margin-bottom: 10px; 
+        font-size: 0.95rem; font-weight: 500;
+    }
+    .service-list li::before {
+        content: "→"; position: absolute; left: 0; color: var(--teal); font-weight: bold;
+    }
+
+    .section-title { font-weight: 800; color: var(--navy); margin-bottom: 1.5rem; }
+    .badge-industry { background: rgba(0, 128, 128, 0.1); color: var(--teal); font-weight: 700; border-radius: 50px; padding: 5px 20px; }
+
+    /* Bento Style Audit Banner */
+    .bento-audit {
+        background: var(--navy);
+        border-radius: 35px;
+        padding: 60px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    .bento-audit::before {
+        content: ""; position: absolute; top: -50%; left: -20%; width: 60%; height: 200%;
+        background: radial-gradient(circle, rgba(0, 210, 255, 0.1) 0%, transparent 70%);
+    }
+
+    .btn-premium {
+        background: var(--teal); color: white; border-radius: 50px; padding: 15px 35px;
+        font-weight: 700; border: none; transition: 0.3s; box-shadow: 0 10px 20px rgba(0, 128, 128, 0.2);
+    }
+    .btn-premium:hover { background: #006666; transform: scale(1.05); color: white; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8" data-aos="fade-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb-modern">
+                        <li class="breadcrumb-item">
+                            <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                        </li>
+                    </ol>
+                </nav>
+                <h1 class="display-2 fw-bold mb-3">Industries We Serve</h1>
+                <p class="lead text-white-50 fs-3 mb-0">Tailored technology solutions for complex commercial and institutional environments.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- INTRO -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-5 text-center">
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-lg-10">
+                <h2 class="section-title">Specialized Engineering for Every Sector</h2>
+                <p class="fs-5 text-secondary">Every industry has unique operational challenges and technology requirements. KLOUDTECK delivers specialized solutions designed for the specific demands of your sector, ensuring reliability, security, and scalability across your entire infrastructure.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DYNAMIC INDUSTRY GRID -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4">
+        <div class="row g-4 justify-content-center">
+            
+            <!-- 1. Hospitality -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="industry-box shadow-sm">
+                    <div class="industry-icon-circle"><i class="fas fa-hotel"></i></div>
+                    <span class="badge-industry small mb-2 tex">Hospitality</span>
+                    <h3 class="fw-bold text-navy">Hospitality</h3>
+                    <p class="small text-secondary mb-3">Secure, connected communities that attract and retain residents. Integration with PMS systems for seamless guest journeys.</p>
+                    <h6 class="fw-bold text-navy border-bottom pb-2">Key Solutions:</h6>
+                    <ul class="service-list text-secondary">
+                        <li>Managed Guest WiFi & Network</li>
+                        <li>IPTV & Guest Entertainment</li>
+                        <li>Hotel Phone Systems (VoIP)</li>
+                        <li>Hotel Security Cameras</li>
+                        <li>Keyless Entry Systems</li>
+                    </ul>
+                    <div class="mt-auto pt-4"><a href="/industries/hospitality" class="text-teal fw-bold text-decoration-none">View Details <i class="fas fa-arrow-right ms-1"></i></a></div>
+                </div>
+            </div>
+
+            <!-- 2. Retail -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="industry-box shadow-sm">
+                    <div class="industry-icon-circle"><i class="fas fa-shopping-bag"></i></div>
+                    <span class="badge-industry small mb-2">Retail</span>
+                    <h3 class="fw-bold text-navy">Retail</h3>
+                    <p class="small text-secondary mb-3">Secure, reliable infrastructure that protects assets and drives sales across single or multi-location stores.</p>
+                    <h6 class="fw-bold text-navy border-bottom pb-2">Key Solutions:</h6>
+                    <ul class="service-list text-secondary">
+                        <li>POS Network Infrastructure</li>
+                        <li>Theft Prevention CCTV</li>
+                        <li>Employee Access Control</li>
+                        <li>Digital Signage Promotions</li>
+                        <li>People Counting Analytics</li>
+                    </ul>
+                    <div class="mt-auto pt-4"><a href="/industries/retail" class="text-teal fw-bold text-decoration-none">View Details <i class="fas fa-arrow-right ms-1"></i></a></div>
+                </div>
+            </div>
+
+            <!-- 3. Warehouse -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="industry-box shadow-sm">
+                    <div class="industry-icon-circle"><i class="fas fa-warehouse"></i></div>
+                    <span class="badge-industry small mb-2">Industrial</span>
+                    <h3 class="fw-bold text-navy">Warehouses</h3>
+                    <p class="small text-secondary mb-3">Reliable networks, security, cabling, and communication systems built for industrial-grade operations.</p>
+                    <h6 class="fw-bold text-navy border-bottom pb-2">Key Solutions:</h6>
+                    <ul class="service-list text-secondary">
+                        <li>Managed Networks & Warehouse WiFi</li>
+                        <li>Structured Cabling & Fiber</li>
+                        <li>Loading Dock Surveillance</li>
+                        <li>Industrial Access Control</li>
+                        <li>VoIP / Business Phone Systems</li>
+                    </ul>
+                    <div class="mt-auto pt-4"><a href="/industries/warehouses-distribution" class="text-teal fw-bold text-decoration-none">View Details <i class="fas fa-arrow-right ms-1"></i></a></div>
+                </div>
+            </div>
+
+            <!-- 4. Multi-Family -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="industry-box shadow-sm">
+                    <div class="industry-icon-circle"><i class="fas fa-city"></i></div>
+                    <span class="badge-industry small mb-2">Residential</span>
+                    <h3 class="fw-bold text-navy">Multi-Family</h3>
+                    <p class="small text-secondary mb-3">Secure, connected communities for HOAs, condos, and apartments that attract and retain residents.</p>
+                    <h6 class="fw-bold text-navy border-bottom pb-2">Key Solutions:</h6>
+                    <ul class="service-list text-secondary">
+                        <li>Community WiFi</li>
+                        <li>Property-Wide Access Control</li>
+                        <li>Common Area Surveillance</li>
+                        <li>Intercom Systems</li>
+                        <li>Amenity Room Displays</li>
+                    </ul>
+                    <div class="mt-auto pt-4"><a href="/industries/multi-family-communities" class="text-teal fw-bold text-decoration-none">View Details <i class="fas fa-arrow-right ms-1"></i></a></div>
+                </div>
+            </div>
+
+            <!-- 5. Commercial Office -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="industry-box shadow-sm">
+                    <div class="industry-icon-circle"><i class="fas fa-briefcase"></i></div>
+                    <span class="badge-industry small mb-2">Corporate</span>
+                    <h3 class="fw-bold text-navy">Commercial Office</h3>
+                    <p class="small text-secondary mb-3">Flexible, secure office technology infrastructure that supports hybrid work, collaboration, and productivity.</p>
+                    <h6 class="fw-bold text-navy border-bottom pb-2">Key Solutions:</h6>
+                    <ul class="service-list text-secondary">
+                        <li>Enterprise WiFi & Managed Network</li>
+                        <li>Conference Room Technology</li>
+                        <li>Cloud VoIP & Phone Systems</li>
+                        <li>Access Control & Security</li>
+                        <li>Structured Cabling & Server Rooms</li>
+                    </ul>
+                    <div class="mt-auto pt-4"><a href="/industries/commercial-office" class="text-teal fw-bold text-decoration-none">View Details <i class="fas fa-arrow-right ms-1"></i></a></div>
+                </div>
+            </div>
+
+            <!-- 6. Schools & Campus (NEW SECTIONS) -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="industry-box shadow-sm">
+                    <div class="industry-icon-circle"><i class="fas fa-graduation-cap"></i></div>
+                    <span class="badge-industry small mb-2">Education</span>
+                    <h3 class="fw-bold text-navy">Schools & Campus</h3>
+                    <p class="small text-secondary mb-3">Secure, scalable technology solutions for K-12 schools, private campuses, and higher education facilities.</p>
+                    <h6 class="fw-bold text-navy border-bottom pb-2">Services include:</h6>
+                    <ul class="service-list text-secondary">
+                        <li>Campus WiFi & network infrastructure</li>
+                        <li>Security cameras (CCTV)</li>
+                        <li>Door access control</li>
+                        <li>Structured cabling & fiber</li>
+                        <li>Paging / communication systems</li>
+                        <li>Ongoing monitoring & support</li>
+                    </ul>
+                    <div class="mt-auto pt-4"><a href="/contact" class="text-teal fw-bold text-decoration-none">Request Consultation <i class="fas fa-arrow-right ms-1"></i></a></div>
+                </div>
+            </div>
+
+            <!-- 7. Hospitals & Medical Offices (NEW SECTIONS) -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="industry-box shadow-sm">
+                    <div class="industry-icon-circle"><i class="fas fa-hospital-user"></i></div>
+                    <span class="badge-industry small mb-2">Medical</span>
+                    <h3 class="fw-bold text-navy">Hospitals & Medical Offices</h3>
+                    <p class="small text-secondary mb-3">Reliable, secure technology systems designed to support patient care, staff operations, and facility security.</p>
+                    <h6 class="fw-bold text-navy border-bottom pb-2">Services include:</h6>
+                    <ul class="service-list text-secondary">
+                        <li>Secure WiFi & segmented networks</li>
+                        <li>CCTV surveillance systems</li>
+                        <li>Access control for restricted areas</li>
+                        <li>VoIP / phone systems</li>
+                        <li>Structured cabling & fiber</li>
+                        <li>Proactive monitoring & support</li>
+                    </ul>
+                    <div class="mt-auto pt-4"><a href="/contact" class="text-teal fw-bold text-decoration-none">Request Consultation <i class="fas fa-arrow-right ms-1"></i></a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- BENTO AUDIT CTA -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm mb-5">
+    <div class="container py-4">
+        <div class="bento-audit shadow-lg" data-aos="zoom-in">
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <h2 class="display-5 fw-bold mb-3">Not sure what your industry needs?</h2>
+                    <p class="lead opacity-75">Schedule a free consultation with our industry specialists to design a solution that fits your operational goals and budget.</p>
+                </div>
+                <div class="col-lg-5 text-center text-lg-end mt-5 mt-lg-0">
+                    <div class="d-flex flex-wrap justify-content-center justify-content-lg-end gap-3">
+                        <a href="/contact" class="btn-premium">Schedule a Consultation</a>
+                        <a href="/quote" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">Request a Site Assessment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Warehouse%20Technology" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ -->
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            delay: 100
+        });
+    });
+</script>
+{% endblock %}

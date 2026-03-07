@@ -1,0 +1,259 @@
+{% extends "layout.html" %}
+
+{% block title %}Commercial IT Solutions · Managed Network, Security & Software | KLOUDTECK{% endblock %}
+
+{% block head %}
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Explore KLOUDTECK's comprehensive technology solutions: managed WiFi, CCTV, access control, full stack web development, MikroTik orchestration, and IPBX systems.">
+  <link rel="canonical" href="https://www.kloudteck.com/solutions/">
+  <meta property="og:title" content="Commercial IT Solutions · Managed Network, Security & Software">
+  <meta property="og:description" content="End-to-end commercial technology and software solutions from KLOUDTECK.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.kloudteck.com/solutions/">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      { "@type": "Service", "position": 1, "name": "Managed Network & WiFi", "url": "/services/managed-network-wifi-solutions" },
+      { "@type": "Service", "position": 2, "name": "Commercial CCTV", "url": "/services/commercial-cctv-surveillance" },
+      { "@type": "Service", "position": 3, "name": "Access Control", "url": "/services/commercial-access-control-systems" },
+      { "@type": "Service", "position": 4, "name": "Full Stack Web Development", "url": "/services/full-stack-web-development" },
+      { "@type": "Service", "position": 5, "name": "MikroTik Orchestration", "url": "/services/mikrotik-device-orchestration" }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block content %}
+  <!-- Scroll Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="scrollProgress"></div>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header" style="background: #f8f9fa; padding: 60px 0;">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb-modern">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                </li>
+            </ol>
+        </nav>
+      <h1 class="display-4 fw-bold">Commercial Technology Solutions</h1>
+      <p class="lead text-secondary">End-to-end infrastructure and software designed for performance, security, and scalability</p>
+    </div>
+  </section>
+
+  <!-- INTRO SECTION -->
+  <section class="container my-5">
+    <div class="row g-5">
+      <div class="col-lg-8">
+        <p class="fs-5 text-secondary">KLOUDTECK delivers comprehensive technology solutions for commercial environments. From the network backbone to custom software applications, we design, deploy, and support systems that keep your operations running smoothly.</p>
+        
+        <div class="row g-4 mt-4">
+          <div class="col-md-6">
+            <div class="solution-highlight p-4 rounded-4 border-start border-teal border-4 shadow-sm" style="background: #fdfdfd;">
+              <i class="fas fa-check-circle text-teal fs-3 mb-3"></i>
+              <h4>Single Point of Accountability</h4>
+              <p class="text-secondary small">One partner for network, security, software, and cabling – no finger-pointing.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="solution-highlight p-4 rounded-4 border-start border-teal border-4 shadow-sm" style="background: #fdfdfd;">
+              <i class="fas fa-check-circle text-teal fs-3 mb-3"></i>
+              <h4>Enterprise-Grade Design</h4>
+              <p class="text-secondary small">Built to commercial standards with future-ready scalability in mind.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="cta-card p-4 rounded-4 text-white shadow-lg" style="background: linear-gradient(135deg, var(--navy-main) 0%, #1e3a5f 100%);">
+          <h5 class="text-white">Need a custom solution?</h5>
+          <p class="text-white-50 small">Our engineers and developers will assess your needs and architect a system tailored to your requirements.</p>
+          <a href="/contact" class="btn btn-teal w-100 fw-bold">Schedule assessment</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE SOLUTIONS GRID (Total 10 Cards) -->
+  <section class="container my-5">
+    <h2 class="section-heading text-center mb-5">Our Core Solutions</h2>
+    <div class="row g-4">
+      
+      <!-- 1. Managed Network -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/managed-network-wifi-solutions" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-wifi text-teal fs-2"></i></div>
+            <h4 class="text-navy">Managed Network & WiFi</h4>
+            <p class="text-secondary small">Enterprise-grade wireless, VLAN segmentation, and 24/7 proactive monitoring.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 2. CCTV -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/commercial-cctv-surveillance" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-video text-teal fs-2"></i></div>
+            <h4 class="text-navy">CCTV & Surveillance</h4>
+            <p class="text-secondary small">4K IP cameras, NVR systems, remote monitoring, and smart AI-powered detection.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 3. Access Control -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/commercial-access-control-systems" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-door-open text-teal fs-2"></i></div>
+            <h4 class="text-navy">Access Control Systems</h4>
+            <p class="text-secondary small">Keyless entry, RFID credentials, mobile access, and detailed audit trails.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 4. Full Stack Web Development (New Add) -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/full-stack-web-development" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-code text-teal fs-2"></i></div>
+            <h4 class="text-navy">Full Stack Web Dev</h4>
+            <p class="text-secondary small">Custom enterprise applications built with Python, Django, Flask, and React.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 5. MikroTik Orchestration (New Add) -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/mikrotik-device-orchestration" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-server text-teal fs-2"></i></div>
+            <h4 class="text-navy">Device Orchestration</h4>
+            <p class="text-secondary small">Centralized MikroTik fleet management with API and SSH control capabilities.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 6. Network Monitoring (New Add) -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/network-monitoring-log-servers" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-tachometer-alt text-teal fs-2"></i></div>
+            <h4 class="text-navy">Monitoring & Log Servers</h4>
+            <p class="text-secondary small">Real-time infrastructure visibility and centralized logging for troubleshooting.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 7. VoIP & IPBX (New Add) -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/ipbx-phone-systems" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-phone-volume text-teal fs-2"></i></div>
+            <h4 class="text-navy">VoIP & IPBX Systems</h4>
+            <p class="text-secondary small">Next-gen enterprise phone systems with cloud PBX and mobile integration.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 8. Structured Cabling -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/structured-cabling-fiber-installation" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-project-diagram text-teal fs-2"></i></div>
+            <h4 class="text-navy">Structured Cabling</h4>
+            <p class="text-secondary small">Cat6/Cat6A, fiber backbone, and certified server room buildouts.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 9. Business Phone Systems -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/business-voip-phone-systems" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-phone-alt text-teal fs-2"></i></div>
+            <h4 class="text-navy">Business Phone Systems</h4>
+            <p class="text-secondary small">Cloud/on-prem VoIP solutions for multi-site and office environments.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 10. TV & Digital Display -->
+      <div class="col-md-6 col-lg-4">
+        <a href="/services/commercial-tv-digital-display-solutions" class="service-link text-decoration-none">
+          <div class="service-card h-100 p-4 shadow-sm border rounded-4">
+            <div class="service-icon mb-3"><i class="fas fa-tv text-teal fs-2"></i></div>
+            <h4 class="text-navy">TV & Digital Display</h4>
+            <p class="text-secondary small">Hospitality IPTV, secure casting, and centralized signage management.</p>
+            <span class="small text-teal fw-bold">Learn more →</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTEGRATION SHOWCASE -->
+  <section class="container my-5">
+    <div class="integration-showcase p-5 rounded-5 border shadow-sm" style="background: #fdfdfd;">
+      <h3 class="text-navy text-center mb-4">Converged Technology Ecosystem</h3>
+      <p class="lead text-center text-secondary mb-5">Our systems work better together. We integrate network, security, and custom software into a unified business tool.</p>
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <div class="integration-item">
+            <i class="fas fa-sync-alt text-teal fs-2 mb-3"></i>
+            <h5>Network + App</h5>
+            <p class="small text-secondary">Custom web apps that interact directly with your hardware via API.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="integration-item">
+            <i class="fas fa-sync-alt text-teal fs-2 mb-3"></i>
+            <h5>Security + Data</h5>
+            <p class="small text-secondary">Centralized logging and AI analytics for every security event.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="integration-item">
+            <i class="fas fa-sync-alt text-teal fs-2 mb-3"></i>
+            <h5>Infrastructure + VoIP</h5>
+            <p class="small text-secondary">QoS optimized networks for crystal-clear IP communication.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/1XXXXXXXXXX?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    let progressBar = document.getElementById("scrollProgress");
+    if (progressBar) progressBar.style.width = scrolled + "%";
+  };
+</script>
+{% endblock %}

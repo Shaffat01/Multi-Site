@@ -1,0 +1,476 @@
+ {% extends "layout.html" %}
+
+{% block title %}Commercial Access Control & Keyless Entry Systems | KLOUDTECK{% endblock %}
+
+{% block head %}
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Secure your facility with smart access control systems including RFID, mobile credentials, audit trails, and centralized management. Integrate with CCTV for complete security.">
+  <link rel="canonical" href="https://www.kloudteck.com/commercial-access-control-systems/">
+  
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Commercial Access Control Systems",
+    "provider": { "@type": "Organization", "name": "KLOUDTECK", "url": "https://www.kloudteck.com" },
+    "description": "Keyless entry, RFID, mobile credentials, audit trails. Integrate with surveillance for complete security.",
+    "areaServed": ["Commercial Office", "Multi-Family", "Warehouse", "Hospitality"],
+    "serviceType": "Access Control Installation"
+  }
+  </script>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+<!-- 1. HERO SECTION -->
+<section style="padding-bottom: 40px;" class=" services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+                <ol class="breadcrumb-modern">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/solutions" class="text-white-50">Solutions</a>
+                    </li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">Access Control</li>
+                </ol>
+          </nav>
+        <div class="row">
+            <div class="col-lg-10">
+                <span class="badge bg-info mb-3 px-3 py-2 text-uppercase">Access Control</span>
+                <h1 class="display-3 fw-bold mb-4">Built for Real Operations — <br><span style="color: #33ccff;">Not Just Doors</span></h1>
+                <p class="lead mb-4">Access control is more than locking and unlocking doors. It is a critical part of how your business protects people, inventory, equipment, and restricted areas while keeping daily operations moving.</p>
+                <p class="opacity-75 fs-5">At KLOUDTECK, we design access control systems around how your facility actually works — employee entry, vendor access, shift schedules, after-hours restrictions, and department-level permissions. Whether you manage one location or multiple properties, we deliver secure, scalable solutions that improve visibility, reduce risk, and simplify day-to-day management.</p>
+                <div class="mt-5 d-flex gap-3 flex-wrap">
+                    <a href="/quote" class="btn btn-teal btn-outline-light btn-lg px-4" style="border-radius: 50px;">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light btn-lg px-4 py-3">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2. SOLUTIONS GRID -->
+<section class="section-padding services-wrapper process-section-bg  shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-navy">Access Control Solutions We Design & Install</h2>
+            <p class="lead text-secondary mx-auto" style="max-width: 800px;">We build commercial access control systems that are reliable, easy to manage, and designed to grow with your business.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-service">
+                    <i class="fas fa-key fa-3x text-teal mb-4"></i>
+                    <h4 class="fw-bold text-teal">Keyless Entry Systems</h4>
+                    <p class="text-secondary">Replace traditional keys with secure, manageable entry using cards, fobs, PINs, and mobile-enabled access.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-service">
+                    <i class="fas fa-id-card fa-3x text-teal mb-4"></i>
+                    <h4 class="fw-bold text-teal">RFID & Smart Credentials</h4>
+                    <p class="text-secondary">Issue and manage credentials for employees, managers, vendors, tenants, and contractors with better control and faster updates.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-service">
+                    <i class="fas fa-mobile-alt fa-3x text-teal mb-4"></i>
+                    <h4 class="fw-bold text-teal">Mobile Access Integration</h4>
+                    <p class="text-secondary">Enable smartphone-based access for modern, flexible entry management with instant provisioning and revocation.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-service">
+                    <i class="fas fa-user-shield fa-3x text-teal mb-4"></i>
+                    <h4 class="fw-bold text-teal">Permission & User Management</h4>
+                    <p class="text-secondary">Set access by role, department, location, or schedule with centralized administration across one site or many.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-service">
+                    <i class="fas fa-history fa-3x text-teal mb-4"></i>
+                    <h4 class="fw-bold text-teal">Audit Trails & Event Reporting</h4>
+                    <p class="text-secondary">Track who accessed which door and when with searchable logs and reporting tools for visibility and accountability.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-service">
+                    <i class="fas fa-video fa-3x text-teal mb-4"></i>
+                    <h4 class="fw-bold text-teal">CCTV / Surveillance Integration</h4>
+                    <p class="text-secondary">Connect access events to video footage for faster event verification and improved incident response.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. INDUSTRY USE CASES -->
+<section class="section-padding services-wrapper process-section-bg  shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Commercial Access Control by Industry</h2>
+            <p class="lead text-secondary">Every facility has different security priorities, staffing models, and traffic patterns. KLOUDTECK tailors access control design to match your operations.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4"><div class="industry-card text-teal"><h5>Commercial Offices</h5><p class="small text-secondary mb-0">Secure staff entrances, executive offices, server rooms, and shared spaces with role-based access and time schedules.</p></div></div>
+            <div class="col-md-4"><div class="industry-card text-teal"><h5>Warehouses & Distribution</h5><p class="small text-secondary mb-0">Control access to shipping/receiving, inventory areas, restricted storage, and management offices across multiple shifts.</p></div></div>
+            <div class="col-md-4"><div class="industry-card text-teal"><h5>Retail & Multi-Site Operations</h5><p class="small text-secondary mb-0">Standardize permissions across stores, back offices, stockrooms, and manager-only areas from a centralized platform.</p></div></div>
+            <div class="col-md-4"><div class="industry-card text-teal"><h5>Hospitality Properties</h5><p class="small text-secondary mb-0">Secure back-of-house, engineering rooms, admin offices, storage areas, and staff-only zones without disrupting operations.</p></div></div>
+            <div class="col-md-4"><div class="industry-card text-teal"><h5>Multi-Family & Community Properties</h5><p class="small text-secondary mb-0">Manage maintenance, amenity, and service access with modern credentials and quick permission updates.</p></div></div>
+            <div class="col-md-4"><div class="industry-card text-teal"><h5>Medical & Professional Facilities</h5><p class="small text-secondary mb-0">Protect staff-only areas, records, and administrative spaces with controlled entry and clear event logging.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. WHAT'S INCLUDED -->
+<section class="section-padding bg-navy text-white services-wrapper process-section-bg  shadow-sm">
+    <div  class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-6 fw-bold text-white mb-4">What’s Included in a Commercial Access Control System</h2>
+                <p class="opacity-75 mb-5 fs-5">A dependable access control system requires more than a reader at the door. KLOUDTECK designs complete solutions that combine the right hardware, software, credential strategy, and door planning for your building and workflow.</p>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Door readers (card, keypad, mobile-capable)</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Credentials (cards, fobs, mobile credentials)</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Controllers / control panels</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Locking hardware (electric strikes, mag locks)</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Door contacts and request-to-exit devices</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Management software (cloud, on-prem, hybrid)</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> User roles, schedules, and access groups</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Audit logs and reporting tools</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> CCTV / video integration</div>
+                        <div class="mb-2"><i style="color:white;" class="fas fa-check-circle check-list-icon"></i> Optional backup power and fail-state planning</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block text-center opacity-10 ">
+                <img style="width: 380px;height: 460px;border-radius: 20%;" src="{{ url_for('static', filename='images/access.jpeg') }}">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. CLOUD VS ON-PREM VS HYBRID -->
+<section class="section-padding bg-gray services-wrapper process-section-bg  shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Cloud, On-Premise, or Hybrid Access Control — We Help You Choose</h2>
+            <p class="lead text-secondary mx-auto" style="max-width: 900px;">The right access control architecture depends on your site, IT preferences, compliance requirements, and long-term growth plans. KLOUDTECK helps you choose the right platform for how your business operates today — and where it’s going next.</p>
+        </div>
+        <div class="row g-4">
+            <!-- Cloud -->
+            <div class="col-lg-4">
+                <div class="architecture-box arch-cloud">
+                    <h4 class="text-teal fw-bold mb-3">Cloud-Based Access Control</h4>
+                    <p class="small text-secondary mb-4">Best for organizations that want flexibility, remote administration, and centralized visibility.</p>
+                    <ul class="small list-unstyled">
+                        <li class="mb-2"><i class="fas fa-circle text-teal me-2" style="font-size: 6px;"></i> Manage users and permissions remotely</li>
+                        <li class="mb-2"><i class="fas fa-circle text-teal me-2" style="font-size: 6px;"></i> Simplify multi-site administration</li>
+                        <li class="mb-2"><i class="fas fa-circle text-teal me-2" style="font-size: 6px;"></i> Speed up user changes and credential updates</li>
+                        <li class="mb-2"><i class="fas fa-circle text-teal me-2" style="font-size: 6px;"></i> Support mobile-ready workflows and centralized reporting</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- On-Premise -->
+            <div class="col-lg-4">
+                <div class="architecture-box arch-cloud">
+                    <h4 class="fw-bold mb-3">On-Premise Access Control</h4>
+                    <p class="small text-secondary mb-4">Best for organizations that prefer local control of management infrastructure.</p>
+                    <ul class="small list-unstyled">
+                        <li class="mb-2"><i class="fas fa-circle text-secondary me-2" style="font-size: 6px;"></i> Local hosting and system management</li>
+                        <li class="mb-2"><i class="fas fa-circle text-secondary me-2" style="font-size: 6px;"></i> Strong fit for internal IT policy requirements</li>
+                        <li class="mb-2"><i class="fas fa-circle text-secondary me-2" style="font-size: 6px;"></i> Greater on-site control over infrastructure decisions</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Hybrid -->
+            <div class="col-lg-4">
+                <div class="architecture-box arch-cloud">
+                    <h4 class="fw-bold mb-3">Hybrid Access Control</h4>
+                    <p class="small text-secondary mb-4">Best for organizations that need reliability, scalability, and phased modernization.</p>
+                    <ul class="small list-unstyled">
+                        <li class="mb-2"><i class="fas fa-circle text-secondary me-2" style="font-size: 6px;"></i> Combines local reliability with centralized management</li>
+                        <li class="mb-2"><i class="fas fa-circle text-secondary me-2" style="font-size: 6px;"></i> Supports multi-location operations</li>
+                        <li class="mb-2"><i class="fas fa-circle text-secondary me-2" style="font-size: 6px;"></i> Strong option for upgrades and mixed environments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. WHY UPGRADE -->
+<section class="  services-wrapper process-section-bg  shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Why Businesses Upgrade from Keys and Standalone Locks</h2>
+            <p class="lead text-secondary mx-auto" style="max-width: 900px;">Traditional keys and disconnected lock systems create unnecessary risk, operational friction, and hidden costs. A modern access control system gives your team stronger security and better control — without slowing down the business.</p>
+        </div>
+        <div class="row g-5">
+            <div class="col-md-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 255, 0.1);">
+                    <h4 class="text-danger fw-bold mb-4">Challenges with Keys & Legacy Systems</h4>
+                    <ul class="comparison-list list-unstyled text-white-50">
+                        <li class="mb-3"><i class="fas fa-times-circle text-danger me-2"></i> Rekeying costs after lost keys or staff turnover</li>
+                        <li class="mb-3"><i class="fas fa-times-circle text-danger me-2"></i> No audit trail of who entered and when</li>
+                        <li class="mb-3"><i class="fas fa-times-circle text-danger me-2"></i> Manual offboarding creates security gaps</li>
+                        <li class="mb-3"><i class="fas fa-times-circle text-danger me-2"></i> Inconsistent access management across locations</li>
+                        <li class="mb-3"><i class="fas fa-times-circle text-danger me-2"></i> Limited visibility into after-hours activity</li>
+                        <li class="mb-3"><i class="fas fa-times-circle text-danger me-2"></i> Difficult vendor and contractor access control</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 255, 0.1);">
+                    <h4 class="text-success fw-bold mb-4">Benefits of Modern Access Control</h4>
+                    <ul class="comparison-list list-unstyled text-white-50">
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Instant credential activation and deactivation</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Role-based and schedule-based permissions</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Searchable access logs and event history</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Centralized management for multiple doors and sites</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Better accountability and incident review</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Easier expansion as your operations grow</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. DEPLOYMENT PROCESS -->
+<section class="section-padding bg-gray services-wrapper process-section-bg  shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Our Access Control Deployment Process</h2>
+            <p class="lead text-secondary">KLOUDTECK follows a structured rollout process to reduce disruption, improve reliability, and deliver a system your team can manage with confidence.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <h5 class="fw-bold">Site Assessment & Door Audit</h5>
+                    <p class="text-secondary small">We evaluate doors, hardware conditions, wiring paths, power requirements, and operational needs to build the right solution.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <h5 class="fw-bold">System Design & Access Policy Planning</h5>
+                    <p class="text-secondary small">We define credential types, user groups, door schedules, restricted areas, and integration requirements based on how your business runs.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <h5 class="fw-bold">Hardware & Platform Selection</h5>
+                    <p class="text-secondary small">We select the right readers, controllers, locking hardware, and management platform for your facility and budget.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">4</div>
+                    <h5 class="fw-bold">Installation & Configuration</h5>
+                    <p class="text-secondary small">Our team installs hardware, runs or organizes cabling requirements, configures controllers, and sets up software, users, and permissions.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="step-box">
+                    <div class="step-number">5</div>
+                    <h5 class="fw-bold">Testing & Validation</h5>
+                    <p class="text-secondary small">We test door operation, access rules, fail states, schedules, and event logging to ensure reliable performance.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">6</div>
+                    <h5 class="fw-bold">Training & Handover</h5>
+                    <p class="text-secondary small">We train your administrators on adding users, changing permissions, managing schedules, and reviewing reports.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">7</div>
+                    <h5 class="fw-bold">Ongoing Support & Expansion</h5>
+                    <p class="text-secondary small">We support future moves, adds, changes, and expansion as your facility and security requirements evolve.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 8. INTEGRATIONS -->
+<section class="section-padding bg-white services-wrapper process-section-bg  shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">Integrated Security Workflows, Not Isolated Systems</h2>
+                <p class="lead text-secondary mb-4">Access control delivers more value when it works with the rest of your security and facility technology stack. KLOUDTECK designs integrated solutions that improve visibility, response time, and day-to-day operations.</p>
+                <ul class="comparison-list">
+                    <li><i class="fas fa-link text-teal"></i> <b>CCTV / Video Surveillance</b> — verify access events with recorded footage</li>
+                    <li><i class="fas fa-link text-teal"></i> <b>Intercom / Visitor Entry Systems</b> — manage visitor access and controlled entry workflows</li>
+                    <li><i class="fas fa-link text-teal"></i> <b>Alarm / Intrusion Systems</b> — coordinate security events and alerts</li>
+                    <li><i class="fas fa-link text-teal"></i> <b>Multi-Site Management Dashboards</b> — central oversight across locations</li>
+                    <li><i class="fas fa-link text-teal"></i> <b>Mobile Credentials</b> — flexible, keyless entry for modern teams</li>
+                </ul>
+            </div>
+            <!-- 9. MOBILE SPOTLIGHT -->
+            <div class="col-lg-6">
+                <div class="p-5 rounded-5 shadow-lg border-top border-5 border-teal" style="background: rgba(255, 255, 255, 0.03) !important; border: 1px solid rgba(0, 255, 255, 0.1) !important;">
+                    <h3 class="fw-bold mb-4 text-teal">Mobile Access for Modern Teams</h3>
+                    <p class="text-secondary fs-5">Mobile credentials make access management faster, more flexible, and easier to scale. Instead of relying only on physical cards or fobs, authorized administrators can issue, update, and revoke access digitally — helping reduce lost credential costs and simplify onboarding.</p>
+                    <p class="fw-bold mt-4 mb-2 text-teal">This is especially valuable for businesses managing:</p>
+                    <div class="row g-2">
+                        <div class="col-6 text-secondary"><i class="fas fa-chevron-right text-teal me-2"></i> Multiple locations</div>
+                        <div class="col-6 text-secondary"><i class="fas fa-chevron-right text-teal me-2"></i> Rotating staff</div>
+                        <div class="col-6 text-secondary"><i class="fas fa-chevron-right text-teal me-2"></i> Fast onboarding</div>
+                        <div class="col-6 text-secondary"><i class="fas fa-chevron-right text-teal me-2"></i> Mobile workflows</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 10. FAQ SECTION -->
+<section class="faq-ac-section ">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="display-5 faq-ac-title" data-aos="fade-up">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-ac-container" data-aos="fade-up">
+            <div class="accordion" id="accAcModern">
+                
+                <!-- Q1 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq1">
+                            Can I manage access remotely?
+                        </button>
+                    </h2>
+                    <div id="acq1" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            Yes. Many modern access control platforms support centralized administration, allowing authorized users to manage permissions, schedules, and logs remotely depending on system architecture and permissions.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq2">
+                            Do doors stop working if the internet goes down?
+                        </button>
+                    </h2>
+                    <div id="acq2" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            Many systems support local door decision-making, so doors can continue operating during a temporary internet outage while remote functions may be limited until connectivity is restored.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq3">
+                            Can employees use smartphones instead of keycards?
+                        </button>
+                    </h2>
+                    <div id="acq3" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            Yes. Many commercial access control systems support mobile credentials in addition to traditional cards and fobs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq4">
+                            Can access be scheduled by day and time?
+                        </button>
+                    </h2>
+                    <div id="acq4" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            Yes. We can configure access by role, department, shift, day, and time window to match your operations.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq5">
+                            Can access control integrate with my cameras?
+                        </button>
+                    </h2>
+                    <div id="acq5" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            Yes. We can design systems that integrate access events with CCTV/video systems for faster event verification and incident review.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq6">
+                            Can existing doors and hardware be reused?
+                        </button>
+                    </h2>
+                    <div id="acq6" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            In many cases, yes. During the site assessment, we evaluate what can be retrofitted and what should be replaced for reliability, compatibility, and security.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq7">
+                            How long does installation take?
+                        </button>
+                    </h2>
+                    <div id="acq7" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            Project timelines depend on the number of doors, site conditions, wiring requirements, and integration scope. We provide a clear rollout timeline after the site assessment.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="accordion-item shadow-sm border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acq8">
+                            Do you provide ongoing support after installation?
+                        </button>
+                    </h2>
+                    <div id="acq8" class="accordion-collapse collapse" data-bs-parent="#accAcModern">
+                        <div class="accordion-body">
+                            Yes. KLOUDTECK supports ongoing user changes, schedule updates, expansions, and system upgrades as your needs evolve.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Commercial%20Access%20Control" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ -->
+
+<!-- 11. FINAL CTA -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container text-center text-white py-4">
+        <h2 class="display-5 fw-bold mb-4 text-white">Get a Commercial Access Control System Designed for Your Facility</h2>
+        <p class="lead mb-5 opacity-75 mx-auto" style="max-width: 800px;">Whether you need secure entry for one office, a warehouse, or multiple locations, KLOUDTECK can design a scalable access control solution that fits your operations, security goals, and growth plans.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="/quote" class="btn  btn-teal shadow btn-lg px-5">Request Quote</a>
+            <a style="border:solid 1px white;" href="/contact" class="btn btn-outline-light btn-lg px-5" style="border-radius: 50px;">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

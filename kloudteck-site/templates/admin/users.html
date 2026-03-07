@@ -1,0 +1,228 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block title %}User Database | KloudTeck Admin{% endblock %}
+
+{% block page_title %}User <span style="color: var(--teal);">Database</span>{% endblock %}
+
+{% block extra_css %}
+<style>
+
+    .table { 
+        --bs-table-bg: transparent !important; 
+        background-color: transparent !important;
+        color: var(--text-main) !important;
+        border-color: var(--glass-border) !important;
+    }
+    .table tr, .table td, .table th {
+        background-color: transparent !important;
+        border-bottom-color: var(--glass-border) !important;
+    }
+    .table thead th {
+        color: var(--teal) !important;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+    .user-info { display: flex; align-items: center; gap: 15px; min-width: 200px; }
+    .user-avatar { 
+        width: 40px; height: 40px; border-radius: 10px; 
+        display: flex; align-items: center; justify-content: center; 
+        font-weight: 800; background: linear-gradient(135deg, var(--teal), #0099cc);
+        color: white;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .animate-pulse { animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+    .btn-action {
+        width: 32px; height: 32px; border-radius: 8px;
+        background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+        color: var(--text-main); display: inline-flex; align-items: center; justify-content: center;
+        transition: 0.3s; text-decoration: none;
+    }
+    .btn-action:hover { background: var(--teal); color: black !important; }
+
+    /* Modal Styling */
+    .modal-content {
+        background: var(--bg-accent) !important;
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(15px); color: white; border-radius: 15px;
+    }
+    .form-control, .form-select {
+        background-color: rgba(255,255,255,0.05) !important;
+        border: 1px solid var(--glass-border) !important;
+        color: white !important;
+    }
+    .btn-teal { background-color: var(--teal); border: none; color: black; font-weight: bold; }
+    .btn-teal:hover { background-color: #00d1a7; }
+
+    .panel { overflow: visible !important; }
+    .table-responsive { overflow: visible !important; }
+    .form-select option {
+        background-color: #151921 !important; 
+        color: #ffffff !important; 
+    }
+    .form-select:focus {
+        box-shadow: none !important;
+        border-color: var(--teal) !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Quick Stats Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card">
+            <p class="text-secondary small mb-1">TOTAL REGISTERED</p>
+            <h3 class="fw-bold">{{ users|length }}</h3>
+            <div class="text-teal small"><i class="fas fa-database me-1"></i> Active Users</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card">
+            <p class="text-secondary small mb-1">PENDING REQUESTS</p>
+            <h3 class="fw-bold text-warning">{{ users|selectattr('status', 'equalto', 'Pending')|list|length }}</h3>
+            <div class="text-warning small"><i class="fas fa-clock me-1"></i> Awaiting Action</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card">
+            <p class="text-secondary small mb-1">SYSTEM ADMINS</p>
+            <h3 class="fw-bold text-info">{{ users|selectattr('role', 'equalto', 'Admin')|list|length }}</h3>
+            <div class="text-info small"><i class="fas fa-user-shield me-1"></i> Root Access</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Table Panel -->
+<div class="panel">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0">Authority Control Center</h5>
+        <div class="d-flex gap-3">
+            <div class="search-box position-relative d-none d-md-block">
+                <input type="text" class="form-control" placeholder="Search users..." style="padding-left: 35px;">
+                <i class="fas fa-search position-absolute top-50 translate-middle-y ms-3 text-secondary" style="left: 0;"></i>
+            </div>
+            <button class="btn btn-teal btn-sm px-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                <i class="fas fa-plus me-1"></i> Add User
+            </button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>User Profile</th>
+                    <th>Privilege Level</th>
+                    <th>Current Status</th>
+                    <th class="text-end">Command Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>
+                        <div class="user-info">
+                            <div class="user-avatar">{{ user.username[:2]|upper }}</div>
+                            <div style="line-height: 1.2;">
+                                <div class="fw-bold text-white small">{{ user.username }}</div>
+                                <div class="text-secondary" style="font-size: 0.75rem;">{{ user.email }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        {% if user.role == 'Admin' %}
+                            <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-2" style="font-size: 0.7rem;">Administrator</span>
+                        {% elif user.role == 'Editor' %}
+                            <span class="badge rounded-pill bg-info bg-opacity-10 text-info border border-info border-opacity-25 px-3 py-2" style="font-size: 0.7rem;">Editor</span>
+                        {% else %}
+                            <span class="badge rounded-pill bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 px-3 py-2" style="font-size: 0.7rem;">Viewer</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="text-{% if user.status == 'Approved' %}success{% elif user.status == 'Pending' %}warning{% else %}danger{% endif %} small fw-bold d-flex align-items-center">
+                            <span class="dot bg-{% if user.status == 'Approved' %}success{% elif user.status == 'Pending' %}warning{% else %}danger{% endif %} me-2 {% if user.status == 'Pending' %}animate-pulse{% endif %}"></span>
+                            {{ user.status }}
+                        </span>
+                    </td>
+                    <td class="text-end">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button class="btn-action text-info" data-bs-toggle="modal" data-bs-target="#editModal{{ user.id }}"><i class="fas fa-edit"></i></button>
+                            <div class="dropdown">
+                                <button class="btn-action" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                                    <li><a class="dropdown-item small" href="{{ url_for('manage_user', user_id=user.id, action='make_admin') }}">Make Admin</a></li>
+                                    <li><a class="dropdown-item small text-danger" href="{{ url_for('manage_user', user_id=user.id, action='reject') }}">Reject</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Edit User Modal (Inside Loop) -->
+                <div class="modal fade" id="editModal{{ user.id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="{{ url_for('edit_user', user_id=user.id) }}" method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-teal">Edit User</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3"><label class="small text-secondary">USERNAME</label><input type="text" name="username" class="form-control" value="{{ user.username }}" required></div>
+                                    <div class="mb-3"><label class="small text-secondary">EMAIL</label><input type="email" name="email" class="form-control" value="{{ user.email }}" required></div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="small text-secondary">ROLE</label>
+                                            <select name="role" class="form-select">
+                                                <option value="User" {% if user.role == 'User' %}selected{% endif %}>User</option>
+                                                <option value="Editor" {% if user.role == 'Editor' %}selected{% endif %}>Editor</option>
+                                                <option value="Admin" {% if user.role == 'Admin' %}selected{% endif %}>Admin</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="small text-secondary">STATUS</label>
+                                            <select name="status" class="form-select">
+                                                <option value="Approved" {% if user.status == 'Approved' %}selected{% endif %}>Approved</option>
+                                                <option value="Pending" {% if user.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                                <option value="Rejected" {% if user.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer"><button type="submit" class="btn btn-teal">Save Changes</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Create User Modal (OUTSIDE LOOP) -->
+<div class="modal fade" id="createUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form action="{{ url_for('create_user') }}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title text-teal">Register New User</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3"><label class="small text-secondary">USERNAME</label><input type="text" name="username" class="form-control" required></div>
+                    <div class="mb-3"><label class="small text-secondary">EMAIL ADDRESS</label><input type="email" name="email" class="form-control" required></div>
+                    <div class="mb-3"><label class="small text-secondary">PASSWORD</label><input type="password" name="password" class="form-control" required></div>
+                    <div class="row">
+                        <div class="col-6"><label class="small text-secondary">ROLE</label><select name="role" class="form-select"><option value="User">User</option><option value="Editor">Editor</option><option value="Admin">Admin</option></select></div>
+                        <div class="col-6"><label class="small text-secondary">STATUS</label><select name="status" class="form-select"><option value="Approved">Approved</option><option value="Pending" selected>Pending</option></select></div>
+                    </div>
+                </div>
+                <div class="modal-footer"><button type="submit" class="btn btn-teal">Create User</button></div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

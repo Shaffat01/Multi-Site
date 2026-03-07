@@ -1,0 +1,144 @@
+:root {
+        --navy: #33ccff;
+        --teal: #33ccff;
+        --soft-bg: #f4f7f9;
+        --light-teal: #e6f2f2;
+    }
+    
+
+    body { font-family: 'Inter', sans-serif; color: #333; overflow-x: hidden; }
+    .text-navy { color: var(--navy) !important; }
+    .text-teal { color: var(--teal) !important; }
+    .bg-navy { background-color: var(--navy) !important; }
+    .bg-teal { background-color: var(--teal) !important; }
+    .bg-soft { background-color: var(--soft-bg) !important; }
+
+    .tv-hero {
+        background: linear-gradient(135deg, var(--navy) 0%, #162e44 100%);
+        color: white;
+        padding: 100px 0 80px;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border-radius: 15px;
+        padding: 30px;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid #eee;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        border-color: var(--teal);
+    }
+    .process-item { position: relative; padding-left: 60px; margin-bottom: 30px; }
+    .step-num {
+        position: absolute; left: 0; top: 0; width: 45px; height: 45px;
+        background: var(--teal); color: white; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-weight: bold;
+    }
+
+    .check-list { list-style: none; padding-left: 0; }
+    .check-list li { position: relative; padding-left: 30px; margin-bottom: 12px; }
+    .check-list li::before {
+        content: "\f058"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+        position: absolute; left: 0; color: var(--teal);
+    }
+
+
+    .accordion-button:not(.collapsed) { background-color: var(--light-teal); color: var(--teal); }
+
+    [data-aos] { opacity: 1 !important; transform: none !important; }
+    :root {
+        --tv-navy: #212121;  
+        --tv-sky: #33ccff;    
+        --tv-glass: rgba(255, 255, 255, 0.03);
+        --tv-border: rgba(51, 204, 255, 0.15);
+    }
+
+    .faq-tv-section {
+        background-color: var(--tv-navy);
+        padding: 100px 0;
+    }
+
+    .faq-tv-title {
+        font-weight: 800;
+        background: linear-gradient(90deg, #33ccff, #ffffff, #00ffff, #33ccff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shineTV 4s linear infinite;
+        margin-bottom: 60px;
+    }
+    @keyframes shineTV { to { background-position: 200% center; } }
+
+    .faq-tv-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .faq-tv-container .accordion-item {
+        background: var(--tv-glass) !important;
+        border: 1px solid var(--tv-border) !important;
+        margin-bottom: 15px;
+        border-radius: 12px !important;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-tv-container .accordion-item:hover {
+        border-color: var(--tv-sky) !important;
+        box-shadow: 0 5px 20px rgba(51, 204, 255, 0.1);
+    }
+
+    .faq-tv-container .accordion-button {
+        background: transparent !important;
+        color: #ffffff !important;
+        padding: 22px 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        box-shadow: none !important;
+    }
+
+    .faq-tv-container .accordion-button:not(.collapsed) {
+        background: var(--tv-sky) !important;
+        color: #000000 !important;
+    }
+
+    .faq-tv-container .accordion-body {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgba(255, 255, 255, 0.75);
+        padding: 25px 35px;
+        line-height: 1.8;
+        border-top: 1px solid var(--tv-border);
+    }
+
+    .faq-tv-container .accordion-button::after {
+        filter: brightness(0) invert(1);
+    }
+    .faq-tv-container .accordion-button:not(.collapsed)::after {
+        filter: brightness(0);
+    }
+     .mega-menu .mega-icon i {
+        color: #33ccff !important; 
+        background: transparent !important;
+        display: inline-block !important;
+        font-size: inherit;
+        visibility: visible !important;
+    }
+
+    .mega-icon {
+        background-color: rgba(51, 204, 255, 0.2) !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+    }
+
+    .mega-menu-link:hover .mega-title {
+        color: #33ccff !important;
+    }
+
+    .mega-menu-link:hover .mega-icon i {
+        color: #33ccff !important; 

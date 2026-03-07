@@ -1,0 +1,862 @@
+{% extends "layout.html" %}
+
+{% block title %}Commercial Managed Network & Business WiFi Solutions | KLOUDTECK{% endblock %}
+
+{% block head %}
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Enterprise-grade managed WiFi and secure network infrastructure for hospitality, retail, warehouses, and commercial facilities. 24/7 monitoring, VLAN segmentation, and firewall protection.">
+  <link rel="canonical" href="https://www.kloudteck.com/managed-network-wifi-solutions/">
+  <meta property="og:title" content="Commercial Managed Network & Business WiFi Solutions">
+  <meta property="og:description" content="Enterprise-grade managed WiFi and secure network infrastructure.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.kloudteck.com/managed-network-wifi-solutions/">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Managed Network & WiFi Solutions",
+    "provider": {
+      "@type": "Organization",
+      "name": "KLOUDTECK",
+      "url": "https://www.kloudteck.com"
+    },
+    "description": "Enterprise-grade managed WiFi and secure network infrastructure for commercial facilities.",
+    "areaServed": ["Hospitality", "Retail", "Warehouses", "Commercial Office"],
+    "serviceType": "Managed Network Provider"
+  }
+  </script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wifi.css') }}">
+{% endblock %}
+
+{% block content %}
+
+  <!-- SECTION 1: HERO -->
+<section class="  services-wrapper process-section-bg shadow-sm" >
+    <div class="container">
+        <nav aria-label="breadcrumb">
+                <ol class="breadcrumb-modern">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/solutions" class="text-white-50">Solutions</a>
+                    </li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">Managed Networks & WiFi</li>
+                </ol>
+          </nav>
+
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-4">Managed Network & WiFi Solutions for Reliable Business Operations</h1>
+                <p class="lead mb-5">KLOUDTECK designs, installs, and manages secure wired and wireless networks for hotels, retail stores, warehouses, offices, schools, campuses, hospitals, and medical facilities — built for uptime, coverage, and growth.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="/quote" class="btn btn-teal-main shadow-lg">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light btn-lg px-4" style="border-radius: 50px;">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services-wrapper process-section-bg shadow-sm ">
+    <div class="container py-5">
+        <div class="row">
+            <!-- MAIN CONTENT AREA -->
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold text-white mb-4 reveal">Connectivity is the foundation of <span class="text-teal">modern business operations</span></h2>
+                <p class="fs-5 text-white-50 mb-5 reveal">KLOUDTECK designs and manages high-performance, secure network infrastructures built for commercial environments. From high-density hospitality deployments and warehouse-wide wireless coverage to connected school campuses and mission-critical healthcare facilities, we deliver reliable, scalable connectivity engineered for speed, security, and operational continuity.</p>
+                
+                <div class="feature-grid mt-5">
+                    <h3 class="mb-4 text-white fw-bold">Our Network Solutions Include:</h3>
+                    
+                    <!-- Row with Gaps -->
+                    <div class="row g-4 reveal">
+                        <!-- Card 1 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-wifi text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Enterprise WiFi Deployment</h4>
+                                <p class="text-white-50 mb-0">High-density access points with seamless roaming and band steering.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-diagram-project text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">VLAN Segmentation</h4>
+                                <p class="text-white-50 mb-0">Separate networks for guest, staff, POS, and operations with strict security policies.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-cable-car text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Fiber Backbone Integration</h4>
+                                <p class="text-white-50 mb-0">High-speed fiber connections between buildings and network cores.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-shield-halved text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Firewall & Cybersecurity</h4>
+                                <p class="text-white-50 mb-0">Next-gen firewalls, intrusion prevention, and content filtering.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-gauge-high text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Bandwidth Optimization</h4>
+                                <p class="text-white-50 mb-0">QoS policies ensure critical applications get priority bandwidth.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-clock text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">24/7 Monitoring</h4>
+                                <p class="text-white-50 mb-0">Proactive alerts and remote support to minimize downtime.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIDEBAR AREA -->
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <div class="sidebar-box p-4 rounded-4 border">
+                    <h4 class="mb-4 text-white fw-bold">Key Benefits</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> 99.9% uptime SLA</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> Enterprise-grade hardware</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> Scalable architecture</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> PCI compliance ready</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> Remote management</li>
+                    </ul>
+                    <hr class="border-secondary">
+                    <h5 class="mb-3 text-white">Industries We Serve</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge-custom">Hospitality</span>
+                        <span class="badge-custom">Retail</span>
+                        <span class="badge-custom">Warehouses</span>
+                        <span class="badge-custom">Office</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 4: WHY BUSINESSES CHOOSE KLOUDTECK -->
+<section class="section-padding bg-soft services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold text-navy mb-4">Why Businesses Choose KLOUDTECK</h2>
+                <p class="text-secondary mb-4">KLOUDTECK is more than an installer — we’re a technology partner focused on reliable infrastructure and long-term performance. We understand how networks connect to real business operations, including WiFi, phones, cameras, access control, and day-to-day uptime.</p>
+                <p class="text-secondary mb-4">We design clean, scalable systems and support them with practical service that keeps your operation moving.</p>
+                <p class="text-secondary mb-5">When your network is unreliable, everything feels it — guest experience, payment processing, phone systems, staff productivity, and security systems. KLOUDTECK helps businesses reduce downtime and improve performance with well-designed, professionally managed network infrastructure.</p>
+                
+                <h4 class="fw-bold mb-4">What you get with KLOUDTECK</h4>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="fas fa-check-circle check-list-icon"></i> Stronger WiFi coverage with proper access point placement and design</li>
+                    <li class="mb-3"><i class="fas fa-check-circle check-list-icon"></i> Reliable uptime for operations, POS, VoIP, and connected systems</li>
+                    <li class="mb-3"><i class="fas fa-check-circle check-list-icon"></i> Secure segmentation for guest, staff, POS, cameras, and back-office traffic</li>
+                    <li class="mb-3"><i class="fas fa-check-circle check-list-icon"></i> Faster troubleshooting with proactive monitoring and remote support</li>
+                    <li class="mb-3"><i class="fas fa-check-circle check-list-icon"></i> Scalable infrastructure built for growth, upgrades, and multi-site expansion</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 text-center">
+               <img class="img-fluid rounded-5 shadow-lg mt-lg-5 mb-4" 
+                    style="max-width: 100%; height: auto; object-fit: cover;" 
+                    src="{{ url_for('static', filename='images/wifi.jpeg') }}">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NEW SECTION: WHAT WE DELIVER -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-5">
+        <!-- Main Header -->
+        <div class="text-center mb-5 reveal">
+            <h2 class="display-5 fw-bold text-white">What We <span style="color: #33ccff;">Deliver</span></h2>
+            <p class="text-white-50 mx-auto mt-3" style="max-width: 800px;">
+                KLOUDTECK provides end-to-end network services — from planning and installation to optimization and ongoing management.
+            </p>
+        </div>
+
+        <!-- Content Card -->
+        <div class="info-card p-5 reveal shadow-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(51, 204, 255, 0.2); border-radius: 30px;">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h5 class="fw-bold text-uppercase tracking-wider" style="color: #33ccff; letter-spacing: 1px;">Network & WiFi Solutions Include</h5>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Column 1 -->
+                <div class="col-md-6">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">Business WiFi design and deployment</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">Managed wireless networks</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">Router, switch, and firewall configuration</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">VLAN setup and traffic segmentation</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">Guest WiFi / captive portal configuration</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">QoS optimization for VoIP and business-critical apps</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="col-md-6">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">Network upgrades and performance tuning</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">ISP coordination and failover planning</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">VPN setup for remote access or multi-site connectivity</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">Structured network rack organization and patching</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-start">
+                            <i class="fas fa-dot-circle small mt-1" style="color: #33ccff; margin-right: 12px;"></i>
+                            <span class="text-white-50">Monitoring, alerts, backups, and remote management</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: REAL WORLD OPERATIONS -->
+<section class=" services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8">
+                <span class="text-teal fw-bold text-uppercase small tracking-widest">Performance Matters</span>
+                <h2 class="display-5 fw-bold text-navy mt-2">Managed WiFi for Real-World Operations</h2>
+                <p class="lead text-secondary mt-3">
+                    Your WiFi network should support how your business actually operates — <span class="text-teal fw-bold">not just pass a speed test.</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- 1 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-users"></i></div>
+                    <p class="why-card text-white text-white">High device density</p>
+                </div>
+            </div>
+            <!-- 2 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-walking"></i></div>
+                    <p class="why-card text-white">Roaming between access points</p>
+                </div>
+            </div>
+            <!-- 3 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-user-shield"></i></div>
+                    <p class="why-card text-white">Guest access and staff separation</p>
+                </div>
+            </div>
+            <!-- 4 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-credit-card"></i></div>
+                    <p class="why-card text-white">POS reliability and payment processing</p>
+                </div>
+            </div>
+            <!-- 5 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-phone-volume"></i></div>
+                    <p class="why-card text-white">VoIP call quality</p>
+                </div>
+            </div>
+            <!-- 6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-microchip"></i></div>
+                    <p class="why-card text-white">Cameras, access control, and IoT devices</p>
+                </div>
+            </div>
+            <!-- 7 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-layer-group"></i></div>
+                    <p class="why-card text-white">Multi-building or multi-floor coverage</p>
+                </div>
+            </div>
+            <!-- 8 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="why-card">
+                    <div class="rw-icon-box"><i class="fas fa-expand-alt"></i></div>
+                    <p class="why-card text-white">Future expansion</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUTRO BOX -->
+        <div class="outro-box text-center">
+            <h4 class="mb-0 fw-bold">
+                We build networks that balance coverage, capacity, security, and usability — so your team and customers stay connected when it matters most.
+            </h4>
+        </div>
+    </div>
+</section>
+<!-- SECTION 6: INDUSTRIES -->
+<section class="section-padding services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold text-navy mb-4">Built for the Way Your Industry Operates</h2>
+        <p class="lead text-secondary mb-5">We understand that every environment has different requirements. KLOUDTECK delivers solutions designed around your workflows, uptime needs, and customer experience.</p>
+        <div class="d-flex flex-wrap text-teal justify-content-center">
+            <span class="ind-pill">Hospitality</span>
+            <span class="ind-pill">Retail</span>
+            <span class="ind-pill">Warehouses & Distribution</span>
+            <span class="ind-pill">Multi-Family & Community Properties</span>
+            <span class="ind-pill">Commercial Offices</span>
+            <span class="ind-pill">School & Campus</span>
+            <span class="ind-pill">Hospitals & Medical Offices</span>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 7: OUR PROCESS -->
+<!-- 7. OUR PROCESS SECTION -->
+<section class="process-modern-section" id="our-process">
+    <div class="container">
+        <!-- Header -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center reveal">
+                <h2 class="display-5 fw-bold process-title-shine mb-3">Our Process</h2>
+                <p class="lead text-white-50">We take a practical, engineering-first approach to building reliable network infrastructure.</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10 process-line-container">
+                
+                <!-- Step 1 -->
+                <div class="process-card-modern mb-5 reveal">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex align-items-start">
+                            <div class="process-number-badge me-4">1</div>
+                            <div class="flex-grow-1">
+                                <h4 class="fw-bold text-white mb-3">Discovery & Assessment</h4>
+                                <p class="text-white-50 mb-4">We review your current environment, challenges, business needs, and goals.</p>
+                                
+                                <h6 class="sub-heading-tech mb-3">Typical inputs:</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-chevron-right small"></i> Building type and layout</li>
+                                            <li><i class="fas fa-chevron-right small"></i> Number of users/devices</li>
+                                            <li><i class="fas fa-chevron-right small"></i> Existing ISP and equipment</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-chevron-right small"></i> Problem areas (dead zones, outages, slow speeds)</li>
+                                            <li><i class="fas fa-chevron-right small"></i> Guest WiFi / POS / VoIP / camera requirements</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-card-modern mb-5 reveal">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex align-items-start">
+                            <div class="process-number-badge me-4">2</div>
+                            <div class="flex-grow-1">
+                                <h4 class="fw-bold text-white mb-3">Site Survey & Network Planning</h4>
+                                <p class="text-white-50 mb-4">We evaluate coverage requirements and design a solution based on your space and usage.</p>
+                                
+                                <h6 class="sub-heading-tech mb-3">May include:</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-chevron-right small"></i> Floor plan review</li>
+                                            <li><i class="fas fa-chevron-right small"></i> RF coverage planning / heat mapping</li>
+                                            <li><i class="fas fa-chevron-right small"></i> Interference considerations</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-chevron-right small"></i> AP placement recommendations</li>
+                                            <li><i class="fas fa-chevron-right small"></i> Switching and firewall review</li>
+                                            <li><i class="fas fa-chevron-right small"></i> Segmentation and security planning</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-card-modern mb-5 reveal">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex align-items-start">
+                            <div class="process-number-badge me-4">3</div>
+                            <div class="flex-grow-1">
+                                <h4 class="fw-bold text-white mb-3">Installation & Configuration</h4>
+                                <p class="text-white-50 mb-4">We deploy and configure your network equipment for performance, security, and manageability.</p>
+                                
+                                <div class="row g-3 border-top border-secondary pt-4">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-check-double"></i> Access points, switches, routers, firewalls</li>
+                                            <li><i class="fas fa-check-double"></i> VLANs and SSIDs</li>
+                                            <li><i class="fas fa-check-double"></i> Guest network setup</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-check-double"></i> QoS and policy configuration</li>
+                                            <li><i class="fas fa-check-double"></i> Rack cleanup and labeling (as needed)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-card-modern mb-5 reveal">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex align-items-start">
+                            <div class="process-number-badge me-4">4</div>
+                            <div class="flex-grow-1">
+                                <h4 class="fw-bold text-white mb-3">Testing & Optimization</h4>
+                                <p class="text-white-50 mb-4">We validate coverage, performance, and reliability across key areas and devices.</p>
+                                
+                                <div class="row g-3 border-top border-secondary pt-4">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-vial"></i> Coverage verification</li>
+                                            <li><i class="fas fa-vial"></i> Roaming checks</li>
+                                            <li><i class="fas fa-vial"></i> Speed and stability testing</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-vial"></i> Application-specific testing (POS, VoIP, etc.)</li>
+                                            <li><i class="fas fa-vial"></i> Final tuning and optimization</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="process-card-modern mb-4 reveal">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex align-items-start">
+                            <div class="process-number-badge me-4">5</div>
+                            <div class="flex-grow-1">
+                                <h4 class="fw-bold text-white mb-3">Ongoing Monitoring & Support</h4>
+                                <p class="text-white-50 mb-4">We provide proactive support to help reduce downtime and resolve issues faster.</p>
+                                
+                                <div class="row g-3 border-top border-secondary pt-4">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-headset"></i> Remote monitoring and alerts</li>
+                                            <li><i class="fas fa-headset"></i> Firmware and patch management (as applicable)</li>
+                                            <li><i class="fas fa-headset"></i> Configuration backups</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled process-list mb-0">
+                                            <li><i class="fas fa-headset"></i> Troubleshooting and support</li>
+                                            <li><i class="fas fa-headset"></i> ISP/vendor coordination</li>
+                                            <li><i class="fas fa-headset"></i> Optional on-site support and dispatch</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SECTION 8: SERVICE OPTIONS -->
+<section class="options-section services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5 reveal">
+            <h2 class="display-5 fw-bold options-title-shine">Managed Service Options</h2>
+            <p class="text-white-50 mt-3">Choose the deployment model that best fits your business goals and operational needs.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Option 1: One-Time Deployment -->
+            <div class="col-lg-5 col-md-6 reveal">
+                <div class="options-card">
+                    <div class="mb-4">
+                        <i class="fas fa-rocket text-teal fs-1"></i>
+                    </div>
+                    <h3 class="option-title">One-Time Network Deployment</h3>
+                    <p class="option-desc">Ideal if you need a new installation, upgrade, or WiFi redesign.</p>
+                    
+                    <ul class="option-list">
+                        <li><i class="fas fa-check-circle"></i> Design and planning</li>
+                        <li><i class="fas fa-check-circle"></i> Hardware configuration</li>
+                        <li><i class="fas fa-check-circle"></i> Installation and testing</li>
+                        <li><i class="fas fa-check-circle"></i> Documentation / handoff</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Option 2: Fully Managed Service (Featured) -->
+            <div class="col-lg-5 col-md-6 reveal">
+                <div class="options-card featured-option">
+                    <div class="mb-4">
+                        <i class="fas fa-shield-halved text-teal fs-1"></i>
+                    </div>
+                    <h3 class="option-title">Fully Managed Network Service</h3>
+                    <p class="option-desc">Ideal for businesses that want proactive support and long-term reliability.</p>
+                    
+                    <ul class="option-list">
+                        <li><i class="fas fa-check-circle"></i> 24/7 monitoring & alerts</li>
+                        <li><i class="fas fa-check-circle"></i> Remote troubleshooting</li>
+                        <li><i class="fas fa-check-circle"></i> Performance optimization</li>
+                        <li><i class="fas fa-check-circle"></i> Firmware & security updates</li>
+                        <li><i class="fas fa-check-circle"></i> Configuration backups</li>
+                        <li><i class="fas fa-check-circle"></i> ISP escalation support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- SECTION 9: QUOTE REQUIREMENTS -->
+<section class="section-padding services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container text-white">
+        <!-- Card Container for visual appeal -->
+        <div class="p-4 p-md-5 rounded-4 shadow-sm border text-white why-card">
+            
+            <!-- Header Section -->
+            <div class="mb-4">
+                <h2 class="fw-bold text-white mb-3">What We Need to Quote Your Project</h2>
+                <p class="lead text-secondary fs-6">To provide a faster and more accurate quote, it helps to share:</p>
+            </div>
+
+            <!-- List Content Split into 2 Columns -->
+            <div class="row g-3 g-lg-4 text-white">
+                
+                <!-- Column 1 -->
+                <div class="col-lg-6 text-white">
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Building type (hotel, retail, warehouse, office, etc.)</span>
+                        </li>
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Square footage</span>
+                        </li>
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Number of floors / buildings</span>
+                        </li>
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Approximate number of users and devices</span>
+                        </li>
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Internet provider and speed</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="col-lg-6">
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Existing network equipment (if any)</span>
+                        </li>
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Whether you need guest WiFi, POS VLANs, cameras, VoIP support, etc.</span>
+                        </li>
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Floor plans or Floor layouts (if available)</span>
+                        </li>
+                        <li class="d-flex mb-3 align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3 flex-shrink-0 mt-1"></i>
+                            <span class=" text-white">✔ Number of locations (for multi-site projects)</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 10: TRUSTED BY LEADERS -->
+<section class="section-padding bg-white border-top">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Trusted by Industry Leaders</h2>
+        <div class="filter-bar mb-4">
+            <span class="active">All Brands</span> | <span>Hotels</span> | <span>Enterprise</span>
+        </div>
+           <!-- The Scrolling Logos --> 
+    <div class="marquee-mask mt-5">
+        <div class="marquee-track">
+            <!-- Group 1 -->
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Hyatt_Logo.svg" alt="Hyatt"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg" alt="Marriott"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/King_Hussein_Bin_Talal_Convention_Centre_Managed_By_Hilton_logo.svg" alt="Hilton"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Walmart_logo_%282008%29.svg"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/IHG_Primary_Centred_Logo_Black_RGB.png" alt="IHG"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Holiday_Inn_Logo.png" alt="Holiday Inn"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Best_Western_Hotels_%26_Resorts_logo.svg" alt="Best Western"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Wyndham_Hotels_%26_Resorts_logo.svg" alt="Wyndham"></div>
+            
+            <!-- Group 2 (Duplicate for seamless scroll) -->
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Hyatt_Logo.svg" alt="Hyatt"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg" alt="Marriott"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/King_Hussein_Bin_Talal_Convention_Centre_Managed_By_Hilton_logo.svg" alt="Hilton"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Walmart_logo_%282008%29.svg"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/IHG_Primary_Centred_Logo_Black_RGB.png" alt="IHG"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Holiday_Inn_Logo.png" alt="Holiday Inn"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Best_Western_Hotels_%26_Resorts_logo.svg" alt="Best Western"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Wyndham_Hotels_%26_Resorts_logo.svg" alt="Wyndham"></div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ SECTION -->
+<!-- FAQ SECTION -->
+<section class="faq-modern-section">
+    <div class="container">
+        <div class="text-center mb-5 reveal">
+            <h2 class="display-5 fw-bold faq-title-shine">Frequently Asked Questions</h2>
+            <p class="text-white-50 mt-3">Find answers to common questions about our managed network and business WiFi solutions.</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="accordion" id="netFaq">
+                    
+                    <!-- Q1 -->
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                                Do you only work with new installations?
+                            </button>
+                        </h2>
+                        <div id="q1" class="accordion-collapse collapse" data-bs-parent="#netFaq">
+                            <div class="accordion-body">
+                                No. We support both new network deployments and upgrades to existing systems. If your current WiFi is slow, unstable, or poorly designed, we can assess it and recommend improvements.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                                Can you work with our existing equipment?
+                            </button>
+                        </h2>
+                        <div id="q2" class="accordion-collapse collapse" data-bs-parent="#netFaq">
+                            <div class="accordion-body">
+                                In many cases, yes. We can evaluate your current routers, switches, firewalls, and access points to determine what can be reused and what should be upgraded.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                                Do you provide ongoing managed support?
+                            </button>
+                        </h2>
+                        <div id="q3" class="accordion-collapse collapse" data-bs-parent="#netFaq">
+                            <div class="accordion-body">
+                                Yes. KLOUDTECK offers managed network services, including monitoring, remote troubleshooting, updates, backups, and support options based on your environment.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                                Do you support multi-site businesses?
+                            </button>
+                        </h2>
+                        <div id="q4" class="accordion-collapse collapse" data-bs-parent="#netFaq">
+                            <div class="accordion-body">
+                                Yes. We can design and manage network solutions for businesses with multiple locations and help standardize configuration, security, and support.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                                How long does a network deployment take?
+                            </button>
+                        </h2>
+                        <div id="q5" class="accordion-collapse collapse" data-bs-parent="#netFaq">
+                            <div class="accordion-body">
+                                Project timelines vary based on site size, complexity, and whether cabling or hardware upgrades are needed. After an assessment, we can provide a clear scope and timeline.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q6">
+                                Do you provide guest WiFi and secure staff/POS separation?
+                            </button>
+                        </h2>
+                        <div id="q6" class="accordion-collapse collapse" data-bs-parent="#netFaq">
+                            <div class="accordion-body">
+                                Yes. We configure guest WiFi, staff networks, and segmented VLANs to help improve performance and security for business operations.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q7">
+                                Can you improve WiFi coverage in problem areas?
+                            </button>
+                        </h2>
+                        <div id="q7" class="accordion-collapse collapse" data-bs-parent="#netFaq">
+                            <div class="accordion-body">
+                                Yes. We perform site assessments and optimize access point placement, configuration, and network design to reduce dead zones and improve coverage.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="services-wrapper process-section-bg shadow-sm" style="background: var(--navy);">
+    <div class="container text-center text-white">
+        <h2 class="display-5 fw-bold mb-4">Build a Network You Can Rely On</h2>
+        <p class="lead opacity-75 mb-5 mx-auto" style="max-width: 800px;">From planning and installation to monitoring and support, KLOUDTECK delivers managed network and WiFi solutions built for real-world business operations.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="/quote" class="btn btn-teal-main btn-lg px-5">Request a Quote</a>
+            <a style="border: solid 1px white;" href="/contact" class="btn btn-outline-light btn-lg px-5" style="border-radius: 50px;">Contact Us</a>
+        </div>
+    </div>
+</section>
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Commercial%20Access%20Control" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a> -->
+
+<script>
+  // Scroll Progress Logic
+  window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.getElementById("scrollProgress").style.width = scrolled + "%";
+    
+    // Back to top button visibility
+    let btt = document.getElementById("backToTop");
+    if (winScroll > 300) { btt.style.display = "block"; } else { btt.style.display = "none"; }
+  };
+
+  document.getElementById("backToTop").onclick = function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+</script>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) { entry.target.classList.add('active'); }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / 200;
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(updateCount, 10);
+            } else { counter.innerText = target; }
+        };
+        const counterObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) updateCount();
+        });
+        counterObserver.observe(counter);
+    });
+</script>
+
+{% endblock %}

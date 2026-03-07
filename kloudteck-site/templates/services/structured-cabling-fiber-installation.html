@@ -1,0 +1,673 @@
+ {% extends "layout.html" %}
+
+{% block title %}Structured Cabling & Fiber Installation | KLOUDTECK{% endblock %}
+
+{% block head %}
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Professional Cat6, Cat6A, and fiber optic installation for commercial facilities. Clean, standards-based infrastructure for offices, warehouses, and hospitality.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cable.css') }}">
+  
+  <style>
+    
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<!-- 1. HERO SECTION -->
+<section class="hero-cabling services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb-modern">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/solutions" class="text-white-50">Solutions</a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Structured Cabling & Fiber Installation</li>
+            </ol>
+          </nav>
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="display-4 fw-bold mb-3">Structured Cabling & Fiber Installation</h1>
+                <p class="lead fw-bold mb-4" style="color: #00ced1;">Infrastructure built for growth — clean, organized, and certified for 10GbE and beyond.</p>
+                <p class="opacity-75 fs-5">KLOUDTECK delivers professional structured cabling and fiber installation for commercial facilities. We design and install clean, standards-based infrastructure for offices, warehouses, hospitality, retail, and multi-site environments.</p>
+                
+                <div class="mt-5 d-flex gap-3 flex-wrap">
+                    <a href="/quote" class="btn btn-teal-main shadow">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light btn-lg px-4" style="border-radius: 50px;">View Portfolio</a>
+                </div>
+
+                <div class="trust-badge-row">
+                    <small><i class="fas fa-certificate me-1"></i> TIA/EIA Standards</small>
+                    <small><i class="fas fa-microchip me-1"></i> Fluke Tested</small>
+                    <small><i class="fas fa-check-double me-1"></i> Certified Installations</small>
+                    <small><i class="fas fa-shield-alt me-1"></i> 25-Year Warranty</small>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center">
+                <img style="height: 300px;border-radius: 85px;" src="{{ url_for('static', filename='images/cable.jpg') }}" alt="Structured Cabling">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 2. INTRO / PROBLEM-SOLUTION SECTION -->
+<section  class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div  class="container">
+       <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h2 class="display-6 fw-bold mb-4" style="color: #0a1a2a;">Behind every high-performing network is clean, organized cabling infrastructure</h2>
+            </div>
+           <div class="col-lg-5 col-md-6 col-sm-12">
+                <img src="{{ url_for('static', filename='images/cable1.jpg') }}" 
+                     class="img-fluid" 
+                     style="border-radius: 40px; width: 100%; height: auto; object-fit: cover;" 
+                     alt="Structured Cabling">
+            </div>
+       </div>    
+    </div>
+</section>
+
+<!-- 3. SERVICES GRID SECTION -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5" style="color: #0a1a2a;">Our Cabling Services</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="s-card">
+                    <h5 class="fw-bold mb-3 text-teal">Cat6 / Cat6A Network Cabling</h5>
+                    <p class="small text-secondary mb-0">Certified copper cabling for commercial networks, including new drops, expansions, and full-floor buildouts.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card">
+                    <h5 class="fw-bold mb-3 text-teal">Fiber Optic Backbone Installation</h5>
+                    <p class="small text-secondary mb-0">Single-mode and multimode fiber installation for MDF/IDF backbones, riser runs, and inter-building connectivity.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card">
+                    <h5 class="fw-bold mb-3 text-teal">Server Room Buildouts (MDF / IDF)</h5>
+                    <p class="small text-secondary mb-0">Rack layout, patch panels, cable management, and closet organization for clean, serviceable infrastructure.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card">
+                    <h5 class="fw-bold mb-3 text-teal">Rack & Patch Panel Organization</h5>
+                    <p class="small text-secondary mb-0">Repatching, relabeling, cleanup, and reorganization for existing telecom closets and server rooms.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card">
+                    <h5 class="fw-bold mb-3 text-teal">Low Voltage Cabling</h5>
+                    <p class="small text-secondary mb-0">Cabling for CCTV, access control, intercoms, and other connected low-voltage systems.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="s-card">
+                    <h5 class="fw-bold mb-3 text-teal">Infrastructure Upgrades</h5>
+                    <p class="small text-secondary mb-0">Modernize legacy cabling and improve capacity, organization, and long-term maintainability.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. POE / DEVICE READINESS SECTION -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Built for PoE, WiFi, Security, and Smart Building Systems</h2>
+            <p class="lead text-secondary mx-auto mt-3" style="max-width: 800px;">Modern facilities depend on connected devices that require reliable data and power delivery. KLOUDTECK installs structured cabling designed to support current device loads while leaving room for future expansion.</p>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-md-2 col-6"><i class="fas fa-wifi fa-2x text-teal mb-2"></i><p>WiFi Access Points</p></div>
+            <div class="col-md-2 col-6"><i class="fas fa-video fa-2x text-teal mb-2"></i><p>IP CCTV Cameras</p></div>
+            <div class="col-md-2 col-6"><i class="fas fa-phone-alt fa-2x text-teal mb-2"></i><p>VoIP Phones</p></div>
+            <div class="col-md-2 col-6"><i class="fas fa-id-badge fa-2x text-teal mb-2"></i><p>Access Control</p></div>
+            <div class="col-md-2 col-6"><i class="fas fa-tv fa-2x text-teal mb-2"></i><p>Digital Signage</p></div>
+            <div class="col-md-2 col-6"><i class="fas fa-microchip fa-2x text-teal mb-2"></i><p>IoT / Smart Sensors</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- 5. FIBER DEEP DIVE SECTION -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-3">Fiber Optic Backbone Installation (Single-Mode & Multimode)</h2>
+                <p class="lead text-secondary">We install and terminate fiber backbone cabling for high-speed uplinks, riser connectivity, and inter-building links, with solutions tailored to distance, bandwidth, and future growth.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="comp-card comp-sm">
+                    <h4 class="fw-bold text-teal mb-3">Single-Mode Fiber (OS2)</h4>
+                    <ul class="list-unstyled mb-0">
+                        <li>• Best for longer-distance runs</li>
+                        <li>• Ideal for campus/inter-building links</li>
+                        <li>• Supports high-capacity future expansion</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="comp-card comp-sm">
+                    <h4 class="fw-bold text-teal mb-3">Multimode Fiber (OM3 / OM4)</h4>
+                    <ul class="list-unstyled mb-0">
+                        <li>• Best for high-speed in-building links</li>
+                        <li>• Commonly used for MDF-to-IDF uplinks</li>
+                        <li>• Cost-effective commercial deployments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 text-center g-3">
+            <div class="col-md-3"><i style="padding-right: 5px;" class="fas fa-microchip text-teal"> </i> <strong>LC / SC termination</strong></div>
+            <div class="col-md-3"><i style="padding-right: 5px;" class="fas fa-cable-car text-teal"> </i><strong>Fiber patch panels</strong></div>
+            <div class="col-md-3"><i style="padding-right: 5px;" class="fas fa-store-alt text-teal"> </i><strong>Performance testing</strong></div>
+            <div class="col-md-3"><i style="padding-right: 5px;" class="fas fa-chart-bar text-teal"> </i><strong>New build & retrofit</strong></div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. BENEFITS SECTION -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">Why Structured Cabling Quality Matters</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4"><div class="p-3 border rounded"><i class="fas fa-bolt check-icon"></i>Future-ready bandwidth</div></div>
+            <div class="col-md-6 col-lg-4"><div class="p-3 border rounded"><i class="fas fa-search check-icon"></i>Reduced troubleshooting time</div></div>
+            <div class="col-md-6 col-lg-4"><div class="p-3 border rounded"><i class="fas fa-plug check-icon"></i>Improved PoE reliability</div></div>
+            <div class="col-md-6 col-lg-4"><div class="p-3 border rounded"><i class="fas fa-broom check-icon"></i>Cleaner racks and closets</div></div>
+            <div class="col-md-6 col-lg-4"><div class="p-3 border rounded"><i class="fas fa-check-double check-icon"></i>Standards-based installation</div></div>
+            <div class="col-md-6 col-lg-4"><div class="p-3 border rounded"><i class="fas fa-vial check-icon"></i>Testing & certification</div></div>
+            <div class="col-md-12 text-center"><div class="p-3 border rounded d-inline-block">Long-term value — organized infrastructure reduces rework costs</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. INSTALLATION PROCESS SECTION -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5">Our Structured Cabling Installation Process</h2>
+        <div class="mx-auto" style="max-width: 800px;">
+            <div class="step-item"><div class="step-num">1</div><h5 class="fw-bold">Site Survey & Discovery</h5><p class="small text-secondary">Assess facility layout, pathways, MDF/IDF locations, and device requirements.</p></div>
+            <div class="step-item"><div class="step-num">2</div><h5 class="fw-bold">Design & Scope Planning</h5><p class="small text-secondary">Define cable types, drop counts, routing, closet layout, and labeling standards.</p></div>
+            <div class="step-item"><div class="step-num">3</div><h5 class="fw-bold">Material Selection & Coordination</h5><p class="small text-secondary">Align racks, patch panels, and pathway materials to project requirements and schedule.</p></div>
+            <div class="step-item"><div class="step-num">4</div><h5 class="fw-bold">Installation & Termination</h5><p class="small text-secondary">Perform cable pulls, terminations, patch panel integration, and rack setup.</p></div>
+            <div class="step-item"><div class="step-num">5</div><h5 class="fw-bold">Labeling & Cable Management</h5><p class="small text-secondary">Label every run and organize for long-term supportability.</p></div>
+            <div class="step-item"><div class="step-num">6</div><h5 class="fw-bold">Testing & Certification</h5><p class="small text-secondary">Test and certify installed links to verify performance and compliance.</p></div>
+            <div class="step-item"><div class="step-num">7</div><h5 class="fw-bold">Documentation & Handover</h5><p class="small text-secondary">Provide as-builts, panel maps, and cable labeling documentation.</p></div>
+            <div class="step-item"><div class="step-num">8</div><h5 class="fw-bold">Ongoing MAC Support</h5><p class="small text-secondary">Support future moves, adds, changes, and expansion work.</p></div>
+        </div>
+        <div class="text-center mt-5"><a href="/contact" class="btn btn-teal-main">Request Site Survey</a></div>
+    </div>
+</section>
+
+<!-- 9. INDUSTRY SOLUTIONS SECTION -->
+<section class="industry-showcase services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5 reveal">
+            <span class="text-teal fw-bold text-uppercase small tracking-widest">Sector Specifics</span>
+            <h2 class="display-5 fw-bold text-navy mt-2">Structured Cabling Solutions by Industry</h2>
+            <p class="lead text-secondary mx-auto mt-3" style="max-width: 800px;">Every facility has different security priorities, staffing models, and traffic patterns. KLOUDTECK tailors access control design to match your operations.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Hospitality -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="ind-card">
+                    <div class="ind-card-img" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="ind-overlay"></div>
+                    <div class="ind-content">
+                        <h4 class="ind-title">Hospitality</h4>
+                        <p class="ind-text">Support guest WiFi, back-office systems, VoIP, IPTV, and security infrastructure in occupied properties and renovations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commercial Office -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="ind-card">
+                    <div class="ind-card-img" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="ind-overlay"></div>
+                    <div class="ind-content">
+                        <h4 class="ind-title">Commercial Office</h4>
+                        <p class="ind-text">Desk drops, conference rooms, VoIP, WiFi, and clean MDF/IDF infrastructure for growing teams.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Retail -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="ind-card">
+                    <div class="ind-card-img" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="ind-overlay"></div>
+                    <div class="ind-content">
+                        <h4 class="ind-title">Retail</h4>
+                        <p class="ind-text">Reliable cabling for POS, cameras, back-office networking, and security systems.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warehouses & Distribution -->
+            <div class="col-lg-6 col-md-6 reveal">
+                <div class="ind-card">
+                    <div class="ind-card-img" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000');"></div>
+                    <div class="ind-overlay"></div>
+                    <div class="ind-content">
+                        <h4 class="ind-title">Warehouses & Distribution</h4>
+                        <p class="ind-text">Infrastructure for wide-area WiFi, cameras, inventory systems, and scalable backbone connectivity.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Family / Communities -->
+            <div class="col-lg-6 col-md-6 reveal">
+                <div class="ind-card">
+                    <div class="ind-card-img" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1000');"></div>
+                    <div class="ind-overlay"></div>
+                    <div class="ind-content">
+                        <h4 class="ind-title">Multi-Family / Communities</h4>
+                        <p class="ind-text">Structured low-voltage and network distribution for common areas, security systems, and telecom spaces.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 10. CERTIFICATION / PERFORMANCE SECTION -->
+<section class="section-padding process-section-bg shadow-sm services-wrapper">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h2 class="display-5 fw-bold">Certified Installations, Guaranteed Performance</h2>
+                <p class="lead text-secondary mt-3">KLOUDTECK installs structured cabling systems with a focus on measurable performance. Installed links are tested and certified, and documentation is provided to support validation and project closeout.</p>
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-2"><i class="fas fa-check-circle check-icon"></i>Category 6: up to 1GbE to 100 meters</li>
+                    <li class="mb-2"><i class="fas fa-check-circle check-icon"></i>Category 6A: up to 10GbE to 100 meters</li>
+                    <li><i class="fas fa-check-circle check-icon"></i>Fiber backbone: high-speed uplinks for longer distances</li>
+                </ul>
+                <div class="mt-4">
+                    <span class="me-3"><strong>Fluke Tested</strong></span> | <span class="me-3"><strong>Certified</strong></span> | <span><strong>Documented</strong></span>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center opacity-10">
+                <i class="fas fa-award fa-10x"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 11. WARRANTY SECTION -->
+<section class="section-padding process-section-bg shadow-sm services-wrapper">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-white mb-4">25-Year Performance Warranty</h2>
+        <p class="lead opacity-75 mb-5">Our certified structured cabling installations include a 25-year performance warranty, giving you confidence that your infrastructure is built for long-term reliability and future growth.</p>
+        <div class="row g-3">
+            <div class="col-md-6"><i class="fas fa-check text-teal me-2"></i>Standards-based installation</div>
+            <div class="col-md-6"><i class="fas fa-check text-teal me-2"></i>Proper termination practices</div>
+            <div class="col-md-6"><i class="fas fa-check text-teal me-2"></i>Documented testing</div>
+            <div class="col-md-6"><i class="fas fa-check text-teal me-2"></i>Long-term performance assurance</div>
+        </div>
+    </div>
+</section>
+
+<!-- 12. MAC SUPPORT SECTION -->
+<section class="mac-support-wrapper process-section-bg shadow-sm services-wrapper">
+    <div class="container ">
+        <div class="mac-content-box text-center reveal process-section-bg shadow-sm services-wrapper">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h2 class="display-5 mac-heading">Moves, Adds & Changes (MAC) Support</h2>
+                    <p class="mac-body-text">
+                        Your cabling needs evolve over time. KLOUDTECK provides ongoing support for expansions, relocations, reconfigurations, and infrastructure cleanup to keep your environment organized and documented.
+                    </p>
+                    
+                    <div class="mac-checklist-grid">
+                        <!-- Item 1 -->
+                        <div class="mac-item">
+                            <i class="fas fa-plus-circle mac-icon"></i>
+                            <span class="mac-item-text">Add new drops</span>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="mac-item">
+                            <i class="fas fa-arrows-alt mac-icon"></i>
+                            <span class="mac-item-text">Relocate existing drops</span>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="mac-item">
+                            <i class="fas fa-tools mac-icon"></i>
+                            <span class="mac-item-text">Re-terminate damaged runs</span>
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="mac-item">
+                            <i class="fas fa-server mac-icon"></i>
+                            <span class="mac-item-text">Rack / patch panel changes</span>
+                        </div>
+                        <!-- Item 5 -->
+                        <div class="mac-item">
+                            <i class="fas fa-broom mac-icon"></i>
+                            <span class="mac-item-text">Closet cleanup and relabeling</span>
+                        </div>
+                        <!-- Item 6 -->
+                        <div class="mac-item">
+                            <i class="fas fa-expand-alt mac-icon"></i>
+                            <span class="mac-item-text">Expansion support</span>
+                        </div>
+                        <!-- Item 7 -->
+                        <div class="mac-item">
+                            <i class="fas fa-file-signature mac-icon"></i>
+                            <span class="mac-item-text">Documentation updates after changes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 13. WHY CHOOSE KLOUDTECK -->
+<section class="choose-section process-section-bg shadow-sm services-wrapper">
+    <div class="container">
+        <div class="text-center reveal">
+            <h2 class="display-5 fw-bold text-navy mb-4">Why Choose KLOUDTECK for Structured Cabling</h2>
+            <p class="lead text-secondary choose-intro-text">We don’t just install cable—we build infrastructure that’s clean, scalable, and easy to support long after project closeout.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center reveal">
+            <!-- 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-card">
+                    <div class="choose-icon-box">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h5 class="choose-title">Clean installation quality</h5>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-card">
+                    <div class="choose-icon-box">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h5 class="choose-title">Commercial and multi-site experience</h5>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-card">
+                    <div class="choose-icon-box">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h5 class="choose-title">Standards-based design and testing</h5>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-card">
+                    <div class="choose-icon-box">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <h5 class="choose-title">Documentation-first approach</h5>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-card">
+                    <div class="choose-icon-box">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h5 class="choose-title">Occupied-building retrofit experience</h5>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="choose-card">
+                    <div class="choose-icon-box">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h5 class="choose-title">Scalable planning for future growth</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 14. FAQ SECTION - FULL 12 QUESTIONS -->
+<section class="faq-cabling-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="display-5 faq-cabling-title" data-aos="fade-up">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-cabling-container" data-aos="fade-up">
+            <div class="accordion" id="cablingFaqModern">
+                
+                <!-- 1 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f1">
+                            1) Cat6 vs Cat6A — which one do I need?
+                        </button>
+                    </h2>
+                    <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Cat6 is a solid choice for many business networks and supports reliable gigabit performance. Cat6A is a better fit when you want stronger future-readiness for higher bandwidth needs, 10GbE applications, or new construction where upgrading later would be more expensive. If you’re unsure, KLOUDTECK can recommend the right option during a site survey based on your layout, device count, and long-term goals.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f2">
+                            2) Do you install fiber optic cabling?
+                        </button>
+                    </h2>
+                    <div id="f2" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Yes. KLOUDTECK installs fiber optic backbone cabling for commercial environments, including MDF-to-IDF uplinks, riser runs, and inter-building connectivity. We support both single-mode and multimode fiber solutions based on distance, bandwidth requirements, and future expansion plans.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f3">
+                            3) Do you work in occupied buildings?
+                        </button>
+                    </h2>
+                    <div id="f3" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Yes. We regularly perform structured cabling projects in occupied commercial spaces, including offices, retail locations, and hospitality properties. We plan installations to minimize disruption and can coordinate work around business hours when needed.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f4">
+                            4) How long does a structured cabling installation take?
+                        </button>
+                    </h2>
+                    <div id="f4" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Project timelines depend on the size and complexity of the job, including:
+                            <ul class="mt-3">
+                                <li>number of cable drops</li>
+                                <li>building layout and pathways</li>
+                                <li>MDF/IDF conditions</li>
+                                <li>site access</li>
+                                <li>whether the space is occupied</li>
+                            </ul>
+                            After a site survey, we provide a clear scope and timeline so expectations are set before work begins.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f5">
+                            5) Do you provide testing and certification reports?
+                        </button>
+                    </h2>
+                    <div id="f5" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Yes. We test installed cabling links and provide performance validation documentation as part of project closeout. This helps confirm the installation is performing as expected and gives your team a record for future support.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f6">
+                            6) Do you provide as-built documentation?
+                        </button>
+                    </h2>
+                    <div id="f6" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Yes. We provide documentation such as:
+                            <ul class="mt-3">
+                                <li>cable labeling references</li>
+                                <li>patch panel mapping</li>
+                                <li>outlet/termination records</li>
+                                <li>project handoff details (as applicable)</li>
+                            </ul>
+                            This makes future troubleshooting, expansions, and MAC (Moves, Adds & Changes) work much easier.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f7">
+                            7) Can you clean up an existing server room or IDF/MDF closet?
+                        </button>
+                    </h2>
+                    <div id="f7" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Absolutely. We provide rack cleanup, patch panel organization, relabeling, and cable management improvements for existing telecom closets and server rooms. If your environment is difficult to troubleshoot or expand, we can help reorganize it into a cleaner, more serviceable setup.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f8">
+                            8) Do you support low-voltage systems like CCTV and access control?
+                        </button>
+                    </h2>
+                    <div id="f8" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Yes. KLOUDTECK installs low-voltage cabling for systems such as:
+                            <ul class="mt-3">
+                                <li>IP CCTV cameras</li>
+                                <li>access control readers/panels</li>
+                                <li>intercom/entry systems</li>
+                                <li>other connected low-voltage devices</li>
+                            </ul>
+                            We can coordinate these systems as part of a broader structured cabling and infrastructure plan.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f9">
+                            9) Can you add more drops or make changes after the initial installation?
+                        </button>
+                    </h2>
+                    <div id="f9" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Yes. We provide ongoing MAC support (Moves, Adds & Changes) for commercial facilities. This includes adding new drops, relocating existing ones, repatching, relabeling, and supporting future expansions as your business grows.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f10">
+                            10) Do you handle new construction and retrofit projects?
+                        </button>
+                    </h2>
+                    <div id="f10" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            Yes. We support both new construction buildouts and retrofit upgrades. Whether you’re starting from scratch or improving an existing cabling plant, we design and install infrastructure that is clean, scalable, and easier to support long-term.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f11">
+                            11) What types of businesses do you work with?
+                        </button>
+                    </h2>
+                    <div id="f11" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            We work with a range of commercial environments, including:
+                            <ul class="mt-3">
+                                <li>Hospitality</li>
+                                <li>Offices</li>
+                                <li>Retail</li>
+                                <li>Warehouses / distribution facilities</li>
+                                <li>Multi-family / community properties</li>
+                            </ul>
+                            If your facility depends on reliable network, security, voice, or connected systems, we can design cabling infrastructure to support it.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12 -->
+                <div class="accordion-item shadow-sm border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f12">
+                            12) What happens during a site survey?
+                        </button>
+                    </h2>
+                    <div id="f12" class="accordion-collapse collapse" data-bs-parent="#cablingFaqModern">
+                        <div class="accordion-body">
+                            During a site survey, we review your facility layout, cable pathways, MDF/IDF locations, device needs, and project goals. This helps us define the right scope, cabling types, and installation approach before quoting the project.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 15. BOTTOM CTA -->
+<section class="services-wrapper process-section-bg shadow-sm" style="background: #0a1a2a; color: white;">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold text-white mb-4">Ready to plan your cabling project?</h2>
+        <p class="lead opacity-75 mb-5 mx-auto" style="max-width: 700px;">Whether you need a new install, fiber backbone, MDF/IDF buildout, or infrastructure cleanup, KLOUDTECK can help.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="/quote" class="btn btn-teal-main btn-lg">Request Quote </a>
+            <a style="border:solid 1px white;" href="/contact" class="btn btn-outline-light btn-lg px-4" style="border-radius: 50px;">Contact Us</a>
+        </div>
+    </div>
+</section>
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Commercial%20Access%20Control" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ -->
+{% endblock %}

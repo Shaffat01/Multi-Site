@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Commercial IT Infrastructure Solutions & Business Technology | KLOUDTECK{% endblock %}</title>
+    <meta name="description" content="{% block meta_desc %}KLOUDTECK is a leading managed network provider and structured cabling contractor offering commercial security systems, business WiFi installation, and surveillance solutions.{% endblock %}">
+    <meta name="keywords" content="Commercial IT infrastructure solutions, Business technology solutions, Managed network provider, Commercial security systems, Structured cabling contractor, Business WiFi installation, Commercial surveillance systems, Access control installation company">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #02040a;  
+            --bg-card: #0f172a;  
+            --primary: #3b82f6;    
+            --accent: #8b5cf6;     
+            --text-main: #ffffff; 
+            --text-muted: #cbd5e1;  
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-bg: rgba(15, 23, 42, 0.7); 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1b1d25;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Syne', sans-serif; }
+        
+        p { color: var(--text-muted); line-height: 1.7; }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 40%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ----- Navbar ----- */
+        .navbar {
+            padding: 20px 0;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        .navbar.scrolled {
+            padding: 15px 0;
+            background: rgba(2, 4, 10, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .nav-link { color: #e2e8f0 !important; font-weight: 500; font-size: 1rem; }
+        .nav-link:hover { color: var(--primary) !important; }
+        
+        .dropdown-menu-dark {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+        .dropdown-item { color: #cbd5e1; padding: 8px 20px; transition: 0.2s; }
+        .dropdown-item:hover { background: var(--primary); color: white; }
+
+        .btn-portal {
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: white;
+            border-radius: 50px;
+            padding: 8px 25px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-portal:hover { background: transparent; color: var(--primary); box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+
+        /* ----- CSS specific to Index components to ensure nothing is missed ----- */
+        .hero-wrapper { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; padding-top: 120px; }
+        #hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 0; opacity: 0.6; }
+        .hero-overlay-full { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 4, 10, 0.7); z-index: 1; }
+        .hero-content-wrapper { position: relative; z-index: 5; }
+        .hero-title { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .stats-stripe { background: rgba(15, 23, 42, 0.8); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); padding: 40px 0; backdrop-filter: blur(15px); position: relative; z-index: 10; }
+        .counter-val { font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 0; }
+        .counter-label { font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+        .marquee-section { padding: 30px 0; background: #000; overflow: hidden; border-bottom: 1px solid var(--glass-border); }
+        .marquee { overflow: hidden; white-space: nowrap; position: relative; }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        .marquee-content img, .marquee-content i { height: 40px; margin: 0 45px; opacity: 0.6; transition: 0.3s; vertical-align: middle; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .sec-title { font-weight: 800; font-size: 3rem; margin-bottom: 1rem; color: #fff; }
+        .bento-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; height: 100%; transition: 0.4s; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .bento-card:hover { border-color: var(--primary); background: rgba(20, 30, 50, 0.9); transform: translateY(-5px); }
+        .icon-box { width: 60px; height: 60px; background: rgba(59, 130, 246, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 25px; }
+        .industry-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 24px; padding: 40px; height: 100%; transition: 0.3s; }
+        .industry-card:hover { border-color: var(--primary); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .check-list li { color: #cbd5e1; margin-bottom: 12px; display: flex; align-items: center; font-size: 1.05rem; }
+        .check-list i { color: var(--primary); margin-right: 12px; }
+
+        /* ----- Footer ----- */
+        .footer-main { background: #000; border-top: 1px solid var(--glass-border); padding: 80px 0 30px; }
+        .footer-col h6 { color: #fff; font-weight: 700; margin-bottom: 25px; font-size: 1.1rem; }
+        .footer-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 12px; transition: 0.3s; }
+        .footer-link:hover { color: #fff; padding-left: 5px; }
+        .social-btn { width: 40px; height: 40px; border-radius: 50%; background: #222; display: inline-flex; align-items: center; justify-content: center; color: #fff; margin-right: 10px; text-decoration: none; transition: 0.3s; }
+        .social-btn:hover { background: var(--primary); }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+    <!-- NAV BAR -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('index') }}">
+                <i class="fas fa-layer-group text-primary fs-2"></i>
+                <!-- Logo with Flask static path -->
+                <img style="height: 85px;" src="{{ url_for('static', filename='images/logo.png') }}" alt="KLOUDTECK">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="fas fa-bars text-white"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ url_for('index') }}">Home</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-3 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Solutions</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="/managed-network-wifi-solutions">Managed Network & Wi-Fi</a></li>
+                            <li><a class="dropdown-item" href="#">CCTV & Surveillance</a></li>
+                            <li><a class="dropdown-item" href="#">Access Control Systems</a></li>
+                            <li><a class="dropdown-item" href="#">Structured Cabling & Fiber</a></li>
+                            <li><a class="dropdown-item" href="#">Business Phone Systems</a></li>
+                            <li><a class="dropdown-item" href="#">TV & Digital Display</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-3 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Industries</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#">Hospitality</a></li>
+                            <li><a class="dropdown-item" href="#">Retail</a></li>
+                            <li><a class="dropdown-item" href="#">Warehouses</a></li>
+                            <li><a class="dropdown-item" href="#">Commercial & Office</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link px-3" href="#case-studies">Case Studies</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#about">About KLOUDTECK</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#support">Support</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn-portal">Contact Us</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT BLOCK -->
+    {% block content %}{% endblock %}
+
+    <!-- FOOTER -->
+    <footer class="footer-main">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6 footer-col">
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <i class="fas fa-layer-group text-primary fs-4"></i>
+                        <h4 class="fw-bold text-white m-0">KLOUD<span style="color: var(--primary);">TECK </span></h4>
+                    </div>
+                    <p class="small lh-lg text-white">Transforming infrastructure into a strategic advantage. Design with purpose. Deploy with precision.</p>
+                </div>
+                <div class="col-lg-2 col-md-3 footer-col">
+                    <h6>Solutions</h6>
+                    <a href="#" class="footer-link">Managed Network</a>
+                    <a href="#" class="footer-link">CCTV Systems</a>
+                    <a href="#" class="footer-link">Access Control</a>
+                    <a href="#" class="footer-link">Structured Cabling</a>
+                </div>
+                <div class="col-lg-2 col-md-3 footer-col">
+                    <h6>Company</h6>
+                    <a href="#" class="footer-link">About KLOUDTECK</a>
+                    <a href="#" class="footer-link">Case Studies</a>
+                    <a href="#" class="footer-link">Careers</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+                <div class="col-lg-2 col-md-3 footer-col">
+                    <h6>Support</h6>
+                    <a href="#" class="footer-link">Help Center</a>
+                    <a href="#" class="footer-link">Client Portal</a>
+                    <a href="#" class="footer-link">Remote Support</a>
+                </div>
+                <div class="col-lg-3 col-md-6 footer-col">
+                    <h6>Connect</h6>
+                    <div class="mb-4">
+                        <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <p class="text-white small">New York, NY<br>(555) 123-4567</p>
+                </div>
+            </div>
+
+            <div class="border-top border-secondary border-opacity-25 mt-5 pt-4 text-center">
+                <p class="text-white small opacity-50">&copy; 2025 KLOUDTECK. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // Navbar Scroll Effect Global
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

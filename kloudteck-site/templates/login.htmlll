@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access - NetAuto Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Deep Network Theme */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .login-header h3 {
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .login-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* --- Input Fields --- */
+        .input-group {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 5px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .input-group:focus-within {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid #00d2ff;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .input-group i {
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            padding-right: 10px;
+            transition: 0.3s;
+        }
+
+        .input-group:focus-within i {
+            color: #00d2ff;
+        }
+
+        .form-control {
+            background: transparent !important;
+            border: none;
+            color: #fff !important;
+            box-shadow: none !important;
+            height: 45px;
+            font-size: 0.95rem;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border: none;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 210, 255, 0.5);
+            background: linear-gradient(90deg, #3a7bd5, #00d2ff);
+        }
+
+        .alert {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(5px);
+        }
+        .alert-danger { border-left: 4px solid #ff4757; }
+        .alert-success { border-left: 4px solid #2ed573; }
+        .btn-close { filter: invert(1); }
+
+        .footer-text {
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+        }
+        .toggle-password {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="network-canvas"></canvas>
+
+    <div class="login-card text-center">
+        <div class="login-header mb-4">
+            <div class="mb-3">
+                <i class="fas fa-shield-alt fa-3x text-info"></i>
+            </div>
+            <h3>ADMIN PANEL</h3>
+            <p>Secure Network Gateway</p>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show text-start" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('app_login') }}" method="POST">
+            
+            <!-- Username -->
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" class="form-control" name="username" placeholder="Username" required autofocus autocomplete="off">
+            </div>
+
+            <!-- Password -->
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+            </div>
+
+            <button type="submit" class="btn btn-login">
+                AUTHENTICATE <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </form>
+
+        <div class="footer-text">
+            &copy; 2026 NetAuto Pro System<br>
+            Protected by Cloud-Native Security
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        const canvas = document.getElementById("network-canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#00d2ff';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.4) - 

@@ -1,0 +1,418 @@
+{% extends "layout.html" %}
+
+{% block title %}Retail Technology Solutions · Security & Network Infrastructure | KLOUDTECK{% endblock %}
+
+{% block head %}
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Technology solutions for retail: POS network infrastructure, theft prevention CCTV, access control, digital signage, and people counting analytics.">
+  <link rel="canonical" href="https://www.kloudteck.com/industries/retail/">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <meta property="og:title" content="Retail Technology Solutions · Security & Network Infrastructure">
+  <meta property="og:description" content="Technology solutions for retail: POS networks, theft prevention CCTV, and digital signage.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.kloudteck.com/industries/retail/">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Retail Technology Solutions",
+    "provider": {
+      "@type": "Organization",
+      "name": "KLOUDTECK",
+      "url": "https://www.kloudteck.com"
+    },
+    "description": "Technology solutions for retail including POS networks, theft prevention CCTV, and digital signage.",
+    "category": "Retail Technology Infrastructure"
+  }
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/retail.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- SECTION 1: HERO SECTION -->
+<section class="services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb-modern">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/industries" class="text-white-50">Industries</a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Retail</li>
+            </ol>
+        </nav>
+        <div class="row align-items-center text-center text-lg-start">
+            <div class="col-lg-8" data-aos="fade-right">
+                <h1 class="display-3 fw-bold mb-4">Retail Technology Solutions</h1>
+                <p class="h4 text-teal mb-4">Secure, reliable infrastructure that protects assets and drives sales.</p>
+                <p class="lead text-white-50 mb-5">From checkout connectivity to surveillance and staff access, KLOUDTECK designs and supports retail technology systems that help stores operate smoothly, stay secure, and scale with confidence.</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                    <a href="/quote" class="btn btn-teal px-5 py-3 fw-bold shadow">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light px-5 py-3 fw-bold">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2: TECHNOLOGY THAT PROTECTS AND PROMOTES -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row text-center mb-5" data-aos="fade-up">
+            <div class="col-lg-10 mx-auto">
+                <h2 class="fw-bold text-navy mb-4">Technology that protects and promotes</h2>
+                <p class="fs-5 text-secondary">From single-store boutiques to multi-location chains, retailers need technology that prevents loss, processes transactions reliably, and supports a better customer experience.</p>
+                <p class="fs-5 text-secondary mt-3">KLOUDTECK provides retail-focused infrastructure solutions designed for day-to-day operations — including POS network connectivity, CCTV surveillance, access control, structured cabling, digital signage, and communications. We help retail teams reduce downtime, improve visibility, and build systems that are easier to manage long term.</p>
+            </div>
+        </div>
+
+        <h3 class="fw-bold text-navy text-center mb-5" data-aos="fade-up">Retail Solutions</h3>
+        <div class="row g-4">
+            <!-- POS Network -->
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+                <div class="feature-card">
+                    <i class="fas fa-network-wired text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-secondary">POS Network Infrastructure</h5>
+                    <p class="small text-secondary mb-0">Reliable, secure network infrastructure for payment processing, POS stations, back-office systems, and store devices. We design for performance, segmentation, and stability to support secure transactions and reduce service interruptions.</p>
+                </div>
+            </div>
+            <!-- CCTV -->
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card">
+                    <i class="fas fa-video text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-secondary">Theft Prevention CCTV</h5>
+                    <p class="small text-secondary mb-0">High-definition surveillance with smart coverage planning for entrances, registers, aisles, exits, stockrooms, and receiving areas. Improve visibility for incident review, operational monitoring, and loss prevention.</p>
+                </div>
+            </div>
+            <!-- Access Control -->
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                <div class="feature-card">
+                    <i class="fas fa-id-card text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-secondary">Employee Access Control</h5>
+                    <p class="small text-secondary mb-0">Restrict stockroom, office, and restricted-area access to authorized personnel only. Assign access by employee role, location, or schedule to improve accountability and security.</p>
+                </div>
+            </div>
+            <!-- Signage -->
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+                <div class="feature-card">
+                    <i class="fas fa-tv text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-secondary">Digital Signage Promotions</h5>
+                    <p class="small text-secondary mb-0">Dynamic in-store displays for promotions, new arrivals, loyalty messaging, and customer engagement. Centralized display management helps maintain brand consistency across locations.</p>
+                </div>
+            </div>
+            <!-- Analytics -->
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card">
+                    <i class="fas fa-users text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-secondary">People Counting Analytics</h5>
+                    <p class="small text-secondary mb-0">Track foot traffic patterns, identify peak shopping times, and support staffing decisions with customer traffic insights. Use store analytics to improve operations and planning.</p>
+                </div>
+            </div>
+            <!-- Phones -->
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                <div class="feature-card">
+                    <i class="fas fa-phone-alt text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-secondary">Multi-Location Phone Systems</h5>
+                    <p class="small text-secondary mb-0">Unified communications across store locations with centralized management. Improve store-to-store coordination, call routing, and customer support responsiveness.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3: BUILT FOR REAL RETAIL OPERATIONS -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h2 class="fw-bold text-navy mb-4">Built for real retail operations</h2>
+                <p class="text-secondary mb-4">Retail environments move fast. Technology issues at the wrong time can affect revenue, customer experience, and team productivity. We help solve common retail infrastructure challenges such as:</p>
+                <ul class="check-list small">
+                    <li>POS terminals losing connectivity during peak hours</li>
+                    <li>Weak WiFi coverage on the sales floor or back office</li>
+                    <li>Limited camera visibility at entrances, registers, and stockrooms</li>
+                    <li>Unauthorized access to offices, receiving areas, or inventory rooms</li>
+                    <li>Aging cabling causing intermittent outages</li>
+                    <li>Inconsistent systems across multiple store locations</li>
+                    <li>Slow troubleshooting when problems happen during business hours</li>
+                </ul>
+                <p class="text-navy fw-bold mt-4">Our approach focuses on reliability, security, and practical support.</p>
+            </div>
+            <div class="col-lg-6 text-center" data-aos="fade-left">
+                <div class="p-5 services-wrapper process-section-bg shadow-sm rounded-5 shadow-sm border">
+                    <i class="fas fa-store-slash text-teal display-1 mb-4"></i>
+                    <h4 class="fw-bold">Minimize Downtime</h4>
+                    <p class="mb-0">Protect your revenue with systems that don't quit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 4: MULTI-LOCATION RETAIL -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 text-center" data-aos="fade-right">
+                <i class="fas fa-sitemap text-teal display-1 mb-4"></i>
+                <h3 class="fw-bold">Standardize technology across every store</h3>
+            </div>
+            <div class="col-lg-7" data-aos="fade-left">
+                <p class="text-secondary mb-4">As retail businesses grow, inconsistent systems can create support headaches and increase operational costs. Different hardware, cabling standards, and configurations make troubleshooting harder and new store rollouts slower. KLOUDTECK helps retail teams standardize technology across locations with:</p>
+                <ul class="check-list">
+                    <li>Consistent network and security design standards</li>
+                    <li>Organized cabling and labeling practices</li>
+                    <li>Repeatable deployment methods for new stores</li>
+                    <li>Documentation for faster support and maintenance</li>
+                    <li>Upgrade planning by store, region, or rollout phase</li>
+                </ul>
+                <p class="text-navy fw-bold mt-4">This creates a cleaner foundation for expansion and day-to-day support.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: NEW STORE / REMODEL / UPGRADE -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7" data-aos="fade-right">
+                <h3 class="fw-bold text-navy mb-4">Support for new stores, remodels, and technology upgrades</h3>
+                <p class="text-secondary mb-4">Whether you’re opening a new retail location, remodeling an existing store, or replacing aging infrastructure, we can support your project from planning through final handoff.</p>
+                <h6 class="fw-bold text-navy mb-3">Services may include:</h6>
+                <ul class="check-list small">
+                    <li>Low-voltage cabling (Cat6 / fiber as needed)</li>
+                    <li>Rack and network closet setup</li>
+                    <li>POS connectivity planning</li>
+                    <li>Camera and access control pre-wire + install</li>
+                    <li>Device testing and validation</li>
+                    <li>Documentation and turnover support</li>
+                </ul>
+                <p class="text-navy fw-bold mt-4">We coordinate with store timelines to reduce disruption and keep projects moving.</p>
+            </div>
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="p-4 services-wrapper process-section-bg shadow-sm rounded-4 border shadow-sm">
+                    <i class="fas fa-building text-teal display-3 mb-3"></i>
+                    <h5 class="fw-bold">New Builds & Renovations</h5>
+                    <p class="small text-secondary mb-0">Seamless integration into your construction or upgrade timeline.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 6: PCI COMPLIANCE -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h2 class="fw-bold mb-4">PCI Compliance Made Simple</h2>
+                <p class="text-white-50 mb-4">Our network designs segregate payment traffic, encrypt data, and support PCI DSS compliance requirements. We help retailers protect customer data while building infrastructure that is secure, stable, and easier to manage.</p>
+                <h6 class="fw-bold mb-3">What this can include:</h6>
+                <ul class="check-list small">
+                    <li class="text-white-50">Isolated VLAN for payment devices</li>
+                    <li class="text-white-50">End-to-end encryption support</li>
+                    <li class="text-white-50">Audit-ready documentation</li>
+                    <li class="text-white-50">Segmented network architecture for business-critical systems</li>
+                    <li class="text-white-50">Cleaner device organization for easier troubleshooting and maintenance</li>
+                </ul>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="p-5 services-wrapper process-section-bg shadow-sm bg-opacity-10 rounded-5 border border-white border-opacity-20 text-center shadow-lg">
+                    <i class="fas fa-shield-check text-teal display-1 mb-4"></i>
+                    <h4 class="fw-bold">PCI Compliant by Design</h4>
+                    <p class="mb-0 text-white-50">We build security into every layer of your retail network to support safe transactions, reduce risk, and strengthen long-term reliability.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 7: SUPPORT & MAINTENANCE -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h3 class="fw-bold text-navy text-center mb-5" data-aos="fade-up">Support that helps protect store uptime</h3>
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <p class="text-secondary mb-4">Retail issues can’t always wait. We provide service and support options to help keep critical systems operational and reduce disruptions to checkout, security, and communications.</p>
+                <ul class="check-list">
+                    <li>Remote troubleshooting support</li>
+                    <li>On-site service for hardware and infrastructure issues</li>
+                    <li>Preventive maintenance and system health checks</li>
+                    <li>Documentation for faster diagnostics</li>
+                    <li>Upgrade recommendations for aging equipment</li>
+                </ul>
+                <p class="text-navy fw-bold mt-4">From one-time projects to ongoing support, KLOUDTECK helps retail teams stay operational and responsive.</p>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="p-4 services-wrapper process-section-bg shadow-sm rounded-4 text-center">
+                    <i class="fas fa-headset display-2 text-teal mb-3"></i>
+                    <h5>24/7 Connectivity Protection</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 8: HOW WE WORK -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container text-center">
+        <h3 class="fw-bold text-navy mb-5" data-aos="fade-up">How we work</h3>
+        <p class="text-secondary mb-5">A clear process keeps installations organized and makes support easier after deployment.</p>
+        <div class="row g-4">
+            <div class="col-md-3" data-aos="fade-up">
+                <div class="step-num mx-auto mb-3">1</div>
+                <h5 class="fw-bold">Assess</h5>
+                <p class="small text-secondary">Review store layout, current systems, pain points, and operational goals.</p>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-num mx-auto mb-3">2</div>
+                <h5 class="fw-bold">Design</h5>
+                <p class="small text-secondary">Build a solution plan focused on reliability, security, and long-term usability.</p>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-num mx-auto mb-3">3</div>
+                <h5 class="fw-bold">Install</h5>
+                <p class="small text-secondary">Installation, configuration, and testing with minimal disruption to store operations.</p>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="step-num mx-auto mb-3">4</div>
+                <h5 class="fw-bold">Support</h5>
+                <p class="small text-secondary">Provide documentation, troubleshooting, and support options based on your needs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 9: FAQ -->
+<section class="faq-ret-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="display-5 faq-ret-title" data-aos="fade-up">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-ret-container" data-aos="fade-up">
+            <div class="accordion" id="retailFaqModern">
+                
+                <!-- Q1 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#rq1">
+                            Do you work with single-store locations or only retail chains?
+                        </button>
+                    </h2>
+                    <div id="rq1" class="accordion-collapse collapse show" data-bs-parent="#retailFaqModern">
+                        <div class="accordion-body">
+                            We support both single-location stores and multi-site retail operations. Solutions are designed around your store size, layout, and business needs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#rq2">
+                            Can you upgrade our current systems instead of replacing everything?
+                        </button>
+                    </h2>
+                    <div id="rq2" class="accordion-collapse collapse" data-bs-parent="#retailFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can evaluate your existing network, cameras, cabling, and access control systems and recommend phased upgrades where practical.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#rq3">
+                            Do you install after business hours?
+                        </button>
+                    </h2>
+                    <div id="rq3" class="accordion-collapse collapse" data-bs-parent="#retailFaqModern">
+                        <div class="accordion-body">
+                            In many cases, yes. We can schedule work to reduce disruption during peak retail hours.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#rq4">
+                            Can you help with POS connectivity issues?
+                        </button>
+                    </h2>
+                    <div id="rq4" class="accordion-collapse collapse" data-bs-parent="#retailFaqModern">
+                        <div class="accordion-body">
+                            Yes. We design and troubleshoot retail infrastructure with POS reliability and secure payment traffic in mind.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#rq5">
+                            Do you provide support after installation?
+                        </button>
+                    </h2>
+                    <div id="rq5" class="accordion-collapse collapse" data-bs-parent="#retailFaqModern">
+                        <div class="accordion-body">
+                            Yes. We offer support and maintenance options depending on the project scope and your service needs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="accordion-item shadow-sm border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#rq6">
+                            Can you help standardize technology across multiple locations?
+                        </button>
+                    </h2>
+                    <div id="rq6" class="accordion-collapse collapse" data-bs-parent="#retailFaqModern">
+                        <div class="accordion-body">
+                            Yes. We help create repeatable designs and deployment standards for easier support and expansion.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 10: BOTTOM CTA -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm mb-5">
+    <div class="container py-4">
+        <div class="p-5 rounded-5  text-white text-center shadow-lg" data-aos="zoom-in">
+            <h2 class="fw-bold mb-4">Let’s build a retail technology system that supports sales and reduces risk</h2>
+            <p class="lead text-white-50 mb-5 mx-auto" style="max-width: 800px;">From local retail stores to multi-location operations, KLOUDTECK delivers reliable infrastructure for secure transactions, better visibility, and smoother day-to-day operations.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="/quote" class="btn btn-lg btn-teal px-5 py-2 fw-bold">Request Quote</a>
+                <a style="border:solid 1px white;" href="/contact" class="btn btn-lg btn-outline-light px-5 py-2">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1XXXXXXXXXX?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Retail%20Technology" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ -->
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+</script>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block title %}Dashboard | KloudTeck Admin{% endblock %}
+{% block page_title %}Infrastructure <span style="color: var(--teal);">Console</span>{% endblock %}
+
+{% block content %}
+<!-- Analytics Cards -->
+<div class="row g-4">
+    <!-- Card 1: Messages -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div style="width: 45px; height: 45px; background: var(--teal-dim); color: var(--teal); display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 15px;">
+                <i class="fas fa-envelope"></i>
+            </div>
+            <h3>{{ msg_count }}</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">Total Contact Inquiries</p>
+        </div>
+    </div>
+    
+    <!-- Card 2: Quotes -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div style="width: 45px; height: 45px; background: rgba(255, 115, 0, 0.1); color: var(--orange); display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 15px;">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <h3>{{ quote_count }}</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">Project Quotes</p>
+        </div>
+    </div>
+
+    <!-- Card 3: Team -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div style="width: 45px; height: 45px; background: rgba(34, 197, 94, 0.1); color: #22c55e; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 15px;">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>{{ team_count }}</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">Team Members</p>
+        </div>
+    </div>
+
+    <!-- Card 4: Registered Users -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div style="width: 45px; height: 45px; background: rgba(168, 85, 247, 0.1); color: #a855f7; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 15px;">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h3>{{ user_count }}</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0;">System Users</p>
+        </div>
+    </div>
+</div>
+
+<!-- Chart Section -->
+<div class="panel shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0">Traffic & Growth Analytics</h5>
+        <div class="badge bg-dark border border-secondary p-2">Real-time Data</div>
+    </div>
+    <div id="chart"></div>
+</div>
+
+<!-- Recent Inquiries Table -->
+<div class="panel">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="fw-bold mb-0">Recent Inquiries</h5>
+        <a href="/admin/messages" class="btn btn-sm" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border); padding: 8px 12px; border-radius: 10px;">View All <i class="fas fa-arrow-right ms-1"></i></a>
+    </div>
+    <div class="table-responsive">
+        <table class="table" style="color: var(--text-main); border-color: var(--glass-border);">
+            <thead class="text-secondary small text-uppercase">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for msg in recent_messages %}
+                <tr>
+                    <td>{{ msg.name }}</td>
+                    <td>{{ msg.email }}</td>
+                    <td class="small">{{ msg.created_at.strftime('%d %b, %Y') }}</td>
+                    <td>
+                        <span class="badge {% if msg.status == 'Unread' %}bg-warning text-dark{% else %}bg-success{% endif %}">
+                            {{ msg.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center py-4 text-secondary">No inquiries yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Chart options (Mock data can be linked to real stats if needed)
+    var options = {
+        series: [
+            { name: 'Inquiries', data: [msg_count || 30, 40, 35, 50, 49, 60, 70] }, 
+            { name: 'Quotes', data: [quote_count || 10, 15, 12, 20, 18, 25, 30] }
+        ],
+        chart: { height: 320, type: 'area', toolbar: { show: false }, background: 'transparent', fontFamily: 'Plus Jakarta Sans' },
+        colors: ['#00d2d2', '#ff7300'],
+        theme: { mode: 'dark' },
+        stroke: { curve: 'smooth', width: 3 },
+        fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, stops: [0, 90, 100] } },
+        xaxis: { categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], axisBorder: { show: false } },
+        grid: { borderColor: 'rgba(255,255,255,0.05)', strokeDashArray: 4 }
+    };
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+</script>
+{% endblock %}

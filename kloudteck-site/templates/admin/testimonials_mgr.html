@@ -1,0 +1,304 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block title %}Client Feedback Management{% endblock %}
+
+{% block content %}
+<style>
+
+    :root {
+        --bg-dark: #0b0e14;
+        --card-bg: #151921;
+        --accent-cyan: #00cec9;
+        --text-gray: #a0aec0;
+        --text-white: #ffffff;
+    }
+
+    .dashboard-container {
+        padding: 30px;
+        background-color: var(--bg-dark);
+        min-height: 100vh;
+    }
+
+    .stat-card {
+        background: var(--card-bg);
+        border: 1px solid #2d3748;
+        border-radius: 15px;
+        padding: 20px;
+        transition: 0.3s;
+    }
+    .stat-card:hover { border-color: var(--accent-cyan); }
+    .stat-title { color: var(--text-gray); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-value { font-size: 32px; font-weight: bold; margin: 10px 0; color: var(--text-white); }
+    .stat-label { color: var(--accent-cyan); font-size: 14px; }
+
+    .content-box {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 25px;
+        margin-top: 30px;
+        border: 1px solid #2d3748;
+    }
+
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .custom-table {
+        width: 100%;
+        color: var(--text-white);
+    }
+    .custom-table th {
+        color: var(--accent-cyan);
+        border-bottom: 1px solid #2d3748;
+        padding: 15px;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+    .custom-table td {
+        padding: 15px;
+        border-bottom: 1px solid #1a202c;
+        vertical-align: middle;
+    }
+
+    .industry-badge {
+        background: rgba(0, 206, 201, 0.1);
+        color: var(--accent-cyan);
+        border: 1px solid rgba(0, 206, 201, 0.3);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+    }
+
+    .quote-text {
+        color: var(--text-gray);
+        font-style: italic;
+        font-size: 13px;
+        max-width: 350px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .btn-cyan {
+        background-color: var(--accent-cyan);
+        color: #000;
+        font-weight: 600;
+        border-radius: 30px;
+        padding: 10px 25px;
+        border: none;
+    }
+    .btn-cyan:hover { background-color: #00b5b5; color: #000; }
+
+    .action-btn {
+        background: #1a202c;
+        border: 1px solid #2d3748;
+        color: var(--text-gray);
+        border-radius: 8px;
+        padding: 6px 12px;
+        transition: 0.2s;
+    }
+    .action-btn:hover { color: var(--accent-cyan); border-color: var(--accent-cyan); }
+    .action-btn.delete:hover { color: #ff7675; border-color: #ff7675; }
+
+    /* Modal Styling */
+    .modal-content {
+        background-color: #151921 !important;
+        border: 1px solid #2d3748;
+        border-radius: 20px;
+        color: white;
+    }
+    .modal-header { border-bottom: 1px solid #2d3748; padding: 20px 30px; }
+    .modal-title { color: var(--accent-cyan); font-weight: 600; }
+    .modal-body { padding: 30px; }
+    .form-label { color: var(--text-gray); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .form-control, .form-select {
+        background-color: #1a202c !important;
+        border: 1px solid #2d3748 !important;
+        color: white !important;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 20px;
+    }
+    .form-control:focus { border-color: var(--accent-cyan) !important; box-shadow: none; }
+    .btn-close { filter: invert(1); }
+</style>
+
+<div class="dashboard-container">
+    <h2 class="mb-4">Client <span style="color: var(--accent-cyan);">Testimonials</span></h2>
+
+    <!-- স্ট্যাটাস কার্ডস -->
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-title">Total Feedback</div>
+                <div class="stat-value">{{ testimonials|length }}</div>
+                <div class="stat-label"><i class="fas fa-quote-left"></i> Verified Reviews</div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-title">Latest Industry</div>
+                <div class="stat-value" style="font-size: 24px; margin-top: 18px;">
+                    {{ testimonials[0].category if testimonials else 'N/A' }}
+                </div>
+                <div class="stat-label"><i class="fas fa-tag"></i> Recently Added</div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-title">Platform Status</div>
+                <div class="stat-value text-success">Live</div>
+                <div class="stat-label"><i class="fas fa-globe"></i> Visible on Website</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- মেইন কন্টেন্ট টেবিল -->
+    <div class="content-box shadow">
+        <div class="content-header">
+            <h4 class="mb-0">Testimonials List</h4>
+            <button class="btn btn-cyan" data-bs-toggle="modal" data-bs-target="#addTestiModal">
+                <i class="fas fa-plus"></i> Add New Feedback
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Client / Author</th>
+                        <th>Industry</th>
+                        <th>Quote Preview</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for testi in testimonials %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar" style="width: 40px; height: 40px; background: #2d3748; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent-cyan); font-weight: bold; border: 1px solid var(--accent-cyan); margin-right: 15px;">
+                                    {{ testi.author[0]|upper }}
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 text-white">{{ testi.author }}</h6>
+                                    <small style="color: var(--text-gray);">{{ testi.designation }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="industry-badge">{{ testi.category }}</span>
+                        </td>
+                        <td>
+                            <div class="quote-text">"{{ testi.quote }}"</div>
+                        </td>
+                        <td class="text-end">
+                            <button class="action-btn me-2" data-bs-toggle="modal" data-bs-target="#editTesti{{ testi.id }}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <a href="{{ url_for('delete_testimonial', id=testi.id) }}" class="action-btn delete" onclick="return confirm('Delete this feedback permanently?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- Edit Modal (Inside Loop) -->
+                    <div class="modal fade" id="editTesti{{ testi.id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content shadow-lg">
+                                <form action="{{ url_for('edit_testimonial', id=testi.id) }}" method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Update Client Feedback</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        <label class="form-label">Client Name</label>
+                                        <input type="text" name="author" class="form-control" value="{{ testi.author }}" required>
+
+                                        <label class="form-label">Designation & Company</label>
+                                        <input type="text" name="designation" class="form-control" value="{{ testi.designation }}" required>
+
+                                        <label class="form-label">Industry Category</label>
+                                        <select name="category" class="form-select">
+                                            <option value="Hospitality" {% if testi.category == 'Hospitality' %}selected{% endif %}>Hospitality</option>
+                                            <option value="Retail" {% if testi.category == 'Retail' %}selected{% endif %}>Retail</option>
+                                            <option value="Warehouse" {% if testi.category == 'Warehouse' %}selected{% endif %}>Warehouse</option>
+                                            <option value="Security" {% if testi.category == 'Security' %}selected{% endif %}>Security</option>
+                                            <option value="Corporate" {% if testi.category == 'Corporate' %}selected{% endif %}>Corporate</option>
+                                        </select>
+
+                                        <label class="form-label">Feedback Quote</label>
+                                        <textarea name="quote" class="form-control" rows="4" required>{{ testi.quote }}</textarea>
+                                        <div class="mb-3">
+                                            <label class="small text-secondary mb-1">Star Rating</label>
+                                            <select name="rating" class="form-select bg-dark border-secondary text-white">
+                                                {% for i in range(1, 6) %}
+                                                <option value="{{ i }}" {% if testi.rating == i %}selected{% endif %}>{{ i }} Stars</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="submit" class="btn btn-cyan w-100 py-2">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addTestiModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg">
+            <form action="{{ url_for('create_testimonial') }}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Publish New Feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-start">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" name="author" class="form-control" placeholder="e.g. John Smith" required>
+
+                    <label class="form-label">Designation & Company</label>
+                    <input type="text" name="designation" class="form-control" placeholder="e.g. CEO, Marriott Hotel" required>
+
+                    <label class="form-label">Industry Category</label>
+                    <select name="category" class="form-select">
+                        <option value="Hospitality">Hospitality</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Warehouse">Warehouse</option>
+                        <option value="Security">Security</option>
+                        <option value="Corporate">Corporate</option>
+                    </select>
+
+                    <label class="form-label">Feedback Quote</label>
+                    <textarea name="quote" class="form-control" rows="4" placeholder="Enter the client's testimonial here..." required></textarea>
+                    <div class="mb-3">
+                        <label class="small text-secondary mb-1">Star Rating</label>
+                        <select name="rating" class="form-select bg-dark border-secondary text-white">
+                            <option value="5">5 Stars (Excellent)</option>
+                            <option value="4">4 Stars (Good)</option>
+                            <option value="3">3 Stars (Average)</option>
+                            <option value="2">2 Stars (Fair)</option>
+                            <option value="1">1 Star (Poor)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="submit" class="btn btn-cyan w-100 py-2">Publish Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

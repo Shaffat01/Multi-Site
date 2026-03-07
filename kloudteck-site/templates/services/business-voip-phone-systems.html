@@ -1,0 +1,613 @@
+{% extends "layout.html" %}
+
+{% block title %}Commercial VoIP & Business Phone Systems | IP-PBX Solutions | KLOUDTECK{% endblock %}
+
+{% block head %}
+<!-- Font Awesome & AOS Animation CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/voip.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<!-- SECTION 1: HERO SECTION -->
+<section class="voip-hero services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4">
+          <nav aria-label="breadcrumb">
+                <ol class="breadcrumb-modern">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="/solutions" class="text-white-50">Solutions</a>
+                    </li>
+                    <li class="breadcrumb-item active text-white" aria-current="page">VOIP Services & IPPBX Systems</li>
+                </ol>
+          </nav>
+        <div class="row align-items-center text-center text-lg-start">
+            <div class="col-lg-8" data-aos="fade-right">
+                <span class="badge bg-teal mb-3 px-3 py-2">VoIP & IP-PBX Systems</span>
+                <h1 class="display-3 fw-bold mb-4">Smart IP-PBX Systems Built for Reliability, Mobility, and Growth</h1>
+                <p class="lead text-white-50 mb-5">Replace outdated copper phone lines with a modern VoIP/IP-PBX platform designed for today’s operations. From front desks and office teams to multi-location businesses, KLOUDTECK designs and deploys voice systems that deliver crystal-clear calling, intelligent routing, and built-in business continuity.</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                    <a href="/quote" class="btn btn-teal btn-lg px-4 py-3 text-white rounded-pill shadow-lg">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2: WHY BUSINESSES ARE MOVING -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm ">
+    <div class="container py-5">
+        <div class="row text-center mb-5" data-aos="fade-up">
+            <div class="col-lg-10 mx-auto">
+                <h2 class="fw-bold text-navy">Why Businesses Are Moving to VoIP/IP-PBX</h2>
+                <p class="lead text-white">Legacy phone systems are expensive to maintain, difficult to scale, and limited for modern teams. KLOUDTECK VoIP and IP-PBX solutions give you a smarter communication platform with more control, better call quality, and lower long-term cost.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal">Lower Operating Costs</h5>
+                    <p class="small text-secondary mb-0">Reduce hardware dependency and simplify expansion with software-based voice systems.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal">Built for Hybrid & Mobile Teams</h5>
+                    <p class="small text-secondary mb-0">Keep your business number and extension on desk phones, laptops, and mobile devices.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal">Scalable by Design</h5>
+                    <p class="small text-secondary mb-0">Add users, departments, or locations without reworking your entire phone infrastructure.</p>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal">Professional Caller Experience</h5>
+                    <p class="small text-secondary mb-0">Auto attendants, call routing, ring groups, and queue options help every call reach the right place.</p>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="zoom-in" data-aos-delay="400">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal">Business Continuity Ready</h5>
+                    <p class="small text-secondary mb-0">Failover routing and backup call paths keep communication running during outages.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3: BEYOND JUST MAKING CALLS (ENTERPRISE FEATURES) -->
+<section id="features " class="py-5 bg-soft services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bold text-navy">Beyond Just Making Calls</h2>
+            <p class="text-white">Every KLOUDTECK IP-PBX deployment is designed as a business communication platform — not just a dial tone replacement.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up">
+                <div class="feature-card text-center">
+                    <i class="fas fa-comments text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Omnichannel Communications</h6>
+                    <p class="small text-secondary mb-0">Unify voice, SMS, and team communication workflows into one platform (based on deployment type and selected features).</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-card text-center">
+                    <i class="fas fa-lock text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Encrypted Voice Sessions</h6>
+                    <p class="small text-secondary mb-0">Support for secure signaling and voice encryption (TLS / SRTP) to protect business communications.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card text-center">
+                    <i class="fas fa-chart-line text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Live Call Analytics</h6>
+                    <p class="small text-secondary mb-0">Track call volume, peak hours, missed calls, team response times, and performance trends with real-time dashboards.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-card text-center">
+                    <i class="fas fa-headset text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Auto Attendant / IVR</h6>
+                    <p class="small text-secondary mb-0">Route callers by department, business hours, language, or call intent for a more professional experience.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-card text-center">
+                    <i class="fas fa-users-cog text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Ring Groups & Call Queues</h6>
+                    <p class="small text-secondary mb-0">Ideal for front desks, support teams, dispatch, or sales environments that need shared call handling.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-card text-center">
+                    <i class="fas fa-envelope-open-text text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Voicemail-to-Email</h6>
+                    <p class="small text-secondary mb-0">Deliver voicemail messages to team inboxes for faster response and less missed communication.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                <div class="feature-card text-center">
+                    <i class="fas fa-mobile-alt text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Mobile & Softphone Access</h6>
+                    <p class="small text-secondary mb-0">Use company extensions on mobile devices and desktops while maintaining business caller ID.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="700">
+                <div class="feature-card text-center">
+                    <i class="fas fa-project-diagram text-teal fs-1 mb-3"></i>
+                    <h6 class="fw-bold">Multi-Site Routing</h6>
+                    <p class="small text-secondary mb-0">Centralize communications across multiple locations while keeping local routing and extensions where needed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 4: WHAT'S INCLUDED -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h3 class="fw-bold text-sky mb-4">What’s Included in a KLOUDTECK IP-PBX Deployment</h3>
+                <p class="text-sky mb-4">KLOUDTECK delivers complete voice solutions — from planning and provisioning to deployment and support.</p>
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <ul class="check-list small">
+                            <li>Voice system design and extension planning</li>
+                            <li>Call flow mapping (departments, reception, after-hours, emergency routing)</li>
+                            <li>SIP trunk setup and carrier coordination</li>
+                            <li>Number porting from existing phone providers</li>
+                            <li>Auto attendant / IVR configuration</li>
+                            <li>Ring groups, call queues, and call routing rules</li>
+                            <li>Voicemail, forwarding, and notification setup</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="check-list small">
+                            <li>Desk phone, cordless phone, and conference phone provisioning</li>
+                            <li>Softphone / mobile app deployment for remote staff</li>
+                            <li>Network readiness validation (QoS, VLANs, PoE, switching)</li>
+                            <li>Failover routing and backup communication planning</li>
+                            <li>Onsite testing, staff training, and go-live support</li>
+                            <li>Ongoing support, moves/adds/changes, and optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
+                <div class="p-5 bg-soft rounded-4 text-center border">
+                    <i class="fas fa-toolbox display-1 text-teal mb-4"></i>
+                    <h4 class="fw-bold text-teal">Complete Provisioning</h4>
+                    <p class="text-secondary">From carrier coordination to staff training, we handle it all.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: WHO WE SERVE -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4 text-center">
+        <h3 class="fw-bold text-teal mb-5" data-aos="fade-up">Who We Serve</h3>
+        <p class="mb-5 text-white">Our VoIP and IP-PBX systems are built for businesses that need dependable communication across teams, locations, and customer touchpoints.</p>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" data-aos="fade-up"><div class="feature-card"><i class="fas fa-hotel text-teal fs-3 mb-3"></i><h5 class="fw-bold">Hospitality</h5><p class="small text-secondary mb-0">Hotels, resorts, limited-service properties, and multi-property groups</p></div></div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100"><div class="feature-card"><i class="fas fa-clinic-medical text-teal fs-3 mb-3"></i><h5 class="fw-bold">Medical Offices & Clinics</h5><p class="small text-secondary mb-0">Front desk scheduling, patient calls, internal staff communication</p></div></div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200"><div class="feature-card"><i class="fas fa-store-alt text-teal fs-3 mb-3"></i><h5 class="fw-bold">Retail & Multi-Location</h5><p class="small text-secondary mb-0">Centralized management with location-specific routing</p></div></div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300"><div class="feature-card"><i class="fas fa-truck-loading text-teal fs-3 mb-3"></i><h5 class="fw-bold">Warehouses & Logistics</h5><p class="small text-secondary mb-0">Dispatch, operations, and facility communication workflows</p></div></div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400"><div class="feature-card"><i class="fas fa-city text-teal fs-3 mb-3"></i><h5 class="fw-bold">Multi-Family & Property Mgmt</h5><p class="small text-secondary mb-0">Leasing office communications, maintenance routing, and resident support lines</p></div></div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500"><div class="feature-card"><i class="fas fa-building text-teal fs-3 mb-3"></i><h5 class="fw-bold">Commercial Offices</h5><p class="small text-secondary mb-0">Professional phone systems for admin teams, sales, service, and management</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 6: HOSPITALITY SPECIALISTS -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="text-teal fw-bold text-uppercase small">Hospitality Specialists</span>
+                <h3 class="fw-bold text-teal mt-2 mb-4">Hotel-Specific PMS Integration</h3>
+                <p class="text-secondary">KLOUDTECK supports hospitality-focused voice deployments and can integrate IP-PBX systems with supported Property Management Systems (such as Opera, Mews, and Cloudbeds) to streamline hotel operations and guest services. Your current page already highlights this positioning, and it’s a strong differentiator for your brand.</p>
+                <h6 class="fw-bold text-teal">Hospitality Use Cases:</h6>
+                <ul class="check-list mt-3 small">
+                    <li><strong>Room / Extension Mapping:</strong> Keep room communication organized with structured extension assignments and operational routing.</li>
+                    <li><strong>Wake-Up Call Workflows:</strong> Automated wake-up functionality with configurable schedules and guest-facing logic (platform-dependent).</li>
+                    <li><strong>Housekeeping / Service Codes:</strong> Support workflows that improve communication between guest rooms and hotel operations (when supported).</li>
+                    <li><strong>Call Accounting / Reporting:</strong> Track call activity and support posting or reporting workflows based on system capabilities and PMS integration options.</li>
+                    <li><strong>Front Desk Overflow Routing:</strong> Route calls to backup staff, mobile devices, or alternate departments during peak times.</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 text-center" data-aos="zoom-in">
+                <!-- p-5 কে মোবাইলে কমানোর জন্য p-3 p-md-5 ব্যবহার করা হয়েছে -->
+                <div class="p-3 p-md-5 d-inline-block">
+                    <img class="img-responsive-oval" src="{{ url_for('static', filename='images/pms.jpg') }}" alt="PMS Image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 7: HYBRID FAILOVER PROTECTION -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm text-white">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold">Your Phones Stay Available When Networks Fail</h2>
+                <p class="text-white-50">Internet outage? Carrier issue? Hardware problem? KLOUDTECK designs voice systems with business continuity in mind.</p>
+            </div>
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="failover-box text-dark">
+                    <p class="mb-4">We implement failover strategies that automatically reroute calls to backup destinations so your business stays reachable.</p>
+                    <h6 class="fw-bold text-navy">Failover Options May Include:</h6>
+                    <ul class="check-list mt-3">
+                        <li>Automatic forwarding to mobile devices</li>
+                        <li>Alternate office or remote team routing</li>
+                        <li>SIP trunk redundancy (where available)</li>
+                        <li>Analog backup line integration (site dependent)</li>
+                        <li>Power backup planning for core voice/network hardware</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center mt-5 mt-lg-0" data-aos="fade-left">
+                <div class="p-4 bg-teal rounded shadow-lg">
+                    <i class="fas fa-shield display-3 mb-3"></i>
+                    <p class="lead mb-0">The goal: fewer missed calls, less downtime, and a more resilient communication system.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 8: POPULAR FEATURES BY USE CASE -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4">
+        <h3 class="fw-bold text-center text-teal mb-5" data-aos="fade-up">Popular Features by Business Use Case</h3>
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-right">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal"><i class="fas fa-inbox me-2"></i> Front Desk & Reception</h5>
+                    <ul class="check-list mt-3 small text-secondary">
+                        <li>Auto attendant and call menus</li>
+                        <li>Department routing</li>
+                        <li>Business hours / after-hours modes</li>
+                        <li>Overflow and backup call paths</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal"><i class="fas fa-chart-pie me-2"></i> Sales & Support Teams</h5>
+                    <ul class="check-list mt-3 small text-secondary">
+                        <li>Ring groups and call queues</li>
+                        <li>Agent visibility and live call dashboards</li>
+                        <li>Call reporting and performance analytics</li>
+                        <li>Call recording options (when required and compliant)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-right">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal"><i class="fas fa-user-clock me-2"></i> Managers & Remote Staff</h5>
+                    <ul class="check-list mt-3 small text-secondary">
+                        <li>Mobile app calling with business caller ID</li>
+                        <li>Simultaneous ring to desk + mobile</li>
+                        <li>Voicemail-to-email and missed call notifications</li>
+                        <li>Secure remote access to extensions</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="feature-card">
+                    <h5 class="fw-bold text-teal"><i class="fas fa-network-wired me-2"></i> Multi-Location Operations</h5>
+                    <ul class="check-list mt-3 small text-secondary">
+                        <li>Centralized voice management</li>
+                        <li>Site-specific call routing</li>
+                        <li>Shared directories and internal dialing</li>
+                        <li>Easier expansion as locations grow</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 9: OUR DEPLOYMENT PROCESS -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4">
+        <h3 class="fw-bold text-center text-teal mb-5" data-aos="fade-up">Our Deployment Process</h3>
+        <p class="text-center text-white mb-5">We make phone system upgrades simple, structured, and low-disruption.</p>
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="step-box" data-aos="fade-up">
+                    <div class="step-num">1</div>
+                    <h6 class="fw-bold">Discovery & Voice Planning</h6>
+                    <p class="small text-secondary">We review your current setup, call volumes, departments, extension needs, and pain points. Then we design the right call flow for your operation.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="step-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-num">2</div>
+                    <h6 class="fw-bold">Network Readiness Review</h6>
+                    <p class="small text-secondary">We verify bandwidth, switching, PoE capacity, VLANs, and QoS so your voice traffic performs reliably.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="step-box" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-num">3</div>
+                    <h6 class="fw-bold">Configuration & Number Porting</h6>
+                    <p class="small text-secondary">We build your system, configure devices and users, and coordinate number transfers with your carrier.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="step-box" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-num">4</div>
+                    <h6 class="fw-bold">Testing & Failover Validation</h6>
+                    <p class="small text-secondary">We test internal/external calling, call routing, voicemail, quality, and failover behavior before cutover.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="step-box" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-num">5</div>
+                    <h6 class="fw-bold">Go-Live, Training & Support</h6>
+                    <p class="small text-secondary">We launch with minimal disruption, train your team, and remain available for support and future changes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 10: TRADITIONAL vs KLOUDTECK -->
+<section class="py-5 bg-soft services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4 text-center">
+        <h3 class="fw-bold text-teal mb-5" data-aos="fade-up">Traditional Phone Systems vs. KLOUDTECK VoIP/IP-PBX</h3>
+        <p class="lead mb-5 text-white">Why Modernize?</p>
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-right">
+                <div class="p-5 bg-white rounded-4 border h-100">
+                    <h4 class="fw-bold text-danger mb-4">Legacy Analog Systems</h4>
+                    <ul class="list-unstyled text-start">
+                        <li class="mb-3 text-secondary"><i class="fas fa-times me-2"></i> Expensive to expand</li>
+                        <li class="mb-3 text-secondary"><i class="fas fa-times me-2"></i> Limited remote access</li>
+                        <li class="mb-3 text-secondary"><i class="fas fa-times me-2"></i> Hardware-heavy upgrades</li>
+                        <li class="mb-3 text-secondary"><i class="fas fa-times me-2"></i> Harder to manage across multiple sites</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="p-5 bg-white border-teal rounded-4 border-2 border h-100 shadow-sm" style="border-style: solid;">
+                    <h4 class="fw-bold text-teal mb-4">KLOUDTECK VoIP/IP-PBX</h4>
+                    <ul class="list-unstyled text-start">
+                        <li class="mb-3"><i class="fas fa-check text-teal me-2"></i> Software-driven scalability</li>
+                        <li class="mb-3"><i class="fas fa-check text-teal me-2"></i> Mobile and remote-ready</li>
+                        <li class="mb-3"><i class="fas fa-check text-teal me-2"></i> Easier management and updates</li>
+                        <li class="mb-3"><i class="fas fa-check text-teal me-2"></i> Better visibility with analytics and reporting</li>
+                        <li class="mb-3"><i class="fas fa-check text-teal me-2"></i> Designed for modern business continuity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 11: WHY KLOUDTECK -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h3 class="fw-bold text-teal">Why KLOUDTECK</h3>
+            <p class="text-white col-lg-8 mx-auto">A lot of companies can sell VoIP service. Fewer can deliver the infrastructure, deployment expertise, and long-term support behind a reliable communication system.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+                <div class="p-4 border rounded shadow-sm h-100">
+                    <h6 class="fw-bold text-teal">End-to-End Expertise</h6>
+                    <p class="small mb-0">Voice systems, networking, structured cabling, and deployment under one team</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="p-4 border rounded shadow-sm h-100">
+                    <h6 class="fw-bold text-teal">Hospitality + Commercial Experience</h6>
+                    <p class="small mb-0">Built for real-world operations, not generic one-size-fits-all setups</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                <div class="p-4 border rounded shadow-sm h-100">
+                    <h6 class="fw-bold text-teal">Onsite + Remote Support</h6>
+                    <p class="small mb-0">We support both physical installation and ongoing system changes</p>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                <div class="p-4 border rounded shadow-sm h-100">
+                    <h6 class="fw-bold text-teal">Scalable Architecture</h6>
+                    <p class="small mb-0">Solutions for single locations, growing businesses, and multi-site organizations</p>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="zoom-in" data-aos-delay="400">
+                <div class="p-4 border rounded shadow-sm h-100">
+                    <h6 class="fw-bold text-teal">Reliability-Focused Design</h6>
+                    <p class="small mb-0">We plan for failover, continuity, and operational uptime from day one</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 12: FAQ -->
+<section class="faq-dark-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="display-5 faq-title-modern" data-aos="fade-up">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="custom-voip-accordion" data-aos="fade-up">
+            <div class="accordion" id="voipFaqModern">
+                
+                <!-- Q1 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq1">
+                            Can I keep my existing business phone numbers?
+                        </button>
+                    </h2>
+                    <div id="mq1" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Yes. In most cases, we can port your existing phone numbers to your new VoIP/IP-PBX system.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq2">
+                            How long does number porting take?
+                        </button>
+                    </h2>
+                    <div id="mq2" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Porting timelines vary by carrier and number type. We coordinate the process and plan cutover timing to reduce disruption.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq3">
+                            What happens if our internet goes down?
+                        </button>
+                    </h2>
+                    <div id="mq3" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            We can configure failover routing to mobile devices, backup lines, or alternate destinations so your business remains reachable.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq4">
+                            Can employees use the system remotely?
+                        </button>
+                    </h2>
+                    <div id="mq4" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Yes. Staff can use mobile apps and desktop softphones while keeping their business extension and caller ID.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq5">
+                            Do you support hospitality phone system workflows?
+                        </button>
+                    </h2>
+                    <div id="mq5" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Yes. KLOUDTECK supports hospitality-focused deployments and PMS integration options for supported platforms and use cases.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq6">
+                            Do you provide installation and setup?
+                        </button>
+                    </h2>
+                    <div id="mq6" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can handle design, provisioning, configuration, testing, training, and go-live support.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq7">
+                            Can this work for multiple locations?
+                        </button>
+                    </h2>
+                    <div id="mq7" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Absolutely. We design scalable systems for multi-site organizations with centralized management and location-specific routing.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq8">
+                            Do you also handle network and cabling requirements?
+                        </button>
+                    </h2>
+                    <div id="mq8" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Yes. KLOUDTECK can support the broader infrastructure (networking and low-voltage cabling) required for a stable voice deployment.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="accordion-item shadow-sm border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mq9">
+                            Is there ongoing support after installation?
+                        </button>
+                    </h2>
+                    <div id="mq9" class="accordion-collapse collapse" data-bs-parent="#voipFaqModern">
+                        <div class="accordion-body">
+                            Yes. We offer ongoing support for moves/adds/changes, troubleshooting, and system optimization.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 13: CTA SECTION -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm mb-5">
+    <div class="container py-4">
+        <div class="p-5 rounded-5 bg-navy text-white text-center shadow-lg" data-aos="zoom-in">
+            <h2 class="fw-bold mb-4">Time to Modernize Your Business Phone System?</h2>
+            <p class="lead text-white-50 mb-5 mx-auto" style="max-width: 800px;">If your team is dealing with dropped calls, outdated hardware, poor routing, or limited remote access, it’s time for a smarter voice platform. KLOUDTECK designs and supports VoIP/IP-PBX systems built for clarity, uptime, and growth.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="/quote" class="btn btn-teal btn-lg px-5 py-3 text-white rounded-pill shadow">Request Quote</a>
+                <a style="border:solid 1px white;" href="/contact" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20know%20about%20VOIP%20Services" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ -->
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Force immediate visibility to prevent blank screen while AOS loads
+    document.addEventListener("DOMContentLoaded", function() {
+        AOS.init({ duration: 800, once: true });
+    });
+</script>
+{% endblock %}

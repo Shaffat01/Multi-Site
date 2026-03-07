@@ -1,0 +1,484 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<!-- 1. HERO SECTION -->
+<section class="hero-advanced services-wrapper process-section-bg bg-white shadow-sm">
+    <!-- Floating icons kept as per original -->
+    <i class="fas fa-network-wired floating-tech-icon" style="top: 10%; right: 5%; font-size: 10rem;"></i>
+    <i class="fas fa-shield-alt floating-tech-icon" style="bottom: 10%; left: 5%; font-size: 8rem; animation-delay: 2s;"></i>
+    <i class="fas fa-shield floating-tech-icon" style="bottom: 10%; right: 5%; font-size: 8rem; animation-delay: 2s;"></i>
+    <i class="fas fa-network-wired floating-tech-icon" style="top: 10%; left: 5%; font-size: 8rem; animation-delay: 2s;"></i>
+    <i class="fas fa-ethernet floating-tech-icon" style="top:50%; left: 50%; font-size: 8rem; animation-delay: 2s;"></i>
+    <i class="fas fa-cable-car floating-tech-icon" style="top:60%; left: 65%; font-size: 8rem; animation-delay: 2s;"></i>
+    <i class="fas fa-wifi floating-tech-icon" style="top:38%; left: 35%; font-size: 8rem; animation-delay: 2s;"></i>
+    <i class="fas fa-mobile-alt floating-tech-icon" style="bottom:45%; right: 28%; font-size: 8rem; animation-delay: 2s;"></i>
+    <i class="fas fa-phone-alt floating-tech-icon" style="bottom:23%; right: 57%; font-size: 8rem; animation-delay: 2s;"></i>
+    
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="badge bg-teal mb-3 px-3 py-2 reveal">Infrastructure Specialists</div>
+                <h1 class="display-3 fw-bold mb-4 reveal">Secure, scalable infrastructure for <span class="text-teal">mission-critical</span> operations</h1>
+                <p class="lead mb-5 opacity-75 reveal">From structured cabling and managed networks to CCTV, access control, and VoIP, KLOUDTECK designs, installs, and supports reliable technology systems for hospitality, retail, warehouses, multi-family communities, schools, hospitals, medical offices, and commercial properties.</p>
+                <div class="d-flex gap-3 reveal">
+                    <a href="/quote" class="btn btn-teal btn-lg px-4 py-3 shadow-lg">Request a Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light btn-lg px-4 py-3">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VENDORS BAR -->
+<div  style=" background: #ffffff; height: 60px;" class="marquee-container border-bottom border-top ">
+    <div class="marquee-content">
+        <img style="height: 25px" src="https://upload.wikimedia.org/wikipedia/commons/8/80/MikroTik_Logo_%282022%29.svg" alt="Mikrotik">
+        <img style="height: 60px"  src="{{ url_for('static', filename='images/ruckus.png') }}" alt="Ruckus Networks" class="vendor-logo">
+        <img style="height: 60px"  src="{{ url_for('static', filename='images/ubiquiti.png') }}" alt="Ubiquiti" class="vendor-logo">
+        <img style="height: 90px" src="{{ url_for('static', filename='images/grand.png') }}" alt="GrandStream" class="vendor-logo">
+        <img style="height: 100px" src="{{ url_for('static', filename='images/omada.png') }}" alt="Omada by TP-Link" class="vendor-logo">
+        <img style="height: 30px" src="{{ url_for('static', filename='images/cisco.png') }}" alt="Cisco" class="vendor-logo">
+        <img style="height: 60px"  src="{{ url_for('static', filename='images/aruba.png') }}" alt="Aruba" class="vendor-logo">
+        <img style="height: 10px"  src="{{ url_for('static', filename='images/fortinet.png') }}" alt="Fortinet" class="vendor-logo">
+        <img style="height: 30px"  src="{{ url_for('static', filename='images/lts.png') }}" alt=" LTS Security" class="vendor-logo">
+        <img style="height: 45px"  src="{{ url_for('static', filename='images/ens.png') }}" alt=" ENS Security" class="vendor-logo">
+        <img style="height: 35px"  src="{{ url_for('static', filename='images/dish.png') }}" alt="Dish Network" class="vendor-logo">
+        <img style="height: 35px"  src="{{ url_for('static', filename='images/direct.png') }}" alt="DirecTV" class="vendor-logo">
+        <img style="height: 25px"  src="{{ url_for('static', filename='images/lg.png') }}" alt="LG" class="vendor-logo">
+        <img style="height: 25px" src="{{ url_for('static', filename='images/samsung.png') }}" alt="Samsung" class="vendor-logo">
+        <img style="height:10px"  src="{{ url_for('static', filename='images/philips.png') }}" alt="Philips" class="vendor-logo">
+        <img style="height: 30px"  src="{{ url_for('static', filename='images/dell.png') }}" alt=" Dell Technologies" class="vendor-logo">
+        <img style="height: 30px"  src="{{ url_for('static', filename='images/hpe.png') }}" alt="Hpe" class="vendor-logo">
+    </div>
+</div>
+
+<!-- 2. WHY KLOUDTECK -->
+<section class="py-5 section-why services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-5 ">
+        <div class="text-center mb-5 reveal">
+            <h2 class="display-5 fw-bold">Why Businesses Choose KLOUDTECK</h2>
+            <p class="lead text-secondary">We don’t just install equipment — we build technology environments that are secure, scalable, and easy to manage.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 reveal"><div class="why-card"><h5><i class="fas fa-check-circle text-teal me-2"></i>End-to-End Solutions</h5><p class="small text-muted">One partner for networking, security, cabling, phone systems, and connected building technology.</p></div></div>
+            <div class="col-md-4 reveal"><div class="why-card"><h5><i class="fas fa-microchip text-teal me-2"></i>Industry-Focused Expertise</h5><p class="small text-muted">Experience supporting hospitality, retail, warehouse, multi-family, and commercial properties.</p></div></div>
+            <div class="col-md-4 reveal"><div class="why-card"><h5><i class="fas fa-expand-arrows-alt text-teal me-2"></i>Scalable Rollouts</h5><p class="small text-muted">Standardized deployments, documentation, and project coordination for single or multi-site growth.</p></div></div>
+            <div class="col-md-4 reveal"><div class="why-card"><h5><i class="fas fa-handshake text-teal me-2"></i>Vendor-Neutral Approach</h5><p class="small text-muted">We recommend the right solution for your environment, budget, and long-term goals.</p></div></div>
+            <div class="col-md-4 reveal"><div class="why-card"><h5><i class="fas fa-tools text-teal me-2"></i>Reliable Support</h5><p class="small text-muted">From troubleshooting to upgrades, we help keep your systems running after installation.</p></div></div>
+            <div class="col-md-4 reveal"><div class="why-card"><h5><i class="fas fa-user-shield text-teal me-2"></i>Security-First Design</h5><p class="small text-muted">Built with segmentation, performance, and future expansion in mind.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. SERVICES (High Level Dark Glassmorphism) -->
+<section class=" services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="text-center mb-5 reveal">
+            <span class="badge bg-soft-teal text-teal px-3 py-2 mb-3" style="background: rgba(0,255,255,0.1); border-radius: 50px;">Our Expertise</span>
+            <h2 class="display-5 fw-bold text-white">Technology Solutions Built for <span class="text-teal">Performance & Reliability</span></h2>
+            <p class="text-white-50 mx-auto" style="max-width: 700px;">KLOUDTECK provides commercial technology infrastructure and security solutions tailored to your operations.</p>
+        </div>
+
+        <div class="bento-container">
+            <a href="/services/managed-network-wifi-solutions" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-wifi"></i></div>
+                    <h3 class="card-title">Managed Network & WiFi</h3>
+                    <p class="card-text">Expert deployment of high-density WIFI with smart VLAN segmentation, enterprise firewalls, and 24/7 monitoring. We ensure maximum security and high-speed throughput.</p>
+                </div>
+            </a>
+            <a href="/services/commercial-cctv-surveillance" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-video"></i></div>
+                    <h3 class="card-title">CCTV Surveillance</h3>
+                    <p class="card-text">AI-powered 4K IP Camera systems with NVR integration and remote mobile access for visibility.</p>
+                </div>
+            </a>
+            <a href="/services/commercial-access-control-systems" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-id-card"></i></div>
+                    <h3 class="card-title">Access Control</h3>
+                    <p class="card-text">Cloud-managed keyless entry, RFID credentials, and audit trails to keep your facility secure.</p>
+                </div>
+            </a>
+            <a href="/services/structured-cabling-fiber-installation" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-project-diagram"></i></div>
+                    <h3 class="card-title">Structured Cabling</h3>
+                    <p class="card-text">Professional low-voltage, fiber backbone, and server room buildouts. Clean, labeled infrastructure.</p>
+                </div>
+            </a>
+            <a href="/services/business-voip-phone-systems" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-phone-alt"></i></div>
+                    <h3 class="card-title">VoIP Systems</h3>
+                    <p class="card-text">Reliable communication systems designed for front desk, office, and multi-location businesses.</p>
+                </div>
+            </a>
+            <a href="/services/commercial-tv-digital-display-solutions" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-tv"></i></div>
+                    <h3 class="card-title">Guest Technology & Displays</h3>
+                    <p class="card-text">Interactive technology solutions and digital signage that improve customer experience and operations.</p>
+                </div>
+            </a>
+            <a href="/services/full-stack-web-development" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-code"></i></div>
+                    <h3 class="card-title">Full Stack Web Development</h3>
+                    <p class="card-text">Custom-built, high-performance corporate websites and web applications tailored to your business workflows.</p>
+                </div>
+            </a>
+            <a href="/services/mikrotik-device-orchestration" class="bento-card size-sm reveal">
+                <div>
+                    <div class="icon-box"><i class="fas fa-server"></i></div>
+                    <h3 class="card-title">MikroTik Device Orchestration</h3>
+                    <p class="card-text">Manage, configure, and monitor multiple MikroTik devices from a single unified web dashboard. Centralized orchestration for seamless multi-site control.</p>
+                </div>
+            </a>
+            <a href="/portfolio" class="bento-card size-sm cta-card reveal">
+                <div class="text-center">
+                    <h3 class="text-white fw-bold mb-3">Ready to see more?</h3>
+                    <p class="card-text text-white opacity-75 mb-4">Explore our complete list of technical deployments and success stories.</p>
+                    <div style="border:solid 1px white;" class="btn btn-teal w-100 py-3 fw-bold shadow-sm">View Full Portfolio</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 4. WHO WE WORK BEST WITH (Split Background) -->
+<div class="services-wrapper process-section-bg bg-white shadow-sm">
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-6 reveal">
+                    <h2 class="fw-bold mb-4">Who We Work Best With</h2>
+                    <p class="lead"><b>KLOUDTECK</b> is a strong fit for businesses and property operators who need a dependable technology partner for:</p>
+                    <div class="row g-3">
+                        <div class="col-6"><i class="fas fa-check text-teal me-2"></i>New construction and renovations</div>
+                        <div class="col-6"><i class="fas fa-check text-teal me-2"></i>Takeovers and property upgrades</div>
+                        <div class="col-6"><i class="fas fa-check text-teal me-2"></i>Ongoing support and maintenance</div>
+                        <div class="col-6"><i class="fas fa-check text-teal me-2"></i>Multi-site standardization</div>
+                        <div class="col-6"><i class="fas fa-check text-teal me-2"></i>Poor WiFi or recurring network issues</div>
+                        <div class="col-6"><i class="fas fa-check text-teal me-2"></i>Security system expansion or modernization</div>
+                        <div class="col-6"><i class="fas fa-check text-teal me-2"></i>Maintenance</div>
+                    </div>
+                    <p class="mt-4 fw-bold p-3 bg-white shadow-sm rounded">If you need a team that can handle both infrastructure and day-to-day operational technology, we can help.</p>
+                </div>
+                <div class="col-lg-6 reveal">
+                    <h2 class="fw-bold mb-4">Our Process</h2>
+                    <div class="process-node">
+                        <div class="process-number">1</div>
+                        <h5>Assess</h5>
+                        <p class="small text-muted">We evaluate your site, constraints, and requirements.</p>
+                    </div>
+                    <div class="process-node">
+                        <div class="process-number">2</div>
+                        <h5>Design</h5>
+                        <p class="small text-muted">We produce the network/security design and bill of materials.</p>
+                    </div>
+                    <div class="process-node">
+                        <div class="process-number">3</div>
+                        <h5>Deploy</h5>
+                        <p class="small text-muted">Our team installs, configures, tests, and documents your systems for reliable performance.</p>
+                    </div>
+                    <div class="process-node" style="border-left: none;">
+                        <div class="process-number">4</div>
+                        <h5>Support</h5>
+                        <p class="small text-muted">We provide 24/7 monitoring, ongoing support, upgrades, and guidance as your needs evolve.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- 5. TRUSTED BY (Elegant Gradient) -->
+<section style="padding-top: 10px;" class="trust-section">
+    <div class="container">
+        <div class="text-center mb-5 reveal">
+            <span class="text-teal fw-bold text-uppercase small tracking-widest">Client Portfolio</span>
+            <h2 class="display-6 fw-bold text-navy mt-2">Trusted by Property Operators & Global Brands</h2>
+            <div class="d-flex justify-content-center gap-2 mt-4">
+                <button class="filter-btn active">All Brands</button>
+                <button class="filter-btn">Hotels</button>
+                <button class="filter-btn">Retail & Logistics</button>
+            </div>
+        </div>
+    </div>
+    <div style="filter: grayscale(100%) brightness(0.8); opacity: 0.7;" class="marquee-mask mt-5">
+        <div class="marquee-track">
+            <!-- Brand Logos Kept Exactly as Original -->
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Hyatt_Logo.svg" alt="Hyatt"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg" alt="Marriott"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/King_Hussein_Bin_Talal_Convention_Centre_Managed_By_Hilton_logo.svg" alt="Hilton"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Walmart_logo_%282008%29.svg"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/IHG_Primary_Centred_Logo_Black_RGB.png" alt="IHG"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Holiday_Inn_Logo.png" alt="Holiday Inn"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Best_Western_Hotels_%26_Resorts_logo.svg" alt="Best Western"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Wyndham_Hotels_%26_Resorts_logo.svg" alt="Wyndham"></div>
+            <!-- Duplicates for scroll -->
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Hyatt_Logo.svg" alt="Hyatt"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Marriott_Logo.svg" alt="Marriott"></div>
+            <div class="brand-logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/King_Hussein_Bin_Talal_Convention_Centre_Managed_By_Hilton_logo.svg" alt="Hilton"></div>
+        </div>
+    </div>
+</section>
+
+<!-- 6. INDUSTRIES (Modern Tech Grid) -->
+<section class="industry-wrapper py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container py-5">
+        <div class="text-center mb-5 reveal">
+            <h2 class="display-5 fw-bold text-white">Built for the Way Your <span class="text-teal">Industry Operates</span></h2>
+            <p class="text-white-50 mx-auto mt-3" style="max-width: 800px;">
+                We understand that every environment has different requirements. KLOUDTECK delivers solutions designed around your workflows, uptime needs, and customer experience.
+            </p>
+        </div>
+        <div class="row g-4 reveal">
+            <!-- All 8 industry cards kept exactly as original -->
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-hotel fa-2x text-teal"></i></div><a style="text-decoration: none;" href="/industries/hospitality"><h5 class="industry-title">Hospitality</h5></a></div></div>
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-shopping-bag fa-2x text-teal"></i></div><a style="text-decoration: none;" href="/industries/retail"><h5 class="industry-title">Retail</h5></a></div></div>
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-warehouse fa-2x text-teal"></i></div><a style="text-decoration: none;" href="/industries/warehouses-distribution"><h5 class="industry-title">Warehouses</h5></a></div></div>
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-building-user fa-2x text-teal"></i></div><a style="text-decoration: none;" href="/industries/multi-family-communities"><h5 class="industry-title">Multi-Family</h5></a></div></div>
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-briefcase fa-2x text-teal"></i></div><a style="text-decoration: none;" href="/industries/commercial-office"><h5 class="industry-title">Commercial Offices</h5></a></div></div>
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-graduation-cap fa-2x text-teal"></i></div><h5 class="industry-title">Schools & Campus</h5></div></div>
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-hospital fa-2x text-teal"></i></div><h5 class="industry-title">Hospitals</h5></div></div>
+            <div class="col-lg-3 col-md-6"><div class="industry-card p-4 rounded-4 text-center"><div class="industry-icon mb-3"><i class="fas fa-city fa-2x text-teal"></i></div><a style="text-decoration: none;" href="/industries/commercial-office"><h5 class="industry-title">Commercial Properties</h5></a></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. METRICS (High Contrast Teal Pattern) -->
+<section class="py-3 services-wrapper process-section-bg bg-white shadow-sm text-white">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-2 col-6"><h2 class="counter fw-bold" data-target="450">0</h2><p class="small fw-bold">Sites Deployed</p></div>
+            <div class="col-md-2 col-6"><h2 class="counter fw-bold" data-target="2500">0</h2><p class="small fw-bold">Cameras Installed</p></div>
+            <div class="col-md-2 col-6"><h2 class="counter fw-bold" data-target="1200">0</h2><p class="small fw-bold">APs Managed</p></div>
+            <div class="col-md-3 col-6"><h2 class="fw-bold">99.9%</h2><p class="small fw-bold">Uptime SLA</p></div>
+            <div class="col-md-3 col-6"><h2 class="fw-bold">20+ Yrs</h2><p class="small fw-bold">Combined Experience</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- 8. CASE STUDIES -->
+<section class="case-studies-section services-wrapper process-section-bg bg-white shadow-sm text-white py-5 ">
+    <div class="container py-1">
+        <div class="d-flex justify-content-between align-items-end mb-5 reveal">
+            <div><span class="text-teal fw-bold small text-uppercase">Proven Results</span><h2 class="display-5 fw-bold text-navy mt-2">Success Stories</h2></div>
+            <div class="d-none d-md-block"><a href="/industries" class="btn btn-outline-navy px-4 py-2">View More Projects <i class="fas fa-arrow-right ms-2"></i></a></div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 reveal">
+                <div class="case-card">
+                    <div class="case-card-img" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1000');"></div>
+                    <div class="case-card-overlay"></div>
+                    <div class="case-card-content">
+                        <span class="case-badge">Hospitality</span>
+                        <h5>Hotel Network Upgrade</h5>
+                        <p>Upgraded property-wide network infrastructure to improve guest WiFi performance and operational reliability.</p>
+                        <a href="/industries/hospitality" class="read-more-link text-white">View More<i class="fas fa-chevron-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 reveal">
+                <div class="case-card">
+                    <div class="case-card-img" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1000');"></div>
+                    <div class="case-card-overlay"></div>
+                    <div class="case-card-content"><span class="case-badge">Retail</span><h5>Security & Connectivity Rollout</h5><p>Deployed CCTV, networking, and cabling upgrades to improve visibility and uptime.</p>
+                        <a href="/industries/retail" class="read-more-link text-white">View More<i class="fas fa-chevron-right ms-1"></i></a></div>
+                </div>
+            </div>
+            <div class="col-lg-4 reveal">
+                <div class="case-card">
+                    <div class="case-card-img" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000');"></div>
+                    <div class="case-card-overlay"></div>
+                    <div class="case-card-content"><span class="case-badge">Warehouse</span><h5>Surveillance & Access Control</h5><p>Implemented camera coverage and access control systems for stronger site monitoring.</p>
+                        <a href="/industries/warehouses-distribution" class="read-more-link text-white">View More<i class="fas fa-chevron-right ms-1"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 9. TESTIMONIALS & FAQ -->
+<section style="background:transparent !important;" class="services-wrapper process-section-bg shadow-sm py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Client <span class="text-teal">Feedback</span></h2>
+        <div class="row g-4">
+            {% for testi in testimonials %}
+            <div class="col-md-6 col-lg-4">
+                <div class="testimonial-card">
+                    <div class="text-warning mb-3">
+                        {% for i in range(testi.rating) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                        {% for i in range(5 - testi.rating) %}
+                            <i class="far fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="text-white-50 fst-italic">"{{ testi.quote }}"</p>
+                    <h4 class="h6 fw-bold text-teal mt-3 mb-0">— {{ testi.author }}, {{ testi.designation }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 10. FAQ SECTION -->
+<section class="faq-advanced-wrapper">
+    <div class="container">
+        <div class="text-center mb-5 reveal">
+            <h2 class="display-5 fw-bold faq-title">Frequently Asked Questions</h2>
+            <p class="text-white-50">Got questions? We have the answers you need.</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="accordion" id="faqAcc">
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                                Do you support existing systems or only new installations?
+                            </button>
+                        </h2>
+                        <div id="q1" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                            <div class="accordion-body">
+                                We support both. We can troubleshoot, upgrade, and expand existing systems or design and deploy completely new solutions.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                                Can you handle multi-site deployments?
+                            </button>
+                        </h2>
+                        <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                            <div class="accordion-body">
+                                Yes. We can standardize technology across multiple locations and coordinate phased rollouts.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                                Do you provide both cabling and equipment installation?
+                            </button>
+                        </h2>
+                        <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                            <div class="accordion-body">
+                                Yes. We handle structured cabling and can deploy the connected systems that run on it, including networking and security equipment.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                                Do you offer ongoing support after installation?
+                            </button>
+                        </h2>
+                        <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                            <div class="accordion-body">
+                                Yes. We provide support, maintenance, and upgrade guidance to help keep your systems reliable.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                                Can you integrate CCTV and access control?
+                            </button>
+                        </h2>
+                        <div id="q5" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                            <div class="accordion-body">
+                                Yes. We can design solutions that improve visibility, access management, and centralized oversight.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q6">
+                                What types of businesses do you work with?
+                            </button>
+                        </h2>
+                        <div id="q6" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                            <div class="accordion-body">
+                                We primarily support hospitality, retail, warehouses, multi-family communities, and commercial office environments.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item reveal">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q7">
+                                Do you offer site surveys or consultations?
+                            </button>
+                        </h2>
+                        <div id="q7" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                            <div class="accordion-body">
+                                Yes. We offer consultations and technology audits to evaluate your current environment and recommend improvements.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 11. FINAL CTA (Dynamic Mesh) -->
+<section class="py-5 services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="cta-final-box p-5 rounded-5 text-white text-center shadow-lg reveal">
+            <h2 class="display-5 fw-bold mb-4">Let’s Build a Better Technology Foundation for Your Business</h2>
+            <p class="lead mb-4">Whether you need a new installation, system upgrade, or ongoing support, KLOUDTECK can help you design and deploy reliable commercial technology solutions.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/quote" class="btn btn-navy btn-lg px-4">Request a Quote</a>
+                <a href="/contact" class="btn btn-light btn-lg px-4 text-navy">Contact KLOUDTECK</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Commercial%20Access%20Control" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a> -->
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) { entry.target.classList.add('active'); }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / 200;
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(updateCount, 20);
+            } else { counter.innerText = target; }
+        };
+        const counterObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) updateCount();
+        });
+        counterObserver.observe(counter);
+    });
+</script>
+
+{% endblock %}

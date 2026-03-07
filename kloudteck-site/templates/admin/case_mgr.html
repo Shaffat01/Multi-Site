@@ -1,0 +1,552 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block title %}Manage Case Studies | KloudTeck Admin{% endblock %}
+{% block page_title %}Case Studies <span style="color: var(--teal);">Manager</span>{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ====== TABLE STYLES ====== */
+    .data-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px;
+    }
+    .data-table thead th {
+        background: rgba(0, 210, 210, 0.08);
+        color: var(--teal);
+        padding: 14px 18px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        border: none;
+        white-space: nowrap;
+    }
+    .data-table thead th:first-child { border-radius: 12px 0 0 12px; }
+    .data-table thead th:last-child { border-radius: 0 12px 12px 0; }
+    .data-table tbody tr {
+        background: rgba(255, 255, 255, 0.02);
+        transition: 0.3s;
+    }
+    .data-table tbody tr:hover {
+        background: rgba(0, 210, 210, 0.05);
+        transform: translateX(4px);
+    }
+    .data-table tbody td {
+        padding: 16px 18px;
+        border: none;
+        vertical-align: middle;
+        font-size: 0.88rem;
+        color: var(--text-main);
+    }
+    .data-table tbody td:first-child { border-radius: 12px 0 0 12px; }
+    .data-table tbody td:last-child { border-radius: 0 12px 12px 0; }
+
+    /* ====== CASE CARD PREVIEW ====== */
+    .case-thumb {
+        width: 70px;
+        height: 50px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1px solid var(--glass-border);
+    }
+
+    /* ====== BADGES ====== */
+    .category-badge {
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .badge-hospitality { background: rgba(255, 193, 7, 0.15); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.3); }
+    .badge-retail { background: rgba(0, 210, 210, 0.15); color: #00d2d2; border: 1px solid rgba(0, 210, 210, 0.3); }
+    .badge-warehouse { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .badge-security { background: rgba(248, 113, 113, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+    .badge-default { background: rgba(255, 255, 255, 0.08); color: #8b949e; border: 1px solid rgba(255, 255, 255, 0.15); }
+
+    /* ====== ACTION BUTTONS ====== */
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1px solid var(--glass-border);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 0.85rem;
+    }
+    .action-btn:hover { transform: translateY(-2px); }
+    .action-btn.edit:hover { background: rgba(0, 210, 210, 0.15); color: var(--teal); border-color: var(--teal); }
+    .action-btn.delete:hover { background: rgba(248, 113, 113, 0.15); color: #f87171; border-color: #f87171; }
+    .action-btn.pdf:hover { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border-color: #8b5cf6; }
+
+    /* ====== MODAL STYLES ====== */
+    .modal-content {
+        background: #161b22 !important;
+        border: 1px solid var(--glass-border) !important;
+        border-radius: 24px !important;
+    }
+    .modal-header {
+        border-bottom: 1px solid var(--glass-border) !important;
+        padding: 25px 30px;
+    }
+    .modal-body { padding: 30px; }
+    .modal-footer { border-top: 1px solid var(--glass-border) !important; padding: 20px 30px; }
+
+    .form-control, .form-select {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid var(--glass-border) !important;
+        color: var(--text-main) !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+        font-size: 0.88rem;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: var(--teal) !important;
+        box-shadow: 0 0 0 3px rgba(0, 210, 210, 0.15) !important;
+    }
+    .form-control::placeholder { color: var(--text-secondary) !important; }
+    .form-label {
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    textarea.form-control { min-height: 100px; resize: vertical; }
+
+    .btn-publish {
+        background: linear-gradient(135deg, var(--teal), #0099cc);
+        color: white;
+        border: none;
+        padding: 12px 35px;
+        border-radius: 14px;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+    .btn-publish:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 210, 210, 0.3); color: white; }
+
+    .btn-ghost {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-secondary);
+        border: 1px solid var(--glass-border);
+        padding: 12px 25px;
+        border-radius: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .btn-ghost:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+
+    /* ====== SUMMARY CARDS ====== */
+    .summary-card {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+    }
+    .summary-card h3 {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--teal);
+        margin-bottom: 5px;
+    }
+    .summary-card p {
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0;
+    }
+
+    /* ====== IMAGE PREVIEW ====== */
+    .img-preview-box {
+        width: 100%;
+        height: 150px;
+        border: 2px dashed var(--glass-border);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-top: 10px;
+        background: rgba(255,255,255,0.02);
+    }
+    .img-preview-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    /* ====== EMPTY STATE ====== */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+    .empty-state i {
+        font-size: 3rem;
+        color: var(--teal);
+        margin-bottom: 20px;
+        opacity: 0.5;
+    }
+
+    /* Content truncate */
+    .content-truncate {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--text-secondary);
+        font-size: 0.82rem;
+    }
+    .form-select option {
+        background-color: #161b22; 
+        color: #ffffff; 
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ====== SUMMARY STATS ====== -->
+<div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="summary-card">
+            <h3>{{ studies|length }}</h3>
+            <p>Total Case Studies</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="summary-card">
+            <h3>{{ studies|selectattr('category', 'equalto', 'Hospitality')|list|length }}</h3>
+            <p>Hospitality</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="summary-card">
+            <h3>{{ studies|selectattr('category', 'equalto', 'Retail')|list|length }}</h3>
+            <p>Retail</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="summary-card">
+            <h3>{{ studies|selectattr('pdf_url')|list|length }}</h3>
+            <p>With PDF</p>
+        </div>
+    </div>
+</div>
+
+<!-- ====== HEADER BAR ====== -->
+<div class="panel">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h5 class="fw-bold mb-1">All Case Studies</h5>
+            <p class="text-secondary small mb-0">Manage your client success stories</p>
+        </div>
+        <button class="btn btn-publish" data-bs-toggle="modal" data-bs-target="#addCaseModal">
+            <i class="fas fa-plus me-2"></i>Add Case Study
+        </button>
+    </div>
+
+    <!-- ====== TABLE ====== -->
+    <div class="table-responsive">
+        {% if studies %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Category</th>
+                    <th>PDF</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for study in studies %}
+                <tr>
+                    <td><span style="color: var(--text-secondary);">{{ loop.index }}</span></td>
+                    <td>
+                        {% if study.bg_image %}
+                        <img src="{{ study.bg_image }}" class="case-thumb" alt="thumb">
+                        {% else %}
+                        <div class="case-thumb d-flex align-items-center justify-content-center" style="background: var(--glass);">
+                            <i class="fas fa-image text-secondary"></i>
+                        </div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <strong>{{ study.title }}</strong>
+                    </td>
+                    <td>
+                        <div class="content-truncate">{{ study.content or '—' }}</div>
+                    </td>
+                    <td>
+                        {% set cat = study.category|lower %}
+                        <span class="category-badge
+                            {% if cat == 'hospitality' %}badge-hospitality
+                            {% elif cat == 'retail' %}badge-retail
+                            {% elif cat == 'warehouse' %}badge-warehouse
+                            {% elif cat == 'security' %}badge-security
+                            {% else %}badge-default{% endif %}">
+                            {{ study.category }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if study.pdf_url %}
+                        <a href="{{ study.pdf_url }}" target="_blank" class="action-btn pdf" title="View PDF">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>
+                        {% else %}
+                        <span class="text-secondary small">No PDF</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button class="action-btn edit" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editCaseModal{{ study.id }}" 
+                                    title="Edit">
+                                <i class="fas fa-pen-to-square"></i>
+                            </button>
+                            <a href="/admin/case-studies/delete/{{ study.id }}" 
+                               class="action-btn delete" 
+                               title="Delete"
+                               onclick="return confirm('⚠️ Delete this case study permanently?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <!-- EMPTY STATE -->
+        <div class="empty-state">
+            <i class="fas fa-folder-open d-block"></i>
+            <h5 class="fw-bold text-white mb-2">No Case Studies Yet</h5>
+            <p class="text-secondary">Click "Add Case Study" to publish your first success story.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ============================================================
+     ADD CASE STUDY MODAL
+     ============================================================ -->
+<div class="modal fade" id="addCaseModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" action="/admin/case-studies" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">
+                        <i class="fas fa-plus-circle me-2" style="color: var(--teal);"></i>
+                        Add New Case Study
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <!-- Title -->
+                        <div class="col-12">
+                            <label class="form-label">Project Title *</label>
+                            <input type="text" name="title" class="form-control" 
+                                   placeholder="e.g. Marriott Hotel Network Overhaul" required>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="col-md-6">
+                            <label class="form-label">Category *</label>
+                            <select name="category" class="form-select" required>
+                                <option value="">Select Category</option>
+                                <option value="Hospitality">🏨 Hospitality</option>
+                                <option value="Retail">🛒 Retail</option>
+                                <option value="Warehouse">🏭 Warehouse</option>
+                                <option value="Security">🔒 Security</option>
+                                <option value="Office">🏢 Office</option>
+                                <option value="Healthcare">🏥 Healthcare</option>
+                            </select>
+                        </div>
+
+                        <!-- Image URL -->
+                        <div class="col-md-6">
+                            <label class="form-label">Image URL (optional)</label>
+                            <input type="url" name="bg_image_url" class="form-control" 
+                                   placeholder="https://example.com/image.jpg"
+                                   id="addImgUrl" oninput="previewAddImage()">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="col-12">
+                            <label class="form-label">Short Description</label>
+                            <textarea name="content" class="form-control" rows="3"
+                                      placeholder="Brief description of the project, challenges solved, results achieved..."></textarea>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="col-md-6">
+                            <label class="form-label">Upload Image *</label>
+                            <input type="file" name="bg_image" class="form-control" 
+                                   accept="image/*" id="addImgFile" onchange="previewAddFile()">
+                            <div class="img-preview-box" id="addPreviewBox">
+                                <span class="text-secondary small">
+                                    <i class="fas fa-cloud-upload-alt me-2"></i>Image Preview
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- PDF Upload -->
+                        <div class="col-md-6">
+                            <label class="form-label">Upload PDF (optional)</label>
+                            <input type="file" name="pdf_file" class="form-control" accept=".pdf">
+                            <div class="img-preview-box" style="flex-direction: column; gap: 8px;">
+                                <i class="fas fa-file-pdf" style="font-size: 2rem; color: #f87171; opacity: 0.5;"></i>
+                                <span class="text-secondary small">PDF will be linked</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-publish">
+                        <i class="fas fa-rocket me-2"></i>Publish Case Study
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     EDIT MODALS (One per case study)
+     ============================================================ -->
+{% for study in studies %}
+<div class="modal fade" id="editCaseModal{{ study.id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" action="/admin/case-studies/edit/{{ study.id }}" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">
+                        <i class="fas fa-pen me-2" style="color: var(--teal);"></i>
+                        Edit: {{ study.title }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <!-- Title -->
+                        <div class="col-12">
+                            <label class="form-label">Project Title *</label>
+                            <input type="text" name="title" class="form-control" 
+                                   value="{{ study.title }}" required>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="col-md-6">
+                            <label class="form-label">Category *</label>
+                            <select name="category" class="form-select" required>
+                                <option value="Hospitality" {% if study.category == 'Hospitality' %}selected{% endif %}>🏨 Hospitality</option>
+                                <option value="Retail" {% if study.category == 'Retail' %}selected{% endif %}>🛒 Retail</option>
+                                <option value="Warehouse" {% if study.category == 'Warehouse' %}selected{% endif %}>🏭 Warehouse</option>
+                                <option value="Security" {% if study.category == 'Security' %}selected{% endif %}>🔒 Security</option>
+                                <option value="Office" {% if study.category == 'Office' %}selected{% endif %}>🏢 Office</option>
+                                <option value="Healthcare" {% if study.category == 'Healthcare' %}selected{% endif %}>🏥 Healthcare</option>
+                            </select>
+                        </div>
+
+                        <!-- Image URL -->
+                        <div class="col-md-6">
+                            <label class="form-label">Image URL</label>
+                            <input type="url" name="bg_image_url" class="form-control" 
+                                   value="{{ study.bg_image }}" placeholder="Image URL">
+                        </div>
+
+                        <!-- Content -->
+                        <div class="col-12">
+                            <label class="form-label">Short Description</label>
+                            <textarea name="content" class="form-control" rows="3">{{ study.content or '' }}</textarea>
+                        </div>
+
+                        <!-- Current Image Preview -->
+                        <div class="col-md-6">
+                            <label class="form-label">Current Image</label>
+                            <div class="img-preview-box">
+                                {% if study.bg_image %}
+                                <img src="{{ study.bg_image }}" alt="current">
+                                {% else %}
+                                <span class="text-secondary small">No Image</span>
+                                {% endif %}
+                            </div>
+                            <label class="form-label mt-3">Replace Image</label>
+                            <input type="file" name="bg_image" class="form-control" accept="image/*">
+                        </div>
+
+                        <!-- PDF -->
+                        <div class="col-md-6">
+                            <label class="form-label">Current PDF</label>
+                            <div class="img-preview-box" style="flex-direction: column; gap: 8px;">
+                                {% if study.pdf_url %}
+                                <i class="fas fa-file-pdf" style="font-size: 2rem; color: #22c55e;"></i>
+                                <a href="{{ study.pdf_url }}" target="_blank" class="small" 
+                                   style="color: var(--teal); text-decoration: none;">
+                                    View Current PDF
+                                </a>
+                                {% else %}
+                                <i class="fas fa-file-pdf" style="font-size: 2rem; color: #f87171; opacity: 0.3;"></i>
+                                <span class="text-secondary small">No PDF uploaded</span>
+                                {% endif %}
+                            </div>
+                            <label class="form-label mt-3">Replace PDF</label>
+                            <input type="file" name="pdf_file" class="form-control" accept=".pdf">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-publish">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // ====== Add Modal Image Preview ======
+    function previewAddFile() {
+        const file = document.getElementById('addImgFile').files[0];
+        const box = document.getElementById('addPreviewBox');
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                box.innerHTML = `<img src="${e.target.result}" alt="preview">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function previewAddImage() {
+        const url = document.getElementById('addImgUrl').value;
+        const box = document.getElementById('addPreviewBox');
+        if (url) {
+            box.innerHTML = `<img src="${url}" alt="preview" onerror="this.parentElement.innerHTML='<span class=\\'text-danger small\\'>Invalid URL</span>'">`;
+        }
+    }
+</script>
+{% endblock %}

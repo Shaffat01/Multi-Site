@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KloudTeck Admin | Command Center{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+        :root {
+            --bg-deep: #0b0e14;
+            --bg-accent: #161b22;
+            --bg-sidebar: #0d1117;
+            --teal: #00d2d2;
+            --teal-dim: rgba(0, 210, 210, 0.15);
+            --teal-glow: rgba(0, 210, 210, 0.3);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #e6edf3;
+            --text-secondary: #8b949e;
+            --orange: #ff7300;
+            --sidebar-width: 280px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-deep); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+
+        /* SIDEBAR */
+        .sidebar { width: var(--sidebar-width); background: var(--bg-sidebar); height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid var(--glass-border); z-index: 1000; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: transparent; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+
+        .sidebar-brand { padding: 25px 22px; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .sidebar-brand .logo-icon { width: 42px; height: 42px; min-width: 42px; background: linear-gradient(135deg, var(--teal), #0099cc); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: white; font-weight: 800; }
+        .sidebar-brand .brand-text { font-size: 1.2rem; font-weight: 800; color: var(--teal); letter-spacing: 1.5px; }
+        .sidebar-brand .brand-sub { font-size: 0.6rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; }
+
+        .sidebar-user { padding: 18px 20px; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; gap: 12px; flex-shrink: 0; background: rgba(0, 210, 210, 0.03); }
+        .sidebar-user .user-avatar-sm { width: 38px; height: 38px; min-width: 38px; background: var(--teal); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: black; font-weight: 800; font-size: 0.8rem; }
+        .sidebar-user .user-name { font-size: 0.85rem; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sidebar-user .user-role { font-size: 0.65rem; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .sidebar-user .online-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; margin-left: auto; box-shadow: 0 0 8px rgba(34, 197, 94, 0.5); }
+
+        .sidebar-content { padding: 15px 12px; flex: 1; }
+        .sidebar-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--text-secondary); padding: 20px 15px 8px; font-weight: 700; }
+        .sidebar-nav { list-style: none; padding: 0; margin: 0; }
+        .sidebar-link { display: flex; align-items: center; padding: 11px 15px; color: var(--text-secondary); text-decoration: none; border-radius: 10px; transition: all 0.25s ease; font-size: 0.85rem; font-weight: 500; gap: 12px; margin-bottom: 2px; position: relative; }
+        .sidebar-link i { width: 20px; text-align: center; font-size: 0.95rem; }
+        .sidebar-link:hover, .sidebar-link.active { background: var(--teal-dim); color: var(--teal); }
+        .sidebar-link.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 60%; background: var(--teal); border-radius: 0 3px 3px 0; }
+        
+        .sidebar-link .arrow { margin-left: auto; font-size: 0.6rem; transition: transform 0.3s ease; }
+        .sidebar-link[aria-expanded="true"] .arrow { transform: rotate(90deg); }
+
+        .sidebar-submenu { list-style: none; padding: 4px 0; }
+        .sidebar-submenu .sub-link { display: flex; align-items: center; padding: 9px 15px 9px 47px; color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; border-radius: 8px; transition: all 0.2s ease; gap: 10px; }
+        .sidebar-submenu .sub-link:hover { color: var(--teal); background: rgba(0, 210, 210, 0.05); }
+
+        .sidebar-divider { border: none; border-top: 1px solid var(--glass-border); margin: 8px 15px; }
+        .sidebar-footer { padding: 15px; border-top: 1px solid var(--glass-border); }
+        .logout-btn { display: flex; align-items: center; gap: 10px; padding: 12px 15px; color: #f87171; text-decoration: none; border-radius: 10px; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        .logout-btn:hover { background: rgba(248, 113, 113, 0.1); }
+
+        .header-actions {
+            gap: 15px;
+        }
+
+        /* Notification & Search Icons */
+        .header-icon-btn {
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .header-icon-btn:hover {
+            background: var(--teal-dim);
+            color: var(--teal);
+            border-color: var(--teal);
+            transform: translateY(-2px);
+        }
+
+        /* Badge for Notifications */
+        .notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 16px;
+            height: 16px;
+            background: #f87171;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-deep);
+        }
+
+        /* User Profile Card */
+        .user-profile-card {
+            display: flex;
+            align-items: center;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .user-profile-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar-refined {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--teal), #0099cc);
+            color: white;
+            font-weight: 800;
+            font-size: 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            box-shadow: 0 4px 10px var(--teal-glow);
+        }
+
+        .user-info-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .user-name-top {
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .user-role-top {
+            color: var(--teal);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Dropdown Menu Styling */
+        .dropdown-menu-dark {
+            background-color: #161b22 !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 15px !important;
+            margin-top: 10px !important;
+            padding: 10px !important;
+        }
+
+        .dropdown-item {
+            border-radius: 8px !important;
+            padding: 10px 15px !important;
+            font-size: 0.85rem !important;
+            transition: 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--teal-dim) !important;
+            color: var(--teal) !important;
+        }
+
+        .notification-dropdown {
+            width: 280px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: var(--sidebar-width); padding: 35px; min-height: 100vh; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+
+        /* COMMON DASHBOARD ELEMENTS */
+        .stat-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 25px; backdrop-filter: blur(10px); transition: 0.3s; }
+        .stat-card:hover { border-color: var(--teal); box-shadow: 0 0 25px var(--teal-glow); transform: translateY(-3px); }
+        .panel { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; padding: 30px; margin-top: 30px; }
+
+        .flash-alert { padding: 14px 20px; border-radius: 14px; margin-bottom: 25px; font-size: 0.85rem; display: flex; align-items: center; gap: 10px; animation: slideIn 0.4s ease; }
+        .flash-alert.success { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); color: #22c55e; }
+        .flash-alert.warning { background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); color: #ffc107; }
+
+        /* MOBILE */
+        .mobile-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1100; width: 45px; height: 45px; background: var(--bg-accent); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--teal); align-items: center; justify-content: center; cursor: pointer; }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 999; }
+
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); transition: 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.show { display: block; }
+            .mobile-toggle { display: flex; }
+            .main-content { margin-left: 0; padding: 20px; padding-top: 70px; }
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <!-- Brand -->
+        <div class="sidebar-brand">
+            <div class="logo-icon"><i class="fas fa-layer-group"></i></div>
+            <div class="brand-info">
+                <a class="navbar-brand " href="/admin">
+                    <img style="width: 190px" src="{{ url_for('static', filename='images/logo.png') }}" alt="KLOUDTECK" ></a>
+                <div class="brand-sub">Admin Console</div>
+            </div>
+        </div>
+        <div class="sidebar-user">
+            <div class="user-avatar-sm">{{ username[:2]|upper if username else 'AD' }}</div>
+            <div style="overflow: hidden;">
+                <div class="user-name">{{ username }}</div>
+                <div class="user-role">{{ role or 'Administrator' }}</div>
+            </div>
+            <div class="online-dot" title="Online"></div>
+        </div>
+
+        <div class="sidebar-content">
+            <!-- MAIN -->
+            <div class="sidebar-label">Main</div>
+            <ul class="sidebar-nav">
+                <li><a href="/" class="sidebar-link"><i class="fas fa-globe"></i> Go to Website</a></li>
+                <li><a href="/admin" class="sidebar-link {% if request.path == '/admin' %}active{% endif %}"><i class="fas fa-gauge-high"></i> Dashboard</a></li>
+            </ul>
+
+            <div class="sidebar-label">Admin</div>
+            <ul class="sidebar-nav">
+                <li>
+                    <a class="sidebar-link" data-bs-toggle="collapse" href="#adminMenu">
+                        <i class="fas fa-shield-halved"></i> Admin Panel <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                    <div class="collapse {% if '/admin/' in request.path %}show{% endif %}" id="adminMenu">
+                        <ul class="sidebar-submenu">
+                            <li><a href="/admin/users" class="sub-link {% if request.path == '/admin/users' %}active{% endif %}"><i class="fas fa-users-gear"></i> User Database</a></li>
+                            <li><a href="/admin/portfolio" class="sub-link {% if request.path == '/admin/portfolio' %}active{% endif %}"><i class="fas fa-briefcase"></i> Manage Portfolio</a></li>
+                            <li><a href="/admin/case-studies" class="sub-link {% if request.path == '/admin/case-studies' %}active{% endif %}"><i class="fas fa-plus"></i> Manage Cases</a></li>
+                            <li><a href="/admin/testimonial" class="sub-link {% if request.path == '/admin/testimonial' %}active{% endif %}"><i class="fas fa-rocket"></i> Manage testimonials</a></li>
+                            <li><a href="/admin/team" class="sub-link {% if request.path == '/admin/team' %}active{% endif %}"><i class="fas fa-briefcase"></i> Our Team</a></li>
+                            <li><a href="/admin/messages" class="sub-link {% if request.path == '/admin/messages' %}active{% endif %}"><i class="fas fa-cloud-upload-alt"></i> Contact Form</a></li>
+                            <li><a href="/admin/quotes" class="sub-link {% if request.path == '/admin/quotes' %}active{% endif %}"><i class="fas fa-search"></i> check quotes</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <hr class="sidebar-divider">
+
+            <!-- PAGES -->
+            <!-- <div class="sidebar-label">Pages</div> -->
+<!--             <ul class="sidebar-nav">
+                <li><a href="/" class="sidebar-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/about" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="/contact" class="sidebar-link"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="/case-studies" class="sidebar-link"><i class="fas fa-folder-open"></i> Case Studies</a></li>
+                <li><a href="/support" class="sidebar-link"><i class="fas fa-headset"></i> Support Desk</a></li>
+                <li><a href="/quote" class="sidebar-link"><i class="fas fa-file-invoice"></i> Get a Quote</a></li>
+                <li><a href="/portfolio" class="sidebar-link"><i class="fas fa-user-shield"></i> Portfolio</a></li>
+            </ul> -->
+        </div>
+
+        <!-- Footer -->
+        <div class="sidebar-footer">
+            <a href="/admin/logout" class="logout-btn"><i class="fas fa-power-off"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-alert {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Header -->
+        <div class="top-bar">
+            <div>
+                <h2 class="fw-bold mb-1">{% block page_title %}Infrastructure Console{% endblock %}</h2>
+                <p class="text-secondary small mb-0 d-none d-md-block">Welcome back, <strong>{{ username }}</strong> · System Status: <span class="text-success"><i class="fas fa-circle ms-1" style="font-size: 8px;"></i> Online</span></p>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="header-actions d-flex align-items-center gap-3">
+                <button class="header-icon-btn d-none d-sm-flex">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <div class="dropdown">
+                    <button class="header-icon-btn position-relative" data-bs-toggle="dropdown" aria-expanded="false" id="notiBtn">
+                        <i class="fas fa-bell"></i>
+                        {% if noti_count > 0 %}
+                        <span class="notification-badge" id="notiBadge">{{ noti_count }}</span>
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark notification-dropdown shadow-lg" id="notiList">
+                        <li><h6 class="dropdown-header">Notifications</h6></li>
+                        <li><hr class="dropdown-divider"></li>
+                        
+                        {% if notifications %}
+                            {% for n in notifications %}
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="{{ n.link }}">
+                                    <i class="fas {{ n.icon }} {{ n.color }} me-2"></i>
+                                    <span style="font-size: 0.75rem;">{{ n.text }}</span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        {% else %}
+                            <li><a class="dropdown-item text-center small text-muted" href="#">No new alerts</a></li>
+                        {% endif %}
+                        
+                        <li><hr class="dropdown-divider"></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown">
+                    <div class="user-profile-card" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="user-avatar-refined">
+                            {{ username[:2]|upper if username else 'AD' }}
+                        </div>
+                        <div class="user-info-text d-none d-md-block">
+                            <span class="user-name-top">{{ username }}</span>
+                            <span class="user-role-top">{{ role or 'Administrator' }}</span>
+                        </div>
+                        <i class="fas fa-chevron-down ms-2 small text-secondary"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark user-menu-dropdown shadow-lg">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2"></i> My Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="/admin/logout"><i class="fas fa-power-off me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Content -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('show');
+        }
+        setTimeout(() => {
+            document.querySelectorAll('.flash-alert').forEach(msg => {
+                msg.style.transition = '0.5s';
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 500);
+            });
+        }, 5000);
+    </script>
+    <script>
+        function fetchNotifications() {
+            fetch('/admin/api/notifications')
+                .then(response => response.json())
+                .then(data => {
+                    const badge = document.getElementById('notiBadge');
+                    const list = document.getElementById('notiList');
+                    if (data.count > 0) {
+                        if(badge) {
+                            badge.innerText = data.count;
+                        } else {
+                            document.getElementById('notiBtn').innerHTML += `<span class="notification-badge" id="notiBadge">${data.count}</span>`;
+                        }
+                    } else if(badge) {
+                        badge.remove();
+                    }
+                });
+        }
+
+        setInterval(fetchNotifications, 30000); 
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

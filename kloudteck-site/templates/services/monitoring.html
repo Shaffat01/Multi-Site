@@ -1,0 +1,586 @@
+{% extends "layout.html" %}
+
+{% block title %}Network Monitoring & Centralized Log Servers | KLOUDTECK{% endblock %}
+
+{% block head %}
+<!-- Font Awesome & AOS Animation CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/monitoring.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+<!-- SECTION 1: HERO -->
+<section class="monitoring-hero services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+         <nav aria-label="breadcrumb">
+            <ol class="breadcrumb-modern">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/solutions" class="text-white-50">Solutions</a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Network Monitoring</li>
+            </ol>
+        </nav>
+        <div class="row align-items-center text-center text-lg-start">
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="mb-4"><span class="live-dot"></span> <span class="small fw-bold text-uppercase tracking-widest text-white-50">Live Infrastructure Visibility</span></div>
+                <h1 class="display-3 fw-bold mb-4">Total Network Intelligence & Log Management</h1>
+                <p class="lead mb-4">Eliminate blind spots across your infrastructure. KLOUDTECK delivers real-time network monitoring and centralized log management to help you detect issues faster, troubleshoot with confidence, and keep critical systems online.</p>
+                <p class="text-white-50 mb-5">From routers and switches to servers, firewalls, WiFi, and edge devices — we turn raw telemetry and logs into actionable visibility.</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                    <a href="/quote" class="btn btn-teal px-5 py-3 fw-bold shadow">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light px-5 py-3 fw-bold">View Portfolio</a>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-5 mt-lg-0" data-aos="fade-left">
+                <!-- Metrics Strip -->
+                <div class="p-4 bg-white bg-opacity-5 rounded-4 border border-white border-opacity-10">
+                    <h6 class="text-white-50 mb-4 fw-bold text-uppercase small tracking-widest">Global Network Load</h6>
+                    <div class="row g-3">
+                        <div class="col-4 border-end border-white border-opacity-10 text-center">
+                            <h4 class="text-teal fw-bold mb-0">99.9%</h4>
+                            <small class="text-white-50">Uptime</small>
+                        </div>
+                        <div class="col-4 border-end border-white border-opacity-10 text-center">
+                            <h4 class="text-warning fw-bold mb-0">45ms</h4>
+                            <small class="text-white-50">Latency</small>
+                        </div>
+                        <div class="col-4 text-center">
+                            <h4 class="text-info fw-bold mb-0">2.4Gbps</h4>
+                            <small class="text-white-50">Traffic</small>
+                        </div>
+                    </div>
+                    <!-- Animated Graph Mockup -->
+                    <div class="mt-4 opacity-50">
+                        <svg viewBox="0 0 400 100" class="w-100">
+                            <path d="M0,80 Q50,20 100,70 T200,30 T300,80 T400,20" fill="none" stroke="var(--teal)" stroke-width="2" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2: WHY IT MATTERS -->
+<section id="solutions" class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h2 class="fw-bold text-navy mb-4">Why It Matters</h2>
+                <p class="lead text-secondary mb-4">Modern businesses can’t afford to wait for outages to discover problems. Slow applications, unstable WiFi, failed VPN tunnels, and device errors usually start as warning signs long before users report them.</p>
+                <p class="text-secondary fw-bold mb-4">KLOUDTECK helps you stay ahead with proactive monitoring, intelligent alerts, and centralized log visibility.</p>
+                <h5 class="fw-bold text-teal mb-3">Business Outcomes:</h5>
+                <ul class="check-list">
+                    <li>Reduce downtime and service interruptions</li>
+                    <li>Identify root causes faster</li>
+                    <li>Improve visibility across one or multiple locations</li>
+                    <li>Detect suspicious activity earlier</li>
+                    <li>Support operational and compliance log retention</li>
+                    <li>Make better infrastructure decisions with real usage data</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0" data-aos="fade-left">
+                <div class="p-5 bg-soft rounded-4 text-center border">
+                    <i class="fas fa-predict text-teal display-1 mb-3"></i>
+                    <h4 class="fw-bold text-teal">Proactive > Reactive</h4>
+                    <p class="text-secondary">We don't just alert you when things break; we predict failures before they happen.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3: WHAT WE MONITOR -->
+<section class="py-5 bg-soft services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h3 class="fw-bold text-navy text-center mb-5" data-aos="fade-up">What We Monitor</h3>
+        <p class="text-center text-secondary mb-5 col-lg-8 mx-auto">We build monitoring and logging solutions around the systems that keep your business running.</p>
+        <div class="row g-3" data-aos="fade-up">
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Network Hardware</h6>
+                    <p class="small text-secondary mb-0">Routers, firewalls, gateways, switches, and core network equipment.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Wireless Infrastructure</h6>
+                    <p class="small text-secondary mb-0">Wireless controllers and access points.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Servers & Computing</h6>
+                    <p class="small text-secondary mb-0">Servers (physical and virtual).</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Connectivity & WAN</h6>
+                    <p class="small text-secondary mb-0">ISP circuits, WAN failover links, VPN tunnels, and remote connectivity.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Voice & Unified Comms</h6>
+                    <p class="small text-secondary mb-0">VoIP / PBX systems and SIP services.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Security & Edge</h6>
+                    <p class="small text-secondary mb-0">CCTV systems, NVRs, and edge devices.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Power & Environment</h6>
+                    <p class="small text-secondary mb-0">UPS / power devices and hardware sensors.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="p-3 bg-white rounded border-start border-teal border-4 shadow-sm">
+                    <h6 class="fw-bold mb-1">Cloud Services</h6>
+                    <p class="small text-secondary mb-0">Cloud-hosted services and application endpoints.</p>
+                </div>
+            </div>
+        </div>
+        <p class="text-center mt-5 text-secondary fw-bold" data-aos="fade-up">Whether you operate a single site, multi-site portfolio, hotel group, retail chain, warehouse, or commercial campus — we tailor monitoring to your environment and priorities.</p>
+    </div>
+</section>
+
+<!-- SECTION 4: PROACTIVE MONITORING ECOSYSTEM -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bold text-navy">Proactive Monitoring Ecosystem</h2>
+            <p class="text-secondary">We don’t just alert you when something breaks — we help you identify risk before it becomes downtime.</p>
+        </div>
+        <div class="row g-4">
+            <!-- Performance Tracking -->
+            <div class="col-lg-4" data-aos="fade-up">
+                <div class="monitor-card">
+                    <i class="fas fa-tachometer-alt text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Performance Tracking</h5>
+                    <p class="small text-secondary mb-3">Real-time metrics for CPU, RAM, disk, interfaces, throughput, latency, and device health across routers, switches, firewalls, servers, and wireless systems.</p>
+                    <ul class="check-list small text-secondary">
+                        <li>SNMP & ICMP polling</li>
+                        <li>Interface utilization monitoring</li>
+                        <li>Hardware health sensors</li>
+                        <li>Bandwidth and traffic analytics</li>
+                        <li>Uptime and availability checks</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Intelligent Alerting -->
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="monitor-card">
+                    <i class="fas fa-bell text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Intelligent Alerting</h5>
+                    <p class="small text-secondary mb-3">Custom thresholds and event-based alerts routed to the right people through the right channels.</p>
+                    <ul class="check-list small text-secondary">
+                        <li>Email, Telegram, and WhatsApp notifications</li>
+                        <li>Escalation policies by severity</li>
+                        <li>Alert suppression / maintenance windows</li>
+                        <li>24/7 on-call integration</li>
+                        <li>Role-based alert routing</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Centralized Logging -->
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="monitor-card">
+                    <i class="fas fa-database text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Centralized Logging</h5>
+                    <p class="small text-secondary mb-3">Aggregate logs from across your network into a searchable platform built for fast analysis and long-term visibility.</p>
+                    <ul class="check-list small text-secondary">
+                        <li>Syslog-NG / ELK Stack architecture</li>
+                        <li>Firewall, server, switch, and app log ingestion</li>
+                        <li>Search and correlation across devices</li>
+                        <li>Log retention policy configuration</li>
+                        <li>Compliance-ready archive workflows</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: DEEP LOG FORENSICS -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h2 class="fw-bold text-navy mb-4">Deep Log Forensics</h2>
+                <p class="text-secondary">Track user activity, configuration changes, warnings, failures, and security events from a single place. When incidents happen, centralized logs help your team move from guessing to knowing.</p>
+                <h6 class="fw-bold text-navy mt-4 mb-3">What Log Forensics Helps You Do:</h6>
+                <ul class="check-list small mb-4">
+                    <li>Investigate outages and performance degradation</li>
+                    <li>Review failed login attempts and suspicious access</li>
+                    <li>Trace configuration changes and admin activity</li>
+                    <li>Correlate events across multiple devices</li>
+                    <li>Identify recurring issues and long-term patterns</li>
+                    <li>Build cleaner post-incident reports</li>
+                </ul>
+                <div style="background: rgba(255, 255, 255, 0.03) !important;" class="p-3  rounded border-start border-teal border-4 mb-3">
+                    <h6 class="fw-bold mb-1">Instant Search</h6>
+                    <p class="small text-secondary mb-0">Filter through millions of log entries in seconds to isolate the root cause and timeline of an event.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.03) !important;" class="p-3  rounded border-start border-warning border-4">
+                    <h6 class="fw-bold mb-1">Security Auditing</h6>
+                    <p class="small text-secondary mb-0">Detect brute-force attempts, unauthorized access patterns, and critical warning events earlier with centralized visibility.</p>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="log-window shadow-lg">
+                    <div class="d-flex gap-2 mb-3 border-bottom border-secondary pb-2">
+                        <span style="height:10px; width:10px; border-radius:50%; background:#ff5f56"></span>
+                        <span style="height:10px; width:10px; border-radius:50%; background:#ffbd2e"></span>
+                        <span style="height:10px; width:10px; border-radius:50%; background:#27c93f"></span>
+                        <span class="ms-auto small opacity-50 text-white">syslog_stream.log</span>
+                    </div>
+                    <div><span class="log-entry-info">[10:45:01]</span> INFO: BGP Session Established with Peer 1.1.1.1</div>
+                    <div><span class="log-entry-warn">[10:48:22]</span> WARN: Interface ether5 high bandwidth usage (92%)</div>
+                    <div><span class="log-entry-crit">[10:52:10]</span> CRIT: Login failure - User 'admin' from 103.45.2.11</div>
+                    <div><span class="log-entry-info">[10:55:00]</span> INFO: Configuration backup completed successfully.</div>
+                    <div class="mt-2 text-white-50">_</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 6: REAL-WORLD USE CASES -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4">
+        <h3 class="fw-bold text-navy text-center mb-5" data-aos="fade-up">Real-World Use Cases</h3>
+        <div class="row g-4">
+            <div  class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div style="background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;" class="p-4 border rounded-4 h-100 bg-soft">
+                    <h6 class="fw-bold text-teal">ISP Performance Issues</h6>
+                    <p class="small text-secondary">Monitor packet loss, latency spikes, and link stability to catch carrier-related issues before they impact operations.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div style="background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;" class="p-4 border rounded-4 h-100 bg-soft">
+                    <h6 class="fw-bold text-teal">WiFi Complaint Troubleshooting</h6>
+                    <p class="small text-secondary">Correlate AP load, roaming events, interface errors, and controller logs to diagnose poor coverage or congestion.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div style="background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;" class="p-4 border rounded-4 h-100 bg-soft">
+                    <h6 class="fw-bold text-teal">Firewall & Security Events</h6>
+                    <p class="small text-secondary">Track repeated login failures, unusual access attempts, and system warnings in a centralized event stream.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div style="background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;" class="p-4 border rounded-4 h-100 bg-soft">
+                    <h6 class="fw-bold text-teal">VPN Tunnel Monitoring</h6>
+                    <p class="small text-secondary">Alert on tunnel drops, flapping connections, and degraded remote connectivity for branch offices and remote users.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div style="background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;" class="p-4 border rounded-4 h-100 bg-soft">
+                    <h6 class="fw-bold text-teal">Configuration Change Auditing</h6>
+                    <p class="small text-secondary">See when changes occurred and align them with network behavior for faster rollback and troubleshooting.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div style="background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(0, 255, 255, 0.1) !important;" class="p-4 border rounded-4 h-100 bg-soft">
+                    <h6 class="fw-bold text-teal">Multi-Site Operational Visibility</h6>
+                    <p class="small text-secondary">Standardized dashboards make it easier to compare performance across hotels, retail locations, warehouses, office spaces, and communities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 7: DASHBOARDS & ALERTING -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4 text-center">
+        <h3 class="fw-bold mb-4" data-aos="fade-up">Dashboards & Alerting Built for Operations</h3>
+        <p class="text-white-50 col-lg-9 mx-auto mb-5" data-aos="fade-up">Your dashboards should help your team act — not overwhelm them. KLOUDTECK designs monitoring views for both technical teams and operational leaders, so the right information is always visible at the right level.</p>
+        <div class="row g-3 text-start">
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="p-3 bg-white bg-opacity-10 rounded"><i class="fas fa-check-circle text-teal me-2"></i> Live device health overview</div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="p-3 bg-white bg-opacity-10 rounded"><i class="fas fa-check-circle text-teal me-2"></i> Site-by-site status summaries</div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="p-3 bg-white bg-opacity-10 rounded"><i class="fas fa-check-circle text-teal me-2"></i> Bandwidth and utilization trends</div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="p-3 bg-white bg-opacity-10 rounded"><i class="fas fa-check-circle text-teal me-2"></i> Latency and packet loss graphs</div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="p-3 bg-white bg-opacity-10 rounded"><i class="fas fa-check-circle text-teal me-2"></i> Top alerts by severity</div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="p-3 bg-white bg-opacity-10 rounded"><i class="fas fa-check-circle text-teal me-2"></i> Historical performance reporting</div>
+            </div>
+            <div class="col-12" data-aos="zoom-in">
+                <div class="p-3 bg-white bg-opacity-10 rounded text-center"><i class="fas fa-check-circle text-teal me-2"></i> Log search and event correlation panels</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 8: DEPLOYMENT PROCESS -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4">
+        <h3 class="fw-bold text-navy text-center mb-5" data-aos="fade-up">Deployment & Onboarding Process</h3>
+        <p class="text-center text-secondary mb-5">KLOUDTECK follows a structured rollout process to ensure clean implementation, accurate alerting, and minimal disruption.</p>
+        <div class="row g-4">
+            <div class="col-md-4 col-lg-2 text-center" data-aos="fade-up">
+                <div class="step-circle mx-auto">1</div>
+                <h6 class="fw-bold">Discovery</h6>
+                <p class="small text-secondary">Review environment, priorities, and monitoring goals.</p>
+            </div>
+            <div class="col-md-4 col-lg-2 text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-circle mx-auto">2</div>
+                <h6 class="fw-bold">Inventory</h6>
+                <p class="small text-secondary">Identify devices and logs to be centralized.</p>
+            </div>
+            <div class="col-md-4 col-lg-2 text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-circle mx-auto">3</div>
+                <h6 class="fw-bold">Alert Design</h6>
+                <p class="small text-secondary">Define thresholds, severity, and escalation routes.</p>
+            </div>
+            <div class="col-md-4 col-lg-2 text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="step-circle mx-auto">4</div>
+                <h6 class="fw-bold">Integration</h6>
+                <p class="small text-secondary">Deploy dashboards and log ingestion pipelines.</p>
+            </div>
+            <div class="col-md-4 col-lg-2 text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="step-circle mx-auto">5</div>
+                <h6 class="fw-bold">Validation</h6>
+                <p class="small text-secondary">Test alerts and optimize thresholds.</p>
+            </div>
+            <div class="col-md-4 col-lg-2 text-center" data-aos="fade-up" data-aos-delay="500">
+                <div class="step-circle mx-auto">6</div>
+                <h6 class="fw-bold">Go-Live</h6>
+                <p class="small text-secondary">Deliver documentation and retention policies.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 9: SERVICE OPTIONS -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4 text-center">
+        <h3 class="fw-bold text-navy mb-5" data-aos="fade-up">Service Options</h3>
+        <p class="text-secondary mb-5">Choose the level of support that matches your internal team and operational needs.</p>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4" data-aos="zoom-in">
+                <div class="feature-card shadow-sm">
+                    <h5 class="fw-bold text-teal">Monitoring Platform Deployment</h5>
+                    <p class="small text-secondary">We design and deploy the monitoring and logging platform for your team to operate internally.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card shadow-sm">
+                    <h5 class="fw-bold text-teal">Co-Managed Monitoring</h5>
+                    <p class="small text-secondary">KLOUDTECK maintains dashboards, alerting rules, and log pipelines while coordinating with your internal IT staff.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="feature-card shadow-sm">
+                    <h5 class="fw-bold text-teal">Managed Monitoring & Alert Response</h5>
+                    <p class="small text-secondary">End-to-end monitoring support with threshold tuning, alert routing, and proactive visibility management.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 10: COMPLIANCE, RETENTION & PRIVACY -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h3 class="fw-bold text-navy mb-4">Compliance, Retention & Privacy</h3>
+                <p class="text-secondary mb-4">A monitoring solution should support both operations and governance. We help you build a log management strategy aligned to your internal standards and retention requirements.</p>
+                <h6 class="fw-bold text-navy mb-3">Capabilities Include:</h6>
+                <ul class="check-list small">
+                    <li>Configurable retention windows (30 / 90 / 180 / 365+ days)</li>
+                    <li>Searchable centralized archives</li>
+                    <li>Role-based access controls</li>
+                    <li>Time-synced event correlation</li>
+                    <li>Export support for investigations and audits</li>
+                    <li>Documented log handling standards for your environment</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 text-center" data-aos="fade-left">
+                <i class="fas fa-user-shield text-teal display-1"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 11: OUR MONITORING STACK -->
+<section class=" services-wrapper p-1  bg-white shadow-sm">
+    <div class="container text-center">
+        <h2 style="padding-top: 20px;" class="text-uppercase tracking-widest text-teal fw-bold mb-5" data-aos="fade-up">Our Monitoring Stack</h2>
+        <div class="row g-4 justify-content-center align-items-center" data-aos="zoom-in">
+            <div class="col-4 col-md-2"><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Prometheus_software_logo.svg" height="50" alt="Prometheus"></div>
+            <div class="col-4 col-md-2"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg" height="50" alt="Grafana"></div>
+            <div class="col-4 col-md-2"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Zabbix_logo.png" height="40" alt="Zabbix"></div>
+            <div class="col-4 col-md-2"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Elasticsearch_logo.svg" height="50" alt="Elasticsearch"></div>
+            <div class="col-4 col-md-2"><img style="padding-left: 50px" src="{{ url_for('static', filename='images/syslog.png') }}" height="50" alt="Syslog-NG"></div>
+        </div>
+        <p class="mt-5 text-secondary small col-lg-8 mx-auto" data-aos="fade-up">Platform selection depends on your environment, scale, reporting needs, and support model.</p>
+    </div>
+</section>
+
+<!-- SECTION 12: FAQ -->
+<section class="faq-monitor-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="display-5 faq-monitor-title" data-aos="fade-up">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-monitor-container" data-aos="fade-up">
+            <div class="accordion" id="monitorFaqModern">
+                
+                <!-- Q1 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mq1">
+                            Do I need network monitoring if my systems seem to be working fine?
+                        </button>
+                    </h2>
+                    <div id="mq1" class="accordion-collapse collapse show" data-bs-parent="#monitorFaqModern">
+                        <div class="accordion-body">
+                            Yes. Monitoring is most valuable before a failure occurs. It helps detect degradation, capacity issues, and warning signs early.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mq2">
+                            What is the difference between monitoring and a log server?
+                        </button>
+                    </h2>
+                    <div id="mq2" class="accordion-collapse collapse" data-bs-parent="#monitorFaqModern">
+                        <div class="accordion-body">
+                            Monitoring tracks performance and health metrics (uptime, CPU, latency, bandwidth). A log server centralizes event records (errors, logins, config changes, warnings). Together they provide complete visibility.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mq3">
+                            Can KLOUDTECK monitor multiple locations?
+                        </button>
+                    </h2>
+                    <div id="mq3" class="accordion-collapse collapse" data-bs-parent="#monitorFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can build centralized dashboards and alerting for multi-site environments so you can manage visibility across all locations from one platform.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mq4">
+                            Do you support custom alerts and escalations?
+                        </button>
+                    </h2>
+                    <div id="mq4" class="accordion-collapse collapse" data-bs-parent="#monitorFaqModern">
+                        <div class="accordion-body">
+                            Yes. We configure thresholds, severity levels, escalation policies, and notification channels based on your operational needs.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mq5">
+                            Can logs be retained for compliance or internal audit purposes?
+                        </button>
+                    </h2>
+                    <div id="mq5" class="accordion-collapse collapse" data-bs-parent="#monitorFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can implement retention policies and archive strategies based on your business and internal policy requirements.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mq6">
+                            Do you support both on-prem and cloud deployments?
+                        </button>
+                    </h2>
+                    <div id="mq6" class="accordion-collapse collapse" data-bs-parent="#monitorFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can deploy monitoring and logging components on-premises, in the cloud, or in hybrid environments.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="accordion-item shadow-sm border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#mq7">
+                            Do you offer managed monitoring services?
+                        </button>
+                    </h2>
+                    <div id="mq7" class="accordion-collapse collapse" data-bs-parent="#monitorFaqModern">
+                        <div class="accordion-body">
+                            Yes. We offer deployment-only, co-managed, and managed monitoring support options.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 13: FINAL CTA -->
+<section class="py-5 services-wrapper process-section-bg shadow-sm mb-5">
+    <div class="container py-4">
+        <div class="p-5 rounded-5 text-white text-center shadow-lg" data-aos="zoom-in">
+            <h2 class="fw-bold mb-4">Stop Reacting. Start Predicting.</h2>
+            <p class="lead text-white-50 mb-5 mx-auto" style="max-width: 800px;">Get a custom monitoring dashboard and centralized log server solution built for your business infrastructure. KLOUDTECK helps you detect issues sooner, troubleshoot faster, and maintain reliable network operations across your entire environment.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="/quote" class="btn btn-lg btn-teal px-5 py-2 fw-bold">Request Quote</a>
+                <a style="border:solid 1px white;" href="/contact" class="btn btn-lg btn-outline-light px-5 py-2">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Commercial%20Access%20Control" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ -->
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+</script>
+{% endblock %}

@@ -1,0 +1,236 @@
+{% extends "layout.html" %}
+
+{% block title %}Privacy Policy | KLOUDTECK · Data Protection & Trust{% endblock %}
+
+{% block head %}
+<!-- Font Awesome & AOS Animation CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+    :root {
+        --navy: #0a1e32;
+        --teal: #008080;
+        --soft-bg: #f8f9fa;
+        --light-teal: #e6f2f2;
+    }
+
+    body { font-family: 'Inter', sans-serif; color: #333; line-height: 1.7; overflow-x: hidden; }
+    
+    /* Hero Section */
+    .policy-hero {
+        background: linear-gradient(135deg, var(--navy) 0%, #1c3a59 100%);
+        padding: 100px 0 60px;
+        color: white;
+    }
+
+    /* Side Navigation (Sticky TOC) */
+    .toc-sticky {
+        position: sticky;
+        top: 100px;
+    }
+    .toc-link {
+        display: block;
+        padding: 10px 15px;
+        color: #666;
+        text-decoration: none;
+        border-left: 3px solid #eee;
+        transition: 0.3s;
+        font-weight: 500;
+    }
+    .toc-link:hover, .toc-link.active {
+        color: var(--teal);
+        border-left-color: var(--teal);
+        background: var(--light-teal);
+    }
+
+    /* Content Styling */
+    .policy-content-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid #eee;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    }
+    
+    .policy-section {
+        margin-bottom: 50px;
+        scroll-margin-top: 120px;
+    }
+    
+    .policy-section h2 {
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .policy-section h2 i {
+        color: var(--teal);
+        font-size: 1.5rem;
+    }
+
+    .last-updated {
+        display: inline-block;
+        background: var(--light-teal);
+        color: var(--teal);
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+
+    /* Lists */
+    .custom-list { list-style: none; padding-left: 0; }
+    .custom-list li { position: relative; padding-left: 30px; margin-bottom: 10px; }
+    .custom-list li::before {
+        content: "\f058"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+        position: absolute; left: 0; color: var(--teal);
+    }
+
+    [data-aos] { opacity: 1 !important; transform: none !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="policy-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8" data-aos="fade-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Privacy Policy</li>
+                    </ol>
+                </nav>
+                <h1 class="display-3 fw-bold mb-3">Privacy Policy</h1>
+                <p class="lead text-white-50">How KLOUDTECK collects, uses, and safeguards your personal information.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- POLICY CONTENT -->
+<section class="py-5 bg-white">
+    <div class="container py-4">
+        <div class="row g-5">
+            
+            <!-- Side Navigation (Desktop Only) -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="toc-sticky">
+                    <h6 class="fw-bold text-navy mb-3 text-uppercase small tracking-widest">On this page</h6>
+                    <a href="#intro" class="toc-link active">Introduction</a>
+                    <a href="#collection" class="toc-link">Information Collection</a>
+                    <a href="#usage" class="toc-link">How We Use Data</a>
+                    <a href="#sharing" class="toc-link">Sharing Information</a>
+                    <a href="#security" class="toc-link">Security Measures</a>
+                    <a href="#contact" class="toc-link">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="col-lg-9">
+                <div class="policy-content-card" data-aos="fade-up">
+                    <span class="last-updated"><i class="far fa-calendar-alt me-2"></i>Last updated: January 1, 2025</span>
+
+                    <div id="intro" class="policy-section">
+                        <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                        <p>KLOUDTECK ("we", "our", "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website. By using our services, you consent to the data practices described in this policy.</p>
+                    </div>
+
+                    <div id="collection" class="policy-section">
+                        <h2><i class="fas fa-database"></i> Information We Collect</h2>
+                        <p>We may collect personal information that you voluntarily provide to us when you fill out forms, subscribe to newsletters, or contact us regarding our IT infrastructure services. This information may include:</p>
+                        <ul class="custom-list">
+                            <li>Name and job title</li>
+                            <li>Contact information (email address and phone number)</li>
+                            <li>Company name and industry type</li>
+                            <li>Project details and infrastructure requirements</li>
+                        </ul>
+                    </div>
+
+                    <div id="usage" class="policy-section">
+                        <h2><i class="fas fa-cog"></i> How We Use Your Information</h2>
+                        <p>The information we collect is used primarily to provide a customized experience and improve our service delivery. Specifically, we use it to:</p>
+                        <ul class="custom-list">
+                            <li>Respond to your technical inquiries and provide expert support</li>
+                            <li>Provide accurate project quotes and site assessments</li>
+                            <li>Send periodic updates and marketing communications (only with your explicit consent)</li>
+                            <li>Optimize our website performance and user experience</li>
+                        </ul>
+                    </div>
+
+                    <div id="sharing" class="policy-section">
+                        <h2><i class="fas fa-user-friends"></i> Sharing Your Information</h2>
+                        <p>KLOUDTECK maintains a strict "No-Sale" policy regarding your data. We do not sell, trade, or rent your personal information to third parties. We may only share information with:</p>
+                        <p><strong>Trusted Service Providers:</strong> Partners who assist us in operating our website or conducting our business, such as cloud hosting or CRM providers, provided they agree to keep this information strictly confidential and secure.</p>
+                    </div>
+
+                    <div id="security" class="policy-section">
+                        <h2><i class="fas fa-shield-alt"></i> Security</h2>
+                        <p>As a technology-first company, we prioritize data security. We implement advanced technical and organizational measures, including encryption and secure server protocols, to protect your personal information. While we strive to use commercially acceptable means to protect your data, please be aware that no method of transmission over the Internet is 100% secure.</p>
+                    </div>
+
+                    <div id="contact" class="policy-section">
+                        <h2><i class="fas fa-envelope-open-text"></i> Contact Us</h2>
+                        <p>If you have questions or concerns regarding this Privacy Policy, or if you wish to update your information, please reach out to our privacy team:</p>
+                        <div class="p-4 rounded-4 border bg-soft d-inline-block">
+                            <h6 class="fw-bold mb-1 text-navy">KLOUDTECK Privacy Office</h6>
+                            <p class="mb-0 text-teal fw-bold"><i class="fas fa-envelope me-2"></i>privacy@kloudteck.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-5 bg-white mb-5">
+    <div class="container py-4 text-center">
+        <div class="p-5 rounded-5 bg-navy text-black shadow-lg" data-aos="zoom-in">
+            <h2 class="fw-bold mb-4">Have questions about your data?</h2>
+            <p class="lead text-black-50 mb-5 mx-auto" style="max-width: 600px;">We are here to help you understand how we protect your business information.</p>
+            <a href="/contact" class="btn btn-teal btn-lg px-5 py-3 text-black rounded-pill">Contact Support</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        AOS.init({ duration: 800, once: true });
+
+        // Table of Contents Active Link Logic
+        const sections = document.querySelectorAll(".policy-section");
+        const navLinks = document.querySelectorAll(".toc-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

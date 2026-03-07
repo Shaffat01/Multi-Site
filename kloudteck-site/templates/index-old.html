@@ -1,0 +1,332 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<style>
+    /* Premium Obsidian Theme Variables */
+    :root {
+        --bg-obsidian: #030712;
+        --card-glass: rgba(15, 23, 42, 0.7);
+        --border-glass: rgba(59, 130, 246, 0.2);
+        --glow-primary: rgba(59, 130, 246, 0.5);
+    }
+
+    body {
+        background-color: var(--bg-obsidian);
+        color: #e2e8f0;
+    }
+
+    /* Hero Section with Mesh Background */
+    .hero-wrapper {
+        background: radial-gradient(circle at 50% -20%, #1e293b, var(--bg-obsidian));
+    }
+    
+    .hero-overlay-full {
+        background: radial-gradient(circle at center, transparent 0%, var(--bg-obsidian) 100%);
+    }
+
+    /* Floating Animation for Hero Content */
+    #hero-content {
+        animation: floatContent 4s ease-in-out infinite;
+    }
+
+    @keyframes floatContent {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Premium Glass Cards */
+    .bento-card, .industry-card {
+        background: var(--card-glass) !important;
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border-glass) !important;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+    }
+
+    .bento-card:hover, .industry-card:hover {
+        transform: translateY(-15px) scale(1.02);
+        border-color: var(--primary) !important;
+        box-shadow: 0 20px 40px -10px var(--glow-primary);
+        background: rgba(30, 41, 59, 0.8) !important;
+    }
+
+    /* Animated Icon Glow */
+    .icon-box {
+        position: relative;
+        background: rgba(59, 130, 246, 0.1) !important;
+        color: var(--primary);
+        z-index: 1;
+    }
+
+    .bento-card:hover .icon-box, .industry-card:hover .icon-box {
+        color: #fff;
+        background: var(--primary) !important;
+        box-shadow: 0 0 20px var(--primary);
+    }
+
+    /* Stats Stripe Enhancement */
+    .stats-stripe {
+        background: rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid var(--border-glass);
+        border-bottom: 1px solid var(--border-glass);
+    }
+
+    .counter-val {
+        background: linear-gradient(to bottom, #fff, #3b82f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+    }
+
+    /* Partners Marquee Logo Filter */
+    .marquee-content img {
+        filter: brightness(0) invert(1);
+        opacity: 0.6;
+        transition: 0.3s;
+    }
+
+    .marquee-content img:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    /* Glowing Buttons */
+    .btn-light {
+        background: var(--primary) !important;
+        color: #fff !important;
+        border: none;
+        box-shadow: 0 0 15px var(--glow-primary);
+    }
+
+    .btn-light:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px var(--primary);
+    }
+
+    /* Solution Image Animation */
+    .solution-icon-anim {
+        animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.25; }
+        50% { transform: scale(1.1); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 0.25; }
+    }
+
+    /* Text Gradients */
+    .text-gradient {
+        background: linear-gradient(90deg, #fff, #3b82f6, #8b5cf6);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 4s linear infinite;
+    }
+
+    @keyframes shine {
+        to { background-position: 200% center; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- HERO SECTION -->
+    <section class="hero-wrapper">
+        <div class="hero-overlay-full"></div> 
+        <video autoplay muted loop playsinline id="hero-video" style="opacity: 0.4;">
+            <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
+        </video>
+        
+        <div style="padding-bottom: 50px;" class="container hero-content-wrapper">
+            <div class="row">
+                <div class="col-lg-10" id="hero-content">
+                    <h1 class="hero-title mb-4">
+                        <span class="text-gradient">Commercial IT Infrastructure Solutions</span><br>& Business Technology
+                    </h1>
+                    <p class="lead mb-5 opacity-75 fs-4 text-white">
+                        Precision-engineered <strong>Managed Network Provider</strong> solutions for the modern enterprise. We architect high-performance digital ecosystems.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button class="btn btn-light rounded-pill px-5 py-3 fw-bold">Explore Solutions</button>
+                        <button class="btn btn-outline-light rounded-pill px-5 py-3 fw-bold">Request Consultation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS STRIPE -->
+    <div class="stats-stripe">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-6 col-md-3 border-end border-secondary border-opacity-25">
+                    <h2 class="counter-val" data-target="500">0</h2>
+                    <p class="text-muted small text-uppercase fw-bold">Managed Sites</p>
+                </div>
+                <div class="col-6 col-md-3 border-end border-secondary border-opacity-25">
+                    <h2 class="counter-val" data-target="99">0</h2>
+                    <p class="text-muted small text-uppercase fw-bold">Network Uptime %</p>
+                </div>
+                <div class="col-6 col-md-3 border-end border-secondary border-opacity-25">
+                    <h2 class="counter-val" data-target="2500">0</h2>
+                    <p class="text-muted small text-uppercase fw-bold">Security Nodes</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h2 class="counter-val" data-target="24">0</h2>
+                    <p class="text-muted small text-uppercase fw-bold">Support 24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTNERS MARQUEE -->
+    <div class="marquee-section">
+        <div class="container-fluid">
+            <div class="marquee">
+                <div class="marquee-content d-flex align-items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/MikroTik_Logo_%282022%29.svg" alt="MikroTik" class="mx-5" style="height: 40px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" alt="Cisco" class="mx-5" style="height: 50px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Asterisk_logo.svg" alt="Asterisk" class="mx-5" style="height: 40px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="mx-5" style="height: 40px;">
+                    <!-- Repeat for smooth scroll -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/MikroTik_Logo_%282022%29.svg" alt="MikroTik" class="mx-5" style="height: 40px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" alt="Cisco" class="mx-5" style="height: 50px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOLUTIONS GRID -->
+    <section class="py-5" id="solutions">
+        <div class="container py-5">
+            <h2 class="sec-title mb-5">Enterprise <span class="text-primary">Commercial Security Systems</span></h2>
+            
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="bento-card p-5">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <div class="icon-box rounded-3 d-inline-flex p-3 mb-4"><i class="fas fa-wifi fa-2x"></i></div>
+                                <h3 class="fw-bold">Business WiFi Installation</h3>
+                                <p class="opacity-75">Expert deployment of high-density WiFi with smart VLAN segmentation for maximum security and throughput.</p>
+                            </div>
+                            <div class="col-md-5 d-none d-md-block text-center">
+                                <i class="fas fa-signal fa-8x text-primary opacity-25 solution-icon-anim"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="bento-card">
+                        <div class="icon-box rounded-3 d-inline-flex p-3 mb-4"><i class="fas fa-video fa-2x"></i></div>
+                        <h4 class="fw-bold">Commercial Surveillance</h4>
+                        <p class="opacity-75">AI-powered 4K surveillance systems for comprehensive facility visibility.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="bento-card">
+                        <div class="icon-box rounded-3 d-inline-flex p-3 mb-4"><i class="fas fa-id-card fa-2x"></i></div>
+                        <h4 class="fw-bold">Access Control Installation</h4>
+                        <p class="opacity-75">Cloud-managed keyless entry and RFID credential systems for smart facility security.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="bento-card">
+                        <div class="icon-box rounded-3 d-inline-flex p-3 mb-4"><i class="fas fa-ethernet fa-2x"></i></div>
+                        <h4 class="fw-bold">Structured Cabling</h4>
+                        <p class="opacity-75">Professional fiber optic and Cat6/6A infrastructure built for long-term scalability.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="bento-card" style="background: linear-gradient(135deg, var(--primary), var(--accent)) !important; border: none !important;">
+                        <h3 class="fw-bold text-white mt-2">More Solutions</h3>
+                        <p class="text-white opacity-100">Specialized <strong>VoIP</strong> & <strong>Digital Display Systems</strong>.</p>
+                        <a href="#" class="btn btn-outline-light rounded-pill px-4 mt-3 fw-bold">View Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDUSTRIES SECTION -->
+    <section id="industries" class="py-5">
+        <div class="container py-5">
+            <h2 class="text-center mb-5">Industries <span class="text-primary">We Architect</span></h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="industry-card">
+                        <div class="icon-box rounded-3 d-inline-flex p-3 mb-4"><i class="fas fa-hotel fa-2x"></i></div>
+                        <h4 class="fw-bold">Hospitality</h4>
+                        <p class="small opacity-75">Seamless guest connectivity and integrated IPTV ecosystems.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="industry-card">
+                        <div class="icon-box rounded-3 d-inline-flex p-3 mb-4"><i class="fas fa-warehouse fa-2x"></i></div>
+                        <h4 class="fw-bold">Warehouse & Retail</h4>
+                        <p class="small opacity-75">High-range wireless coverage and loss prevention systems.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="industry-card">
+                        <div class="icon-box rounded-3 d-inline-flex p-3 mb-4"><i class="fas fa-building fa-2x"></i></div>
+                        <h4 class="fw-bold">Commercial Office</h4>
+                        <p class="small opacity-75">Next-gen IT environments for high-productivity businesses.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero Reveal
+    gsap.from("#hero-content", { duration: 1.5, y: 100, opacity: 0, ease: "power4.out" });
+
+    // Counter Logic
+    const counters = document.querySelectorAll('.counter-val');
+    ScrollTrigger.create({
+        trigger: ".stats-stripe",
+        onEnter: () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    const speed = target / 50; 
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + speed);
+                        setTimeout(updateCount, 25);
+                    } else {
+                        counter.innerText = target + (target === 99 ? '%' : '+');
+                    }
+                }
+                updateCount();
+            });
+        },
+        once: true
+    });
+
+    // Staggered Cards Entry
+    gsap.utils.toArray('.bento-card, .industry-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            delay: i * 0.1,
+            ease: "expo.out"
+        });
+    });
+</script>
+{% endblock %}

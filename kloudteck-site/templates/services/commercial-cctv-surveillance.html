@@ -1,0 +1,551 @@
+{% extends "layout.html" %}
+
+{% block title %}Commercial CCTV & Surveillance Systems | Security Camera Installation | KLOUDTECK{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/cctv.css')}}">
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Commercial CCTV & Surveillance Systems",
+    "provider": {
+      "@type": "Organization",
+      "name": "KLOUDTECK",
+      "url": "https://www.kloudteck.com"
+    },
+    "description": "4K IP camera systems, NVR, remote mobile access, motion alerts. Protect assets, monitor operations.",
+    "areaServed": ["Retail", "Warehouse", "Hospitality", "Commercial Office"],
+    "serviceType": "Commercial Security Systems"
+  }
+  </script>
+{% endblock %}
+
+{% block content %}
+
+<!-- SECTION 1: HERO -->
+<section class="services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb-modern d-flex list-unstyled">
+                <li class="breadcrumb-item"><a href="/" class="text-white-50 text-decoration-none"><i class="fas fa-home me-1"></i> Home</a></li>
+                <li class="breadcrumb-item"><a href="/solutions" class="text-white-50 text-decoration-none"><i class="fas fa-home me-1"></i> Solutions</a></li>
+                <li class="breadcrumb-item active text-white ps-3" aria-current="page">Commercial CCTV Surveillance</li>
+            </ol>
+        </nav>
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-4 text-shine">Commercial CCTV & Surveillance Systems</h1>
+                <p class="lead text-white-50 mb-5 fs-4">Intelligent surveillance for modern facilities — 4K clarity, remote access, and smart analytics</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/quote" class="btn btn-custom btn-teal">Request a Quote</a>
+                    <a href="/portfolio" class="btn btn-custom btn-outline-light" data-bs-target="#offcanvasQuickContact">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2: COMMON SECURITY PROBLEMS -->
+<section class="bg-deep-custom services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-9">
+                <h2 class="display-5 fw-bold mb-4">Common security problems we solve</h2>
+                <p class="lead text-white-50">Commercial properties face different security challenges depending on layout, traffic, and hours of operation. We design CCTV systems to address the problems that matter most to owners, managers, and facility teams.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <ul class="list-unstyled check-list">
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Blind spots at entrances, exits, hallways, stairwells, parking areas, and loading docks</span></li>
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Theft, shrinkage, and unauthorized access during business hours or after hours</span></li>
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Poor image quality in low-light areas or high-contrast environments</span></li>
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Limited retention windows that make incident investigations difficult</span></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-unstyled check-list">
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Slow footage review when events are not easy to locate</span></li>
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Multi-site visibility gaps for operators managing multiple locations</span></li>
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Unreliable recording systems with storage, power, or network issues</span></li>
+                    <li><i class="fas fa-times-circle text-danger"></i> <span>Standalone systems that do not integrate with access control or other security tools</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <div class="p-4 modern-card d-inline-block w-100">
+                <p class="mb-0 fw-bold text-sky fs-5">Our approach combines strategic camera placement, reliable recording infrastructure, remote access, and smart alerts so your team gets usable video when it matters most.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3: MAIN CONTENT & CAPABILITIES -->
+<section class="services-wrapper process-section-bg shadow-sm ">
+    <div class="container py-5">
+        <div class="row">
+            <!-- MAIN CONTENT AREA -->
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold text-white mb-4 reveal">Security visibility is critical  <span class="text-teal">across commercial properties</span></h2>
+                <p class="fs-5 text-white-50 mb-5 reveal">KLOUDTECK deploys enterprise-grade IP camera systems designed for layered security and remote management. From retail stores to warehouse distribution centers, our surveillance solutions provide complete visibility and peace of mind.</p>
+                
+                <div class="feature-grid mt-5">
+                    <h3 class="mb-4 text-white fw-bold">Our CCTV Capabilities:</h3>
+                    
+                    <!-- Row with Gaps -->
+                    <div class="row g-4 reveal">
+                        <!-- Card 1 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-camera text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">4K Indoor & Outdoor IP Cameras</h4>
+                                <p class="text-white-50 mb-0">Crystal clear footage with night vision, wide dynamic range, and weatherproof housings.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-truck text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Perimeter & Loading Dock Monitoring</h4>
+                                <p class="text-white-50 mb-0">Strategic camera placement to cover entry points, dock doors, and high-value areas..</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-server text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Centralized NVR Systems</h4>
+                                <p class="text-white-50 mb-0">Network video recorders with RAID storage and redundant power for reliability.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-mobile-alt text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Remote Access & Mobile Monitoring</h4>
+                                <p class="text-white-50 mb-0">View live and recorded footage from any device, anywhere in the world.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-bell text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Motion Detection & Smart Alerts</h4>
+                                <p class="text-white-50 mb-0">AI-powered detection reduces false alarms and notifies you of genuine threats.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="col-md-6">
+                            <div class="network-card h-100 p-4">
+                                <i class="fas fa-database text-teal fs-3 mb-3"></i>
+                                <h4 class="text-white h5 fw-bold">Long-Term Storage Solutions</h4>
+                                <p class="text-white-50 mb-0">Scalable storage options from 30 days to 1+ years of retention.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIDEBAR AREA -->
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <div class="sidebar-box p-4 rounded-4 border">
+                    <h4 class="mb-4 text-white fw-bold">Key Benefits</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i>  Theft deterrence</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> Liability protection</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> Operational insights</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i>  Employee safety</li>
+                        <li class="mb-3 text-white-50"><i class="fas fa-check-circle text-teal me-2"></i> Insurance discounts</li>
+                    </ul>
+                    <hr class="border-secondary">
+                    <h5 class="mb-3 text-white">Industries We Serve</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge-custom">Retail</span>
+                        <span class="badge-custom">Warehouses</span>
+                        <span class="badge-custom">Hospitality</span>
+                        <span class="badge-custom">Office</span>
+                        <span class="badge-custom">Multi-Family</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SECTION 4: CAMERA TYPES -->
+<section class="camera-types-wrapper services-wrapper process-section-bg shadow-sm py-5">
+    <div class="container py-5">
+        <!-- Section Header -->
+        <div class="text-center mb-5 reveal">
+            <h2 class="display-6 fw-bold text-white text-shine mb-4">Camera Types <span class="text-teal">We Install</span></h2>
+            <p class="text-white-50 mx-auto lead" style="max-width: 800px;">
+                We design systems using the right camera type for each area — not a one-size-fits-all approach.
+            </p>
+        </div>
+
+        <!-- Camera Cards Grid -->
+        <div class="row g-4">
+            <!-- 1. Dome Cameras -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="camera-tech-card h-100 p-4">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h4 class="text-white h5 fw-bold mb-3">Dome Cameras</h4>
+                    <p class="text-white-50 small mb-0">Great for indoor ceilings in offices, lobbies, hallways, and common areas. Clean appearance and broad coverage.</p>
+                </div>
+            </div>
+
+            <!-- 2. Turret Cameras -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="camera-tech-card h-100 p-4">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4 class="text-white h5 fw-bold mb-3">Turret Cameras</h4>
+                    <p class="text-white-50 small mb-0">Popular for retail, office, and mixed-use spaces. Excellent image quality and flexible positioning.</p>
+                </div>
+            </div>
+
+            <!-- 3. Bullet Cameras -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="camera-tech-card h-100 p-4">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h4 class="text-white h5 fw-bold mb-3">Bullet Cameras</h4>
+                    <p class="text-white-50 small mb-0">Ideal for perimeter and outdoor coverage such as parking lots, fences, building exteriors, and loading areas.</p>
+                </div>
+            </div>
+
+            <!-- 4. PTZ Cameras -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="camera-tech-card h-100 p-4">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h4 class="text-white h5 fw-bold mb-3">PTZ Cameras (Pan-Tilt-Zoom)</h4>
+                    <p class="text-white-50 small mb-0">Best for large areas that benefit from active monitoring, such as parking lots, yards, and campus-style properties.</p>
+                </div>
+            </div>
+
+            <!-- 5. Fisheye / Panoramic Cameras -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="camera-tech-card h-100 p-4">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-circle-dot"></i>
+                    </div>
+                    <h4 class="text-white h5 fw-bold mb-3">Fisheye / Panoramic Cameras</h4>
+                    <p class="text-white-50 small mb-0">Useful for wide open spaces where fewer cameras may be preferred, such as warehouses and large lobbies.</p>
+                </div>
+            </div>
+
+            <!-- 6. Specialty Cameras -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="camera-tech-card h-100 p-4">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4 class="text-white h5 fw-bold mb-3">Specialty Cameras (Use-Case Dependent)</h4>
+                    <p class="text-white-50 small mb-0">Options may include LPR (license plate recognition), low-light/color night vision, and other analytics-ready models depending on project goals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- SECTION 5: AI ANALYTICS -->
+<section class="bg-deep-custom services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="p-5 rounded-5 modern-card">
+            <h3 class="text-center display-6 fw-bold mb-4">Smart surveillance with AI analytics</h3>
+            <p class="lead text-white-50 text-center mb-5">Our systems do more than record — they help your team detect, review, and respond.</p>
+            <p class="text-center mb-5">Depending on your environment and security goals, KLOUDTECK can deploy analytics-enabled surveillance features such as:</p>
+            <div class="row g-4">
+                {% set analytics = [
+                    ('fas fa-users', 'People Counting', 'Track traffic patterns and occupancy trends'),
+                    ('fas fa-map-marked-alt', 'Heat Mapping', 'Understand movement flow in retail or public areas'),
+                    ('fas fa-user-clock', 'Loitering Detection', 'Alert on prolonged activity in restricted or sensitive areas'),
+                    ('fas fa-vector-square', 'Line Crossing / Intrusion Detection', 'Detect movement in defined zones after hours'),
+                    ('fas fa-car-side', 'Vehicle / LPR Detection', 'Improve visibility at gates, parking lots, and entry roads'),
+                    ('fas fa-filter', 'Smart Motion Filtering', 'Reduce nuisance alerts from non-critical movement')
+                ] %}
+                {% for icon, title, desc in analytics %}
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="p-3">
+                        <i class="{{ icon }} fa-3x text-sky mb-3"></i>
+                        <h5 class="fw-bold">{{ title }}</h5>
+                        <p class="small text-white-50">{{ desc }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <p class="text-center mt-5 small text-white-50" style="font-style: italic;">We configure analytics based on your operational needs to improve usefulness and reduce alert fatigue.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 6: INTEGRATION -->
+<section class="bg-white-section services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <h3 class="display-6 fw-bold mb-4 text-sky">Integration with Access Control</h3>
+                <p class="text-white lead">Surveillance is stronger when it works with the rest of your security stack. When integrated with access control, your camera system can help provide faster visual verification and better incident review.</p>
+                <h6 class="fw-bold mt-4 text-white">Benefits of CCTV + Access Control Integration:</h6>
+                <ul class="list-unstyled mt-3 check-list text-white">
+                    <li><i class="fas fa-link text-sky"></i> <span>Event-triggered recording for door events or forced entry conditions</span></li>
+                    <li><i class="fas fa-link text-sky"></i> <span>Visual verification of who entered and when</span></li>
+                    <li><i class="fas fa-link text-sky"></i> <span>Faster incident review with synchronized video and access events</span></li>
+                    <li><i class="fas fa-link text-sky"></i> <span>Unified workflows for security and operations teams</span></li>
+                </ul>
+                <div class="p-3 bg-light border-start border-sky border-4 mt-4">
+                    <p class="mb-0 fw-bold">Need both surveillance and door security? <a href="/contact" class="text-sky text-decoration-none">Ask about a combined deployment.</a></p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="p-5 bg-dark text-white rounded-4 shadow-lg">
+                    <i class="fas fa-shield-alt text-sky mb-4" style="font-size: 5rem;"></i>
+                    <p class="lead mb-4">If you’re planning a new security deployment, KLOUDTECK can design surveillance and access control as one coordinated system.</p>
+                    <a href="/services/commercial-access-control-systems" class="btn btn-custom btn-teal">View Access Control Solutions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 7: PROCESS -->
+<section class="bg-deep-custom services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <h3 class="display-6 fw-bold text-center mb-5 text-shine">CCTV system design & installation process</h3>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="process-step">
+                    <div class="process-num">1</div>
+                    <h5 class="fw-bold">Site Assessment & Security Review</h5>
+                    <p class="text-white-50">We evaluate your property layout, risk points, traffic flow, lighting conditions, and priority coverage areas.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">2</div>
+                    <h5 class="fw-bold">Camera Placement & Coverage Design</h5>
+                    <p class="text-white-50">We design camera locations based on visibility goals, blind spots, key access points, and operational requirements.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">3</div>
+                    <h5 class="fw-bold">Cabling & Network Readiness Check</h5>
+                    <p class="text-white-50">We assess structured cabling paths, switching capacity, PoE requirements, bandwidth impact, and equipment locations.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">4</div>
+                    <h5 class="fw-bold">Installation & Configuration</h5>
+                    <p class="text-white-50">We install cameras, mounts, recording hardware, and supporting network components, then configure recording, retention, and user access.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="process-step">
+                    <div class="process-num">5</div>
+                    <h5 class="fw-bold">Remote Access & Mobile App Setup</h5>
+                    <p class="text-white-50">We securely configure remote viewing for authorized users and verify live view, playback, and alerts.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">6</div>
+                    <h5 class="fw-bold">Testing, Optimization & Training</h5>
+                    <p class="text-white-50">We test camera angles, image quality, recording reliability, and analytics behavior — then train your team on daily use.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">7</div>
+                    <h5 class="fw-bold">Handoff & Ongoing Support Options</h5>
+                    <p class="text-white-50">We provide system documentation, support recommendations, and service options for long-term performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 8: STORAGE -->
+<section class="bg-white-section services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h3 class="display-6 fw-bold mb-4 text-sky">Storage sizing, retention & privacy planning</h3>
+                <p class="text-white-50">Storage design is one of the most important parts of a surveillance system — and one of the most overlooked. Retention needs vary based on:</p>
+                <div class="row g-3 mb-4">
+                    <div class="col-6 small text-white"><i class="fas fa-check text-sky me-2"></i>Number of cameras</div>
+                    <div class="col-6 small text-white"><i class="fas fa-check text-sky me-2"></i>Resolution (1080p vs 4K)</div>
+                    <div class="col-6 small text-white"><i class="fas fa-check text-sky me-2"></i>Recording mode</div>
+                    <div class="col-6 small text-white"><i class="fas fa-check text-sky me-2"></i>Frame rate/Activity</div>
+                    <div class="col-12 small text-white"><i class="fas fa-check text-sky me-2"></i>Compliance requirements</div>
+                </div>
+                <h6 class="fw-bold text-white mb-3">Retention options we support:</h6>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-dark px-3 py-2">30/60/90 days</span>
+                    <span class="badge bg-dark px-3 py-2">180+ days</span>
+                    <span class="badge bg-dark px-3 py-2">1+ year archiving</span>
+                    <span class="badge bg-dark px-3 py-2">Local NVR</span>
+                    <span class="badge bg-dark px-3 py-2">Hybrid Cloud</span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-4 bg-light rounded-4 border-start border-sky border-4">
+                    <h5 class="fw-bold text-dark mb-3">Privacy & access best practices</h5>
+                    <p class="small text-muted">KLOUDTECK helps clients configure systems in alignment with operational policies and privacy considerations, including:</p>
+                    <ul class="list-unstyled small text-muted">
+                        <li class="mb-2"><i class="fas fa-user-lock text-sky me-2"></i> Role-based permissions</li>
+                        <li class="mb-2"><i class="fas fa-file-export text-sky me-2"></i> Footage export access controls</li>
+                        <li class="mb-2"><i class="fas fa-eye-slash text-sky me-2"></i> Camera placement guidance for privacy-sensitive areas</li>
+                        <li class="mb-2"><i class="fas fa-clipboard-list text-sky me-2"></i> Retention policy planning by property type</li>
+                    </ul>
+                    <p class="mt-3 small fw-bold text-dark">We’ll help you size storage correctly so your system supports investigations without unnecessary overbuild.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 9: MONITORING -->
+<section class="bg-dark-custom services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <h3 class="display-6 fw-bold mb-4 text-sky">Monitoring & support options</h3>
+                <p class="text-white-50 mb-4">A surveillance system is only useful if it stays online and recording reliably. KLOUDTECK offers support options to help protect uptime and reduce surprises.</p>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-3">
+                    {% set support = [
+                        'Remote system health checks', 'Camera connectivity troubleshooting',
+                        'NVR storage health review', 'Firmware update planning & execution',
+                        'User access changes & app support', 'On-site service dispatch'
+                    ] %}
+                    {% for item in support %}
+                    <div class="col-md-6"><div class="p-3 modern-card small">{{ item }}</div></div>
+                    {% endfor %}
+                    <div class="col-12"><div class="p-3 modern-card small">Expansion support for added cameras or new areas</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 10: INDUSTRIES -->
+<section class="bg-deep-custom services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container text-center">
+        <h3 class="display-6 fw-bold mb-5 text-shine">Industries we serve</h3>
+        <div class="row g-4">
+            {% set industries = [
+                ('fas fa-shopping-bag', 'Retail & Shopping Centers'),
+                ('fas fa-boxes', 'Warehouses & Distribution'),
+                ('fas fa-bed', 'Hotels & Hospitality'),
+                ('fas fa-briefcase', 'Commercial Offices'),
+                ('fas fa-home', 'Multi-Family & HOAs'),
+                ('fas fa-graduation-cap', 'Schools & Campuses'),
+                ('fas fa-user-md', 'Hospitals & Medical'),
+                ('fas fa-tools', 'Industrial Facilities')
+            ] %}
+            {% for icon, name in industries %}
+            <div class="col-md-3 col-6">
+                <div class="p-4 modern-card">
+                    <i class="{{ icon }} fa-2x text-sky mb-3"></i>
+                    <p class="mb-0 fw-bold small">{{ name }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="text-white-50 mt-5">If your facility has unique security, compliance, or operational requirements, we can design a custom solution around them.</p>
+    </div>
+</section>
+
+<!-- SECTION 11: WHY KLOUDTECK -->
+<section class=" services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <h3 class="display-6 fw-bold text-center mb-5 text-sky">Why KLOUDTECK</h3>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <p class="text-center lead text-white mb-5">KLOUDTECK builds surveillance systems with a full infrastructure mindset — not just cameras. Because we also design and support networks, cabling, and access control systems, we can deliver CCTV deployments that are:</p>
+                <div class="row g-4">
+                    <div class="col-md-6"><div class="p-3 border rounded shadow-sm h-100 "><strong>Properly engineered</strong> for bandwidth and PoE requirements</div></div>
+                    <div class="col-md-6"><div class="p-3 border rounded shadow-sm h-100 "><strong>Installed cleanly</strong> with professional low-voltage cabling practices</div></div>
+                    <div class="col-md-6"><div class="p-3 border rounded shadow-sm h-100 "><strong>Integrated</strong> with adjacent systems where needed</div></div>
+                    <div class="col-md-6"><div class="p-3 border rounded shadow-sm h-100 "><strong>Designed for scalability</strong> and long-term serviceability</div></div>
+                </div>
+                <p class="text-center mt-5 fw-bold text-white">We focus on practical, reliable deployments that work in the real world.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 12: CASE STUDY -->
+<section class="bg-deep-custom services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <div class="p-lg-5 p-4 modern-card border-start border-sky border-4">
+            <h4 class="fw-bold mb-4 text-white">Case in point: Retail chain reduces theft with AI-enabled surveillance</h4>
+            <p class="lead text-white-50 mb-4">After deploying an analytics-enabled CCTV solution with real-time alerts and improved visibility across key areas, a multi-location retail client achieved a significant reduction in shrink-related incidents and improved response speed for store teams.</p>
+            <h6 class="fw-bold text-sky mb-3">What made the difference:</h6>
+            <div class="row g-3">
+                <div class="col-md-6 small"><i class="fas fa-check text-sky me-2"></i> Better camera placement at high-risk areas</div>
+                <div class="col-md-6 small"><i class="fas fa-check text-sky me-2"></i> Clearer footage for incident review</div>
+                <div class="col-md-6 small"><i class="fas fa-check text-sky me-2"></i> Smart alerts instead of constant manual monitoring</div>
+                <div class="col-md-6 small"><i class="fas fa-check text-sky me-2"></i> Consistent setup across multiple locations</div>
+            </div>
+            <div class="mt-4">
+                <a href="/contact" class="text-sky fw-bold text-decoration-none">Ask us about surveillance design for multi-site retail operations →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 13: FAQS -->
+<section class="bg-dark-custom process-section-bg bg-white shadow-sm">
+    <div class="container">
+        <h3 class="display-6 fw-bold text-center mb-5 text-shine">Frequently Asked Questions</h3>
+        <div class="accordion mx-auto" id="cctvFaq" style="max-width: 900px;">
+            {% set faqs = [
+                ('How long is footage stored?', 'Storage depends on camera count, resolution, recording settings, and your target retention window. Most systems are designed for 30–90 days, and we can scale to longer retention with larger storage or archiving options.'),
+                ('Can I view cameras on my phone?', 'Yes. We configure secure remote access so authorized users can view live feeds, play back recordings, and receive alerts from mobile devices.'),
+                ('Do you offer night vision cameras?', 'Yes. Outdoor cameras typically include infrared night vision, and we can also provide low-light/color night vision options depending on your environment.'),
+                ('Do cameras keep recording if the internet goes down?', 'In most commercial deployments, local NVR recording continues even if internet service is interrupted, as long as the local network and recording system remain powered and operational.'),
+                ('How many cameras do I need?', 'That depends on your layout, risk areas, entrances/exits, and monitoring goals. We determine camera counts during the site assessment and coverage design phase.'),
+                ('Can you reuse my existing cameras or cabling?', 'Sometimes, yes. We can evaluate existing infrastructure and advise whether it can be reused, upgraded, or should be replaced for better performance and reliability.'),
+                ('What’s the difference between NVR and cloud storage?', 'An NVR stores video locally on-site for fast access and control. Cloud archiving can provide additional off-site retention and redundancy. Many businesses use a hybrid approach.'),
+                ('Can multiple managers have different access levels?', 'Yes. We can configure role-based access so different users have different permissions for live view, playback, export, or administration.'),
+                ('Can CCTV integrate with access control or alarms?', 'Yes. We can integrate surveillance with access control and, in some cases, other systems to improve event visibility and response workflows.'),
+                ('How long does installation take?', 'Timeline depends on project size, camera count, cabling complexity, and site conditions. Small systems may be completed quickly, while larger multi-building deployments require phased scheduling.'),
+                ('Do you provide ongoing support?', 'Yes. We offer support and maintenance options, including troubleshooting, system health checks, updates, and expansion assistance.'),
+                ('Can I manage multiple locations in one app or dashboard?', 'Yes, in many deployments we can provide centralized visibility for multi-site businesses, depending on the platform and system architecture.')
+            ] %}
+            {% for q, a in faqs %}
+            <div class="accordion-item">
+                <h2 class="accordion-header"><button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faqp{{ loop.index }}">{{ q }}</button></h2>
+                <div id="faqp{{ loop.index }}" class="accordion-collapse collapse" data-bs-parent="#cctvFaq"><div class="accordion-body text-white-50 small">{{ a }}</div></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 14: FINAL CTA -->
+<section class="bg-deep-custom services-wrapper process-section-bg bg-white shadow-sm">
+    <div class="container text-center">
+        <div class="p-lg-5 p-4 rounded-5 modern-card border-2 border-sky">
+            <h2 class="display-5 fw-bold mb-4 text-shine">Get a CCTV system designed for your property</h2>
+            <p class="lead text-white-50 mb-5 mx-auto" style="max-width: 850px;">Protect your facility with a surveillance system built for your layout, operations, and security priorities. KLOUDTECK will assess your building, identify coverage needs, and design a solution with the right cameras, recording infrastructure, retention plan, and remote access setup. Whether you’re upgrading an older system or starting from scratch, we can help you deploy with confidence.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="/quote" class="btn btn-lg btn-teal px-5 py-2 fw-bold">Request Quote</a>
+                <a style="border:solid 1px white;" href="/contact" class="btn btn-lg btn-outline-light px-5 py-2">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1678049531?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Commercial%20Access%20Control" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000; transition: 0.3s;">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ -->
+{% endblock %}

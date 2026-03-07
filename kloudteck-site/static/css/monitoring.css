@@ -1,0 +1,138 @@
+:root {
+        --navy: #33ccff;
+        --teal: #33ccff;
+        --soft-bg: #f4f7f9;
+        --light-teal: #e6f2f2;
+        --dark-navy: #000d1a;
+    }
+
+    body { font-family: 'Inter', sans-serif; color: #333; overflow-x: hidden; }
+        .text-navy { color: var(--navy) !important; }
+        .text-teal { color: var(--teal) !important; }
+        .bg-navy { background-color: var(--navy) !important; }
+        .bg-teal { background-color: var(--teal) !important; }
+        .bg-soft { background-color: var(--soft-bg) !important; }
+
+    .monitoring-hero {
+        background: radial-gradient(circle at 10% 20%, #001e3c 0%, var(--dark-navy) 90%);
+        padding: 120px 0 80px;
+        color: white;
+    }
+    .live-dot {
+        height: 12px; width: 12px; background-color: #00ff00; border-radius: 50%;
+        display: inline-block; margin-right: 8px; box-shadow: 0 0 10px #00ff00;
+        animation: pulse-green 2s infinite;
+    }
+    @keyframes pulse-green {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 0, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
+    }
+
+    .monitor-card {
+        background: rgba(255, 255, 255, 0.03) !important; border-radius: 20px; padding: 30px;
+        height: 100%; transition: all 0.3s ease; border: 1px solid #eee;
+    }
+    .monitor-card:hover {
+        transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        border-color: var(--teal);
+    }
+
+    .log-window {
+        background: #0d1117; border-radius: 12px; padding: 20px;
+        font-family: 'Fira Code', monospace; font-size: 13px; color: #c9d1d9; border: 1px solid #30363d;
+    }
+    .log-entry-info { color: #58a6ff; }
+    .log-entry-warn { color: #d29922; }
+    .log-entry-crit { color: #f85149; }
+
+    .check-list { list-style: none; padding-left: 0; }
+    .check-list li { position: relative; padding-left: 30px; margin-bottom: 12px; }
+    .check-list li::before {
+        content: "\f058"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+        position: absolute; left: 0; color: var(--teal);
+    }
+
+    .step-circle {
+        width: 50px; height: 50px; background: var(--teal); color: white;
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-weight: bold; margin-bottom: 15px; font-size: 1.2rem;
+    }
+
+    [data-aos] { opacity: 1 !important; transform: none !important; }
+    :root {
+        --mon-navy: #212121;  
+        --mon-sky: #33ccff;     
+        --mon-glass: rgba(255, 255, 255, 0.03);
+        --mon-border: rgba(51, 204, 255, 0.15);
+    }
+
+    .faq-monitor-section {
+        background-color: var(--mon-navy);
+        padding: 100px 0;
+    }
+
+    /* Shine Title Animation */
+    .faq-monitor-title {
+        font-weight: 800;
+        background: linear-gradient(90deg, #33ccff, #ffffff, #00ffff, #33ccff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shineMonitor 4s linear infinite;
+        margin-bottom: 60px;
+    }
+    @keyframes shineMonitor { to { background-position: 200% center; } }
+
+    .faq-monitor-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* Accordion Item Styling */
+    .faq-monitor-container .accordion-item {
+        background: var(--mon-glass) !important;
+        border: 1px solid var(--mon-border) !important;
+        margin-bottom: 15px;
+        border-radius: 12px !important;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-monitor-container .accordion-item:hover {
+        border-color: var(--mon-sky) !important;
+        box-shadow: 0 5px 20px rgba(51, 204, 255, 0.1);
+    }
+
+    /* Question Button */
+    .faq-monitor-container .accordion-button {
+        background: transparent !important;
+        color: #ffffff !important;
+        padding: 22px 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        box-shadow: none !important;
+    }
+
+    /* Active State (Open) */
+    .faq-monitor-container .accordion-button:not(.collapsed) {
+        background: var(--mon-sky) !important;
+        color: #000000 !important;
+    }
+
+    /* Answer Body Styling */
+    .faq-monitor-container .accordion-body {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgba(255, 255, 255, 0.75);
+        padding: 25px 35px;
+        line-height: 1.8;
+        border-top: 1px solid var(--mon-border);
+    }
+
+    /* Arrow Icon Fix */
+    .faq-monitor-container .accordion-button::after {
+        filter: brightness(0) invert(1);
+    }
+    .faq-monitor-container .accordion-button:not(.collapsed)::after {
+        filter: brightness(0);
+    }

@@ -1,0 +1,106 @@
+/* Failure-safe CSS */
+    :root { --navy: #0F2A4A; --teal: #33ccff; --soft: #f8f9fa; }
+    body { color: #333; }
+    section { display: block !important; opacity: 1 !important; visibility: visible !important; }
+    
+    .hero-ac { background: linear-gradient(135deg, #0F2A4A 0%, #1e3a5f 100%); color: white; padding: 120px 0 80px; }
+    .section-padding { padding: 90px 0; }
+    .bg-gray { background-color: var(--soft); }
+    
+    .card-service { background: rgba(255, 255, 255, 0.03) !important; border: 1px solid rgba(0, 255, 255, 0.1) !important; border-radius: 20px; padding: 35px; height: 100%; transition: 0.3s ease; }
+    .card-service:hover { border-color: var(--teal); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+    
+    .industry-card { background: rgba(255, 255, 255, 0.03) !important;border: 1px solid rgba(0, 255, 255, 0.1) !important; border-left: 5px solid var(--teal); padding: 30px; border-radius: 0 20px 20px 0; height: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+    
+    .step-box { position: relative; padding-left: 65px; margin-bottom: 35px; }
+    .step-number { position: absolute; left: 0; top: 0; width: 45px; height: 45px; background: var(--teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; }
+    
+    .architecture-box { border-radius: 25px; padding: 40px; height: 100%; border: 2px solid transparent; }
+    .arch-cloud { background: rgba(0, 128, 128, 0.05); border-color: var(--teal); }
+    .arch-standard { background: #f1f5f9; border-color: #cbd5e1; }
+
+    .faq-item { border: 1px solid #eee; border-radius: 15px; margin-bottom: 15px; overflow: hidden; }
+    .btn-teal-main { background: var(--teal) !important; color: white !important; border-radius: 50px; padding: 14px 35px; font-weight: 700; border: none; }
+    .btn-teal-main:hover { background: #006666 !important; transform: scale(1.05); }
+
+    .check-list-icon { color: var(--teal); margin-right: 12px; }
+    .comparison-list li { margin-bottom: 12px; list-style: none; position: relative; padding-left: 30px; }
+    .comparison-list li i { position: absolute; left: 0; top: 5px; }
+
+    :root {
+        --navy-dark: #212121;   
+        --sky-blue: #33ccff;   
+        --glass-fill: rgba(255, 255, 255, 0.03);
+        --glass-stroke: rgba(51, 204, 255, 0.2);
+    }
+
+    .faq-ac-section {
+        background-color: var(--navy-dark);
+        padding: 100px 0;
+    }
+
+    /* Title Animation */
+    .faq-ac-title {
+        font-weight: 800;
+        background: linear-gradient(90deg, #33ccff, #ffffff, #00ffff, #33ccff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shineText 4s linear infinite;
+        margin-bottom: 60px;
+    }
+    @keyframes shineText { to { background-position: 200% center; } }
+
+    .faq-ac-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* Accordion Item Styling */
+    .faq-ac-container .accordion-item {
+        background: var(--glass-fill) !important;
+        border: 1px solid var(--glass-stroke) !important;
+        margin-bottom: 15px;
+        border-radius: 12px !important;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    /* Hover effect */
+    .faq-ac-container .accordion-item:hover {
+        border-color: var(--sky-blue) !important;
+        box-shadow: 0 5px 20px rgba(51, 204, 255, 0.1);
+    }
+
+    /* Question Button */
+    .faq-ac-container .accordion-button {
+        background: transparent !important;
+        color: #ffffff !important;
+        padding: 24px 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        box-shadow: none !important;
+    }
+
+    /* Active State (Open) */
+    .faq-ac-container .accordion-button:not(.collapsed) {
+        background: var(--sky-blue) !important;
+        color: #000000 !important;
+    }
+
+    /* Answer Body */
+    .faq-ac-container .accordion-body {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgba(255, 255, 255, 0.75);
+        padding: 25px 35px;
+        line-height: 1.8;
+        border-top: 1px solid var(--glass-stroke);
+    }
+
+    /* Arrow Icon Fix */
+    .faq-ac-container .accordion-button::after {
+        filter: brightness(0) invert(1);
+    }
+    .faq-ac-container .accordion-button:not(.collapsed)::after {
+        filter: brightness(0);
+    }

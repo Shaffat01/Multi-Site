@@ -1,0 +1,50 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+<style>
+    :root { --accent-cyan: #00cec9; --card-bg: #151921; }
+    .msg-card { background: var(--card-bg); border: 1px solid #2d3748; border-radius: 15px; transition: 0.3s; color: white; }
+    .msg-card:hover { border-color: var(--accent-cyan); }
+    .badge-unread { background: var(--accent-cyan); color: #000; font-size: 10px; padding: 3px 8px; border-radius: 5px; }
+    .text-cyan { color: var(--accent-cyan); }
+</style>
+
+<div class="container-fluid p-4">
+    <h2 class="mb-4">Messages <span class="text-cyan">Inbox</span></h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row g-3">
+        {% for msg in messages %}
+        <div class="col-12">
+            <div class="msg-card p-3 shadow-sm">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-1 text-white">{{ msg.name }} <span class="badge-unread ms-2">{{ msg.status }}</span></h5>
+                        <p class="mb-1 small text-secondary"><i class="fas fa-envelope me-1"></i> {{ msg.email }} | <i class="fas fa-phone me-1"></i> {{ msg.phone }}</p>
+                        <p class="mb-2 fw-bold text-cyan">Subject: {{ msg.subject }}</p>
+                    </div>
+                    <div class="text-end">
+                        <small class="text-secondary d-block mb-2">{{ msg.created_at.strftime('%d %b, %Y | %I:%M %p') }}</small>
+                        <a href="{{ url_for('delete_message', id=msg.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this message?')"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>
+                <hr style="border-color: #2d3748;">
+                <p class="mb-0 small" style="color: #a0aec0; line-height: 1.6;">{{ msg.message }}</p>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-inbox fa-3x text-secondary mb-3"></i>
+            <p class="text-secondary">No messages found in your inbox.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

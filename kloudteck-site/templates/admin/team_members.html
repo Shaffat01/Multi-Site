@@ -1,0 +1,314 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+<style>
+    :root {
+        --bg-dark: #0b0e14;
+        --card-bg: #151921;
+        --accent-cyan: #00cec9;
+        --text-gray: #a0aec0;
+        --text-white: #ffffff;
+    }
+
+    body {
+        background-color: var(--bg-dark);
+        color: var(--text-white);
+    }
+
+    .dashboard-container {
+        padding: 30px;
+        background-color: var(--bg-dark);
+        min-height: 100vh;
+    }
+
+    .stat-card {
+        background: var(--card-bg);
+        border: 1px solid #2d3748;
+        border-radius: 15px;
+        padding: 20px;
+        transition: 0.3s;
+    }
+    .stat-card:hover { border-color: var(--accent-cyan); }
+    .stat-title { color: var(--text-gray); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-value { font-size: 32px; font-weight: bold; margin: 10px 0; color: var(--text-white); }
+    .stat-label { color: var(--accent-cyan); font-size: 14px; }
+
+    .content-box {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 25px;
+        margin-top: 30px;
+    }
+
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .custom-table {
+        width: 100%;
+        color: var(--text-white);
+    }
+    .custom-table th {
+        color: var(--accent-cyan);
+        border-bottom: 1px solid #2d3748;
+        padding: 15px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .custom-table td {
+        padding: 15px;
+        border-bottom: 1px solid #1a202c;
+        vertical-align: middle;
+    }
+    
+    .btn-cyan {
+        background-color: var(--accent-cyan);
+        color: #000;
+        font-weight: 600;
+        border-radius: 30px;
+        padding: 8px 25px;
+        border: none;
+    }
+    
+    .action-btn {
+        background: #1a202c;
+        border: 1px solid #2d3748;
+        color: var(--text-gray);
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+    .action-btn:hover { color: var(--accent-cyan); border-color: var(--accent-cyan); }
+
+    .modal-content {
+        background-color: #151921 !important;
+        border: 1px solid #2d3748;
+        border-radius: 20px;
+        color: white;
+    }
+    .modal-header { border-bottom: 1px solid #2d3748; }
+    .modal-title { color: var(--accent-cyan); }
+    
+    .form-control, .form-select {
+        background-color: #1a202c !important;
+        border: 1px solid #2d3748 !important;
+        color: white !important;
+        border-radius: 10px;
+    }
+
+    .skill-badge {
+        background: rgba(0, 206, 201, 0.1);
+        color: var(--accent-cyan);
+        border: 1px solid rgba(0, 206, 201, 0.3);
+        padding: 2px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        margin-right: 5px;
+        display: inline-block;
+        margin-bottom: 3px;
+    }
+
+    .avatar-box {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+        font-weight: 700;
+        font-size: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 206, 201, 0.2);
+    }
+</style>
+
+<div class="dashboard-container">
+    <h2 class="mb-4">Team <span style="color: var(--accent-cyan);">Management</span></h2>
+
+    <!-- Stat Cards -->
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-title">Total Members</div>
+                <div class="stat-value">{{ members|length }}</div>
+                <div class="stat-label"><i class="fas fa-users"></i> Database Count</div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stat-card">
+                <div class="stat-title">Active Members</div>
+                <div class="stat-value">
+                    {% set active_count = members|selectattr('is_active', 'equalto', True)|list|length %}
+                    {{ active_count }}
+                </div>
+                <div class="stat-label"><i class="fas fa-check-circle"></i> Showing on Site</div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="stat-card text-center">
+                <button class="btn btn-cyan mt-2 w-100 py-3" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                    <i class="fas fa-plus-circle me-2"></i> ADD NEW MEMBER
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="content-box shadow">
+        <div class="content-header">
+            <h4 class="mb-0">Member Directory</h4>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Profile</th>
+                        <th>Position</th>
+                        <th>Summary Snippet</th>
+                        <th>Skills</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+<!--                                 <div class="avatar-box me-3">
+                                    {{ member.initials if member.initials else member.name[:1]|upper }}
+                                </div> -->
+                                <div>
+                                    <h6 class="mb-0">{{ member.name }}</h6>
+                                    <small class="text-muted">Order: {{ member.display_order }}</small>
+                                    {% if not member.is_active %}
+                                    <span class="badge bg-danger ms-1" style="font-size: 9px;">Hidden</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                        <td><span style="color: #ff7675;">{{ member.position }}</span></td>
+                        <td>
+                            <small class="text-gray">{{ member.summary[:40] if member.summary else 'No summary' }}...</small>
+                        </td>
+                        <td>
+                            {% for skill in member.get_skills_list() %}
+                            <span class="skill-badge">{{ skill }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="text-end">
+                            <button class="action-btn me-2" data-bs-toggle="modal" data-bs-target="#editModal{{ member.id }}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form action="{{ url_for('admin_team_delete', member_id=member.id) }}" method="POST" class="d-inline">
+                                <button type="submit" class="action-btn text-danger" onclick="return confirm('Are you sure you want to delete this member?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!-- Edit Modal -->
+                    <div class="modal fade" id="editModal{{ member.id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content shadow-lg">
+                                <form action="{{ url_for('admin_team_edit', member_id=member.id) }}" method="POST">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit Team Member</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        <div class="row g-3">
+                                            <div class="col-md-8">
+                                                <label class="form-label text-gray small">Full Name</label>
+                                                <input type="text" name="name" class="form-control" value="{{ member.name }}" required>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label text-gray small">Job Position</label>
+                                                <input type="text" name="position" class="form-control" value="{{ member.position }}" required>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label text-gray small">Skills (Comma separated)</label>
+                                                <input type="text" name="skills" class="form-control" value="{{ member.skills }}" placeholder="e.g. Python, AWS, Networking">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label text-gray small">Member Summary / Bio</label>
+                                                <textarea name="summary" class="form-control" rows="4">{{ member.summary }}</textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label text-gray small">Display Order</label>
+                                                <input type="number" name="display_order" class="form-control" value="{{ member.display_order }}">
+                                            </div>
+                                            <div class="col-md-6 d-flex align-items-end mb-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="is_active" id="active{{ member.id }}" {% if member.is_active %}checked{% endif %}>
+                                                    <label class="form-check-label" for="active{{ member.id }}">Active (Show on Website)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="submit" class="btn btn-cyan w-100">UPDATE MEMBER PROFILE</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Member Modal -->
+<div class="modal fade" id="addMemberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form action="{{ url_for('admin_team_add') }}" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Team Member</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-start">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label small">Full Name</label>
+                            <input type="text" name="name" class="form-control" required placeholder="Member Name">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small">Position</label>
+                            <input type="text" name="position" class="form-control" required placeholder="e.g. Founder / Senior Engineer">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small">Skills (Separate with commas)</label>
+                            <input type="text" name="skills" class="form-control" placeholder="e.g. Fiber Optics, Cisco, WiFi 6">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small">Summary / About</label>
+                            <textarea name="summary" class="form-control" rows="4" placeholder="Describe the member's role and experience..."></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Display Order</label>
+                            <input type="number" name="display_order" class="form-control" value="0">
+                        </div>
+                        <div class="col-md-6 d-flex align-items-end mb-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_active" id="addNewActive" checked>
+                                <label class="form-check-label" for="addNewActive">Active (Live on Website)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="submit" class="btn btn-cyan w-100">SAVE NEW MEMBER</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

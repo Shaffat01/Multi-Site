@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KloudTeck Admin | Secure Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #0b0e14;
+            --bg-card: #161b22;
+            --teal: #00d2d2;
+            --teal-dim: rgba(0, 210, 210, 0.15);
+            --teal-glow: rgba(0, 210, 210, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #e6edf3;
+            --text-secondary: #8b949e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg-deep);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--teal);
+            opacity: 0.03;
+            animation: floatCircle 20s infinite ease-in-out;
+        }
+
+        .bg-animation .circle:nth-child(1) {
+            width: 600px; height: 600px;
+            top: -200px; left: -100px;
+            animation-delay: 0s;
+        }
+
+        .bg-animation .circle:nth-child(2) {
+            width: 400px; height: 400px;
+            bottom: -150px; right: -100px;
+            animation-delay: -5s;
+            animation-duration: 25s;
+        }
+
+        .bg-animation .circle:nth-child(3) {
+            width: 300px; height: 300px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+            animation-duration: 30s;
+        }
+
+        @keyframes floatCircle {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(50px, -50px) scale(1.1); }
+            50% { transform: translate(-30px, 60px) scale(0.9); }
+            75% { transform: translate(40px, 30px) scale(1.05); }
+        }
+
+        /* Grid Lines Background */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(0, 210, 210, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 210, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Login Container */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 45px 40px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            transition: 0.3s;
+        }
+
+        .login-card:hover {
+            border-color: rgba(0, 210, 210, 0.2);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 40px var(--teal-dim);
+        }
+
+        /* Logo */
+        .login-logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .login-logo .logo-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--teal), #0099cc);
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px var(--teal-glow);
+        }
+
+        .login-logo h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--teal);
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
+
+        .login-logo p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form-label-custom {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 45px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: rgba(139, 148, 158, 0.5);
+        }
+
+        .form-input:focus {
+            border-color: var(--teal);
+            background: rgba(0, 210, 210, 0.05);
+            box-shadow: 0 0 0 3px var(--teal-dim);
+        }
+
+        .form-input:focus + i,
+        .form-input:focus ~ i {
+            color: var(--teal);
+        }
+
+        .input-wrapper:focus-within i {
+            color: var(--teal);
+        }
+
+        /* Password Toggle */
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .password-toggle:hover { color: var(--teal); }
+
+        /* Login Button */
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--teal), #0099cc);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.6s;
+        }
+
+        .btn-login:hover::before { left: 100%; }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px var(--teal-glow);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        /* Security Badge */
+        .security-badge {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .security-badge span {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        .security-badge i {
+            color: #22c55e;
+            margin-right: 5px;
+        }
+
+        /* Flash Messages */
+        .flash-message {
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideDown 0.4s ease;
+        }
+
+        .flash-message.warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            color: #ffc107;
+        }
+
+        .flash-message.danger {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            color: #f87171;
+        }
+
+        .flash-message.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        .flash-message.info {
+            background: rgba(0, 210, 210, 0.1);
+            border: 1px solid rgba(0, 210, 210, 0.3);
+            color: var(--teal);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Back to site link */
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .back-link a:hover {
+            color: var(--teal);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-card { padding: 35px 25px; }
+            .login-logo h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+    <div class="grid-bg"></div>
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <div class="login-card">
+
+            <!-- Logo -->
+            <div class="login-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h1>KLOUDTECK</h1>
+                <p>Admin Command Center</p>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Login Form -->
+            <form method="POST" action="{{ url_for('login') }}{% if request.args.get('next') %}?next={{ request.args.get('next') }}{% endif %}">
+                <!-- Username -->
+                <div class="form-group">
+                    <label class="form-label-custom">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input 
+                            type="text" 
+                            name="username" 
+                            class="form-input" 
+                            placeholder="Enter your username"
+                            required 
+                            autocomplete="username"
+                            autofocus
+                        >
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label class="form-label-custom">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="passwordInput"
+                            class="form-input" 
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-right-to-bracket me-2"></i> Secure Login
+                </button>
+
+            </form>
+
+            <!-- Security Badge -->
+            <div class="security-badge">
+                <span><i class="fas fa-shield-halved"></i> 256-bit SSL Encrypted Connection</span>
+            </div>
+
+        </div>
+
+        <!-- Back to Website -->
+        <div class="back-link">
+            <a href="/"><i class="fas fa-arrow-left me-1"></i> Back to Website</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Password Show/Hide Toggle
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.getElementById('eyeIcon');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(() => {
+            document.querySelectorAll('.flash-message').forEach(msg => {
+                msg.style.transition = 'opacity 0.5s ease';
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 500);
+            });
+        }, 5000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+{% extends "layout.html" %}
+
+{% block title %}Commercial Office Technology Solutions · Business IT Infrastructure | KLOUDTECK{% endblock %}
+
+{% block head %}
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Technology solutions for commercial offices: enterprise WiFi, conference room scheduling, cloud VoIP, office security cameras, and structured cabling.">
+  <link rel="canonical" href="https://www.kloudteck.com/industries/commercial-office/">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <meta property="og:title" content="Commercial Office Technology Solutions · Business IT Infrastructure">
+  <meta property="og:description" content="Technology solutions for commercial offices: WiFi, conference room technology, VoIP, and security.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.kloudteck.com/industries/commercial-office/">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Commercial Office Technology Solutions",
+    "provider": {
+      "@type": "Organization",
+      "name": "KLOUDTECK",
+      "url": "https://www.kloudteck.com"
+    },
+    "description": "Technology solutions for commercial offices: enterprise WiFi, cloud VoIP, security, and structured cabling.",
+    "category": "Office Technology Infrastructure"
+  }
+  </script>
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/commercial.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<!-- SECTION 1: HERO SECTION -->
+<section class="services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb-modern">
+                <li class="breadcrumb-item">
+                    <a href="/" class="text-white-50"><i class="fas fa-home me-1"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/industries" class="text-white-50">Industries</a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Commercial Office</li>
+            </ol>
+        </nav>
+        <div class="row align-items-center text-center text-lg-start">
+            <div class="col-lg-8" data-aos="fade-right">
+                <h1 class="display-3 fw-bold mb-4">Commercial Office Technology Solutions</h1>
+                <p class="h4 text-teal mb-4">Flexible, secure office technology infrastructure that supports productivity, collaboration, and hybrid work.</p>
+                <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                    <a href="/quote" class="btn btn-teal px-5 py-3 fw-bold shadow">Request Quote</a>
+                    <a style="border:solid 1px white;" href="/portfolio" class="btn btn-outline-light px-5 py-3 fw-bold">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 2: TECHNOLOGY THAT ADAPTS -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-center" data-aos="fade-up">
+                <h2 class="fw-bold text-navy mb-4">Technology that adapts to how your office works today</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <p class="fs-5 text-secondary">Modern offices depend on connected systems every day — internet, phones, conference rooms, access control, surveillance, and backend infrastructure. When these systems are outdated, poorly installed, or managed separately, teams deal with downtime, weak WiFi, meeting room friction, and ongoing support issues.</p>
+                        <p class="fs-5 text-secondary mt-3">KLOUDTECK delivers integrated office technology solutions designed for performance, security, and long-term support. We help create clean, dependable environments that work for employees, guests, and operations teams.</p>
+                        <div class="row text-start mt-5">
+                            <div class="col-md-6">
+                                <ul class="check-list">
+                                    <li>Improve reliability across daily office operations</li>
+                                    <li>Support hybrid teams and collaboration tools</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="check-list">
+                                    <li>Strengthen physical and network security</li>
+                                    <li>Build organized infrastructure that is easy to maintain</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 3: OFFICE TECHNOLOGY SOLUTIONS & SUPPORT -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h2 class="fw-bold text-center text-navy mb-5" data-aos="fade-up">Office technology solutions and support services</h2>
+        <p class="text-center text-secondary mb-5" data-aos="fade-up">We design, install, and support integrated systems for commercial offices, corporate suites, professional firms, and multi-floor workplaces.</p>
+        
+        <div class="row g-4">
+            <!-- Enterprise WiFi -->
+            <div class="col-lg-6" data-aos="zoom-in">
+                <div class="feature-card">
+                    <i class="fas fa-wifi text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Enterprise WiFi & Managed Network</h5>
+                    <p class="small text-secondary">Reliable wireless and wired connectivity for open offices, private rooms, conference spaces, reception areas, and shared common areas. We design coverage, optimize performance, and segment traffic for staff, guests, and business-critical devices.</p>
+                </div>
+            </div>
+            <!-- Conference Room -->
+            <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-alt text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Conference Room Technology & Scheduling</h5>
+                    <p class="small text-secondary">Room scheduling displays and integrations that make meetings easier to book and manage. Reduce booking conflicts, improve room visibility, and create a smoother meeting experience for employees and visitors.</p>
+                </div>
+            </div>
+            <!-- VoIP -->
+            <div class="col-lg-6" data-aos="zoom-in">
+                <div class="feature-card">
+                    <i class="fas fa-phone-alt text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Cloud VoIP & Business Phone Systems</h5>
+                    <p class="small text-secondary">Modern office phone systems with desk phones, mobile apps, and softphones for in-office and remote teams. Support internal extensions, call routing, voicemail, auto attendants, and flexible communication across locations.</p>
+                </div>
+            </div>
+            <!-- CCTV -->
+            <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card">
+                    <i class="fas fa-video text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Office Security Cameras (CCTV)</h5>
+                    <p class="small text-secondary">High-definition surveillance for entrances, lobbies, hallways, common areas, and sensitive spaces. Improve visibility, incident review, and remote monitoring while helping protect staff and company assets.</p>
+                </div>
+            </div>
+            <!-- Access Control -->
+            <div class="col-lg-6" data-aos="zoom-in">
+                <div class="feature-card">
+                    <i class="fas fa-id-card text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Access Control Systems</h5>
+                    <p class="small text-secondary">Keyless entry and credential-based access for exterior doors, office suites, server rooms, and restricted areas. Manage users, permissions, and access events while improving security and reducing key management issues.</p>
+                </div>
+            </div>
+            <!-- Cabling -->
+            <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card">
+                    <i class="fas fa-network-wired text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Structured Cabling & Low Voltage Infrastructure</h5>
+                    <p class="small text-secondary">Clean, organized cabling systems for data, voice, cameras, access control, and future expansion. We build labeled, documented infrastructure that supports long-term reliability and easier troubleshooting.</p>
+                </div>
+            </div>
+            <!-- Server Installation -->
+            <div class="col-lg-6" data-aos="zoom-in">
+                <div class="feature-card">
+                    <i class="fas fa-server text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Server Installation & Network Closet Buildouts</h5>
+                    <p class="small text-secondary">We design and install server and network infrastructure for commercial offices, including racks, patch panels, switches, firewalls, UPS backup systems, and structured cable terminations. Whether you’re building a new office or upgrading an MDF/IDF closet, we create clean, organized installations that improve reliability, airflow, and serviceability.</p>
+                </div>
+            </div>
+            <!-- Managed Services -->
+            <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="feature-card">
+                    <i class="fas fa-headset text-teal fs-2 mb-3"></i>
+                    <h5 class="fw-bold text-teal">Managed Services & Ongoing Support</h5>
+                    <p class="small text-secondary">Technology in an office needs ongoing attention — not just a one-time install. KLOUDTECK provides managed services to help maintain performance, reduce downtime, and stay ahead of issues. From proactive monitoring to troubleshooting and support, we help keep your systems running smoothly so your team can stay focused on work.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 4: WHY CHOOSE KLOUDTECK -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h2 class="fw-bold text-navy mb-4">Why commercial offices choose KLOUDTECK</h2>
+                <p class="text-secondary mb-4">Office technology affects productivity, communication, client experience, and business continuity. Our team designs systems that are practical, secure, and easy to maintain — then supports them with responsive service and managed support options.</p>
+                <ul class="check-list">
+                    <li>Designed for real office workflows (employees, guests, meeting rooms, shared spaces)</li>
+                    <li>Scalable infrastructure for growing teams and additional office areas</li>
+                    <li>Clean installs with labeling and documentation for easier support</li>
+                    <li>Security-first network design with segmentation and access controls</li>
+                    <li>Installation + long-term support, from cabling and server rooms to managed services</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0 text-center" data-aos="fade-left">
+                <div class="p-5 rounded-5 border shadow-sm">
+                    <i class="fas fa-building-circle-check text-teal display-1 mb-4"></i>
+                    <h4 class="fw-bold text-teal">Built for Performance</h4>
+                    <p class="mb-0 text-secondary">Technology that scales with your ambition.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: ENVIRONMENTS SUPPORTED -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm text-white">
+    <div class="container text-center">
+        <h3 class="fw-bold mb-5" data-aos="fade-up">Commercial office environments we support</h3>
+        <p class="text-white-50 mb-5">We tailor solutions based on building layout, workforce size, compliance needs, and day-to-day operations.</p>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Corporate offices and headquarters</div>
+            </div>
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Professional firms (law, accounting, consulting)</div>
+            </div>
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Medical offices and clinics</div>
+            </div>
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Real estate and property management</div>
+            </div>
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Co-working and shared office spaces</div>
+            </div>
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Branch offices and multi-location</div>
+            </div>
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Operations teams and call centers</div>
+            </div>
+            <div class="col-md-4 col-lg-3" data-aos="zoom-in">
+                <div class="p-3 border border-teal rounded h-100">Mixed-use office suites and tenants</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 6: HYBRID WORK & COLLABORATION -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7" data-aos="fade-right">
+                <h3 class="fw-bold text-navy mb-4">Built for hybrid work and modern collaboration</h3>
+                <p class="text-secondary mb-4">Today’s office technology must support in-office teams, remote employees, and visiting clients without friction. KLOUDTECK designs systems that make communication, booking, and connectivity more seamless across your workplace.</p>
+                <ul class="check-list">
+                    <li>Secure employee and guest WiFi segmentation</li>
+                    <li>Conference room scheduling and availability visibility</li>
+                    <li>VoIP softphones and mobile apps for remote/hybrid staff</li>
+                    <li>Video conferencing-ready network performance</li>
+                    <li>Support for shared desks and flexible seating</li>
+                    <li>Centralized management for easier support and updates</li>
+                </ul>
+            </div>
+            <div class="col-lg-5 text-center" data-aos="fade-left">
+                <i class="fas fa-laptop-house display-1 text-teal mb-4"></i>
+                <h5 class="fw-bold">Seamless Hybrid Connectivity</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 7: SMART OFFICE ANALYTICS -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 text-center" data-aos="fade-right">
+                <i class="fas fa-chart-pie display-1 text-teal mb-4"></i>
+                <h5 class="fw-bold">Data-Driven Workplace</h5>
+            </div>
+            <div class="col-lg-7" data-aos="fade-left">
+                <h3 class="fw-bold text-navy mb-4">Optional smart office and workspace analytics</h3>
+                <p class="text-secondary mb-4">For offices looking to improve space utilization, we can integrate occupancy and usage insights into the environment. These tools help operations and facilities teams make better decisions around meeting rooms, cleaning schedules, and workspace planning.</p>
+                <ul class="check-list">
+                    <li>Room and occupancy insights</li>
+                    <li>Better scheduling and utilization decisions</li>
+                    <li>Support for facilities and cleaning workflows</li>
+                    <li>Data-informed planning for growth or reconfiguration</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 8: IT INFRASTRUCTURE THAT SCALES -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4 text-center" data-aos="fade-up">
+        <h3 class="fw-bold text-navy mb-4">Office IT infrastructure support that scales with your business</h3>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <p class="text-secondary fs-5 mb-5">As offices grow, technology becomes more complex — more users, more devices, more applications, and higher uptime expectations. KLOUDTECK helps businesses build a stable foundation with properly installed server/network infrastructure and managed services that support long-term reliability.</p>
+                <div class="row text-start g-4">
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded"><i class="fas fa-arrow-trend-up text-teal me-2"></i> Better uptime for daily operations</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded"><i class="fas fa-magnifying-glass text-teal me-2"></i> Cleaner infrastructure and easier troubleshooting</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded"><i class="fas fa-bolt text-teal me-2"></i> Faster response to issues and outages</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded"><i class="fas fa-expand-arrows-alt text-teal me-2"></i> A scalable foundation for expansion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 9: DELIVERY PROCESS -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container">
+        <h3 class="fw-bold text-center text-navy mb-5" data-aos="fade-up">Our office technology delivery process</h3>
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-2 col-md-4 text-center" data-aos="fade-up">
+                <div class="step-circle mx-auto">1</div>
+                <h6 class="fw-bold">Assessment</h6>
+                <p class="small text-secondary">Layout, pain points, and requirements review.</p>
+            </div>
+            <div class="col-lg-2 col-md-4 text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-circle mx-auto">2</div>
+                <h6 class="fw-bold">Design</h6>
+                <h6 class="small text-secondary">Right-sized solution for connectivity & security.</h6>
+            </div>
+            <div class="col-lg-2 col-md-4 text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-circle mx-auto">3</div>
+                <h6 class="fw-bold">Installation</h6>
+                <p class="small text-secondary">Clean setup with minimal disruption.</p>
+            </div>
+            <div class="col-lg-2 col-md-4 text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="step-circle mx-auto">4</div>
+                <h6 class="fw-bold">Handover</h6>
+                <p class="small text-secondary">Testing, documentation, and staff guidance.</p>
+            </div>
+            <div class="col-lg-2 col-md-4 text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="step-circle mx-auto">5</div>
+                <h6 class="fw-bold">Support</h6>
+                <p class="small text-secondary">Monitoring, troubleshooting, and optimization.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 10: WELL-DESIGNED STACK OUTCOMES -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm">
+    <div class="container py-4">
+        <h3 class="fw-bold text-center text-navy mb-5" data-aos="fade-up">What a well-designed office technology stack delivers</h3>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in"><div class="p-3 border rounded text-center"><i class="fas fa-signal text-teal me-2"></i> Fewer network disruptions</div></div>
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100"><div class="p-3 border rounded text-center"><i class="fas fa-users text-teal me-2"></i> Better employee productivity</div></div>
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200"><div class="p-3 border rounded text-center"><i class="fas fa-clock text-teal me-2"></i> Easier room booking</div></div>
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in"><div class="p-3 border rounded text-center"><i class="fas fa-shield-alt text-teal me-2"></i> Improved security & visibility</div></div>
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100"><div class="p-3 border rounded text-center"><i class="fas fa-broom text-teal me-2"></i> Cleaner infrastructure</div></div>
+            <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200"><div class="p-3 border rounded text-center"><i class="fas fa-chart-line text-teal me-2"></i> Scalable foundation</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 11: FAQ -->
+<section class="faq-office-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="display-5 faq-office-title" data-aos="fade-up">FAQ Section</h2>
+        </div>
+
+        <div class="faq-office-container" data-aos="fade-up">
+            <div class="accordion" id="officeFaqModern">
+                
+                <!-- Q1 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#oq1">
+                            Do you install systems after business hours?
+                        </button>
+                    </h2>
+                    <div id="oq1" class="accordion-collapse collapse show" data-bs-parent="#officeFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can schedule work during evenings, weekends, or phased windows to reduce disruption to your staff and day-to-day office operations.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#oq2">
+                            Can you upgrade one part of our office now and expand later?
+                        </button>
+                    </h2>
+                    <div id="oq2" class="accordion-collapse collapse" data-bs-parent="#officeFaqModern">
+                        <div class="accordion-body">
+                            Absolutely. We design systems with scalability in mind so you can start with priority needs and expand over time.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#oq3">
+                            Do you support multi-floor or multi-suite offices?
+                        </button>
+                    </h2>
+                    <div id="oq3" class="accordion-collapse collapse" data-bs-parent="#officeFaqModern">
+                        <div class="accordion-body">
+                            Yes. We design and deploy solutions for single-floor offices, multi-floor workspaces, and multi-tenant office environments.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#oq4">
+                            Can you separate guest WiFi from employee and business systems?
+                        </button>
+                    </h2>
+                    <div id="oq4" class="accordion-collapse collapse" data-bs-parent="#officeFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can segment traffic for guests, staff, and business-critical devices to improve both security and performance.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#oq5">
+                            Do you install and organize server/network racks?
+                        </button>
+                    </h2>
+                    <div id="oq5" class="accordion-collapse collapse" data-bs-parent="#officeFaqModern">
+                        <div class="accordion-body">
+                            Yes. We install and organize racks, patch panels, switches, firewalls, UPS systems, and related low-voltage infrastructure for clean, serviceable deployments.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="accordion-item shadow-sm">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#oq6">
+                            Can you support our systems after installation?
+                        </button>
+                    </h2>
+                    <div id="oq6" class="accordion-collapse collapse" data-bs-parent="#officeFaqModern">
+                        <div class="accordion-body">
+                            Yes. We offer ongoing managed services and support to help monitor performance, troubleshoot issues, and maintain reliability across your office technology environment.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="accordion-item shadow-sm border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#oq7">
+                            Do you provide support for moves, adds, and changes?
+                        </button>
+                    </h2>
+                    <div id="oq7" class="accordion-collapse collapse" data-bs-parent="#officeFaqModern">
+                        <div class="accordion-body">
+                            Yes. We can assist with workstation moves, device additions, network changes, and expansion planning.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 13: FINAL CTA SECTION -->
+<section class="section-padding services-wrapper process-section-bg shadow-sm mb-5">
+    <div class="container py-4">
+        <div class="p-5 rounded-5  text-white text-center shadow-lg" data-aos="zoom-in">
+            <h2 class="fw-bold mb-4">Plan a smarter office technology upgrade</h2>
+            <p class="lead text-white-50 mb-5 mx-auto" style="max-width: 800px;">Whether you’re setting up a new office, upgrading outdated systems, improving hybrid collaboration, or building out server/network infrastructure, KLOUDTECK can design a reliable, secure solution tailored to your space — and support it long-term with managed services.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="/quote" class="btn btn-lg btn-teal px-5 py-2 fw-bold">Request Quote</a>
+                <a style="border:solid 1px white;" href="/contact" class="btn btn-lg btn-outline-light px-5 py-2">Contact Us</a>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHATSAPP FLOAT -->
+<!-- <a href="https://wa.me/1XXXXXXXXXX?text=Hi%20KLOUDTECK%2C%20I%20need%20help%20with%20Office%20Technology" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    <i class="fab fa-whatsapp"></i>
+</a> -->
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        AOS.init({ duration: 800, once: true });
+    });
+</script>
+{% endblock %}
