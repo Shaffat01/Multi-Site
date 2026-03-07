@@ -1,0 +1,264 @@
+{% extends "layout.html" %}
+
+{% block title %}ISP & WAN Manager - MikroTik Panel{% endblock %}
+
+{% block content %}
+<style>
+    /* Dashboard Status Card */
+    .status-card {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Animated Background */
+    .status-card::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: spin 15s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* Status Items */
+    .status-item {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.2s;
+    }
+    .status-item:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.15); }
+    
+    .status-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .status-value { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; }
+
+    /* Configuration Card */
+    .config-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        background: #fff;
+    }
+    .config-header {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f1f5f9;
+        margin-bottom: 30px;
+    }
+    
+    /* Form Elements */
+    .form-select, .form-control {
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 1px solid #e2e8f0;
+        font-weight: 500;
+        color: #334155;
+    }
+    .form-select:focus, .form-control:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+    .form-label { font-weight: 600; color: #475569; font-size: 0.9rem; margin-bottom: 8px; }
+
+    /* Config Sections */
+    .config-box {
+        background: #f8fafc;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        padding: 30px;
+        transition: all 0.3s ease;
+    }
+    .type-icon {
+        width: 50px; height: 50px;
+        background: white;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        margin: 0 auto 15px auto;
+    }
+
+    /* Animation */
+    .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+
+<div class="container py-4">
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm border-0 mb-4">
+                    <i class="fas fa-info-circle me-2"></i>{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- ==================== LIVE STATUS DASHBOARD ==================== -->
+    <div class="card status-card">
+        <div class="card-body p-4 position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-3 text-center border-end border-white border-opacity-10 mb-4 mb-lg-0">
+                    <h5 class="fw-bold mb-1">Internet Status</h5>
+                    </span>
+                </div>
+                
+                <!-- Info Columns -->
+                <div class="col-lg-9">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="status-item h-100">
+                                <div class="status-label"><i class="fas fa-globe me-2"></i>WAN IP Address</div>
+                                <div class="status-value font-monospace">
+                                    {{ wan_info.ip if wan_info.ip else '---' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-item h-100">
+                                <div class="status-label"><i class="fas fa-route me-2"></i>Gateway</div>
+                                <div class="status-value font-monospace">
+                                    {{ wan_info.gateway if wan_info.gateway else '---' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-item h-100">
+                                <div class="status-label"><i class="fas fa-server me-2"></i>DNS Servers</div>
+                                <div class="status-value font-monospace text-truncate" title="{{ wan_info.dns }}">
+                                    {{ wan_info.dns if wan_info.dns else '---' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================= -->
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9 col-lg-10">
+            <div class="card config-card">
+                <div class="card-body p-5">
+                    
+                    <div class="config-header">
+                        <h3 class="fw-bold text-dark mb-1">WAN Configuration</h3>
+                        <p class="text-muted mb-0">Select your connection method to configure uplink</p>
+                    </div>
+
+                    <form action="/mikrotik/isp-setup" method="POST">
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <label class="form-label">WAN Interface</label>
+                                <select name="interface" class="form-select bg-light">
+                                    {% for iface in interfaces %}
+                                        <option value="{{ iface['name'] }}">{{ iface['name'] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Connection Mode</label>
+                                <select name="conn_type" id="conn_type" class="form-select bg-light" onchange="updateForm()">
+                                    <option value="dhcp" selected>DHCP Client (Automatic)</option>
+                                    <option value="static">Static IP (Manual)</option>
+                                    <option value="pppoe">PPPoE Client (Dial-up)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="config_container">
+                            <div id="dhcp_box" class="config-box text-center">
+                                <div class="type-icon text-success"><i class="fas fa-magic"></i></div>
+                                <h5 class="fw-bold mb-2">Zero-Touch Configuration</h5>
+                                <p class="text-muted small mb-0">
+                                    The router will automatically request IP address, Gateway, and DNS from your ISP.
+                                </p>
+                            </div>
+                            <div id="static_box" class="config-box d-none">
+                                <div class="d-flex align-items-center mb-4 border-bottom pb-3">
+                                    <div class="type-icon text-primary me-3 mb-0" style="width:40px;height:40px;font-size:16px"><i class="fas fa-keyboard"></i></div>
+                                    <h5 class="fw-bold mb-0">Manual IP Configuration</h5>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label">WAN IP Address (CIDR)</label>
+                                        <input type="text" name="static_ip" class="form-control" placeholder="e.g. 192.168.1.50/24">
+                                        <div class="form-text small">Must include subnet mask (e.g. /24, /30)</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Gateway</label>
+                                        <input type="text" name="static_gw" class="form-control" placeholder="e.g. 192.168.1.1">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">DNS Servers</label>
+                                        <input type="text" name="static_dns" class="form-control" value="8.8.8.8, 1.1.1.1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. PPPoE Client Box -->
+                            <div id="pppoe_box" class="config-box d-none">
+                                <div class="d-flex align-items-center mb-4 border-bottom pb-3">
+                                    <div class="type-icon text-warning me-3 mb-0" style="width:40px;height:40px;font-size:16px"><i class="fas fa-user-shield"></i></div>
+                                    <h5 class="fw-bold mb-0">PPPoE Credentials</h5>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" name="pppoe_user" class="form-control" placeholder="Provided by ISP">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" name="pppoe_pass" class="form-control" placeholder="••••••••">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Apply Button -->
+                        <div class="mt-4 pt-3 text-center">
+                            <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-sm" style="font-size: 1.1rem;">
+                                <i class="fas fa-check-circle me-2"></i>Apply Configuration
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateForm() {
+        const type = document.getElementById('conn_type').value;
+        const boxes = ['static_box', 'pppoe_box', 'dhcp_box'];
+
+        boxes.forEach(boxId => {
+            const box = document.getElementById(boxId);
+            box.classList.add('d-none');
+            box.classList.remove('fade-in');
+        });
+        const activeBox = document.getElementById(type + '_box');
+        if (activeBox) {
+            activeBox.classList.remove('d-none');
+            setTimeout(() => {
+                activeBox.classList.add('fade-in');
+            }, 10);
+        }
+    }
+    document.addEventListener('DOMContentLoaded', updateForm);
+</script>
+{% endblock %}

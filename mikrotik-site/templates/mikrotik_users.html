@@ -1,0 +1,311 @@
+{% extends "layout.html" %}
+
+{% block title %}User Access Control - NetAuto Pro{% endblock %}
+
+{% block content %}
+<style>
+    /* --- Modal Backdrop Freeze Fix --- */
+    .modal { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 10000 !important; }
+    .modal-backdrop { display: none !important; } 
+    
+    /* --- Professional UI Enhancements --- */
+    .user-card { border: none; border-radius: 24px; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.02); overflow: hidden; }
+    .stat-mini-card { background: #fff; border-radius: 20px; padding: 20px; border: 1px solid #f1f5f9; transition: 0.3s; }
+    .stat-mini-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    
+    .table-custom thead { background: #f8fafc; border-bottom: 2px solid #f1f5f9; }
+    .table-custom th { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; padding: 20px 15px; border: none; }
+    .table-custom td { padding: 20px 15px; vertical-align: middle; border-bottom: 1px solid #f1f5f9; transition: 0.3s; }
+    .table-custom tr:hover td { background-color: #fcfdfe; }
+
+    /* --- Badge Styling --- */
+    .badge-role { font-weight: 700; padding: 8px 15px; border-radius: 50px; font-size: 11px; text-transform: uppercase; }
+    .badge-full { background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; }
+    .badge-write { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+    .badge-read { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
+    
+    /* --- Status Badge --- */
+    .badge-disabled { background: #e2e8f0; color: #64748b; font-size: 10px; padding: 4px 8px; border-radius: 4px; margin-left: 8px; }
+
+    /* --- Action Buttons --- */
+    .action-btn { width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; border: 1px solid #e2e8f0; background: #fff; color: #64748b; text-decoration: none; }
+    .action-btn:hover { background: #f8fafc; color: #3b82f6; transform: rotate(5deg); border-color: #3b82f6; }
+    .btn-delete:hover { color: #ef4444; border-color: #ef4444; }
+    .btn-status-on:hover { color: #16a34a; border-color: #16a34a; }
+    .btn-status-off:hover { color: #64748b; border-color: #64748b; background: #f1f5f9; }
+
+    /* --- Form Styling --- */
+    .form-control, .form-select { border-radius: 12px; padding: 12px 18px; border: 1px solid #e2e8f0; background: #f8fafc; font-weight: 500; }
+    .form-control:focus { background: #fff; border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+
+    /* Opacity for disabled rows */
+    .row-disabled td { opacity: 0.6; background-color: #fafafa; }
+    .row-disabled:hover td { opacity: 1; }
+
+</style>
+
+<div class="container-fluid">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-down">
+        <div>
+            <h2 class="fw-800 text-dark mb-1">Administrative Access</h2>
+            <p class="text-muted small mb-0">Identity and Access Management (IAM) for this Node</p>
+        </div>
+        <div class="d-flex gap-3">
+            <button class="btn btn-outline-secondary rounded-pill px-4 fw-bold shadow-sm bg-white" onclick="location.reload()">
+                <i class="fas fa-sync-alt me-2"></i> Sync
+            </button>
+            <button class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" onclick="openAddModal()">
+                <i class="fas fa-user-plus me-2"></i> Create Account
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row g-4 mb-5" data-aos="fade-up">
+        <div class="col-md-3">
+            <div class="stat-mini-card d-flex align-items-center gap-3">
+                <div class="bg-primary-subtle text-primary p-3 rounded-4"><i class="fas fa-users-cog fs-4"></i></div>
+                <div><h4 class="fw-800 mb-0">{{ users|length }}</h4><small class="text-muted">Total Admins</small></div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-mini-card d-flex align-items-center gap-3">
+                <div class="bg-danger-subtle text-danger p-3 rounded-4"><i class="fas fa-shield-alt fs-4"></i></div>
+                <div><h4 class="fw-800 mb-0">Full</h4><small class="text-muted">Master Access</small></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Table -->
+    <div class="card user-card shadow-sm" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-custom mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Identity & Description</th>
+                            <th>Permission Group</th>
+                            <th>Source Address</th>
+                            <th>Last Activity</th>
+                            <th class="text-end pe-4">Management</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <!-- Check if user is disabled (MikroTik returns boolean or string 'true') -->
+                        {% set is_disabled = user.disabled == true or user.disabled == 'true' %}
+                        
+                        <tr class="{{ 'row-disabled' if is_disabled else '' }}">
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-light text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; font-size: 1.2rem;">
+                                        {{ user.name[0] | upper }}
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold text-dark">
+                                            {{ user.name }}
+                                            {% if is_disabled %}
+                                                <span class="badge-disabled">DISABLED</span>
+                                            {% endif %}
+                                        </h6>
+                                        <small class="text-muted">{{ user.comment if user.comment != 'None' else 'No metadata' }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge-role 
+                                    {{ 'badge-full' if user.group == 'full' }}
+                                    {{ 'badge-write' if user.group == 'write' }}
+                                    {{ 'badge-read' if user.group == 'read' }}">
+                                    <i class="fas fa-circle me-1" style="font-size: 6px; vertical-align: middle;"></i> {{ user.group }}
+                                </span>
+                            </td>
+                            <td class="font-monospace text-muted small">
+                                <i class="fas fa-network-wired me-1"></i> {{ user['allowed-address'] if user['allowed-address'] else 'Global (Any)' }}
+                            </td>
+                            <td class="small text-muted">
+                                <i class="far fa-clock me-1"></i> {{ user['last-logged-in'] if user['last-logged-in'] else 'Inactive' }}
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="d-flex justify-content-end gap-2">
+                                    
+                                    <!-- Enable/Disable Toggle Button -->
+                                    {% if is_disabled %}
+                                        <a href="/mikrotik/system/users/set_status/{{ user['.id'] }}/enable" 
+                                           class="action-btn btn-status-off" 
+                                           title="Currently Disabled - Click to Enable">
+                                            <i class="fas fa-power-off text-muted"></i>
+                                        </a>
+                                    {% else %}
+                                        <a href="/mikrotik/system/users/set_status/{{ user['.id'] }}/disable" 
+                                           class="action-btn btn-status-on" 
+                                           title="Active - Click to Disable"
+                                           onclick="return confirm('Disable this user access?');">
+                                            <i class="fas fa-power-off text-success"></i>
+                                        </a>
+                                    {% endif %}
+
+                                    <button class="action-btn" title="Modify User"
+                                            onclick="openEditModal('{{ user['.id'] }}', '{{ user.name }}', '{{ user.group }}', '{{ user.comment }}')">
+                                        <i class="fas fa-user-edit"></i>
+                                    </button>
+                                    
+                                    <button class="action-btn btn-delete text-danger" 
+                                            {{ 'disabled opacity-25' if user.name == 'admin' }} 
+                                            title="Delete Account"
+                                            onclick="openDeleteModal('{{ user['.id'] }}', '{{ user.name }}')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     MODALS: ADD USER
+     ========================================== -->
+<div class="modal fade" id="userModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="/mikrotik/system/users/add" method="POST" class="modal-content shadow-lg border-0">
+            <div class="modal-header bg-dark text-white p-4">
+                <h5 class="modal-title fw-bold"><i class="fas fa-user-shield me-2 text-info"></i>New Node Account</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="e.g. shaffat_admin" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Assign Group</label>
+                    <select name="group" class="form-select">
+                        {% for g in groups %}
+                        <option value="{{ g.name }}">{{ g.name }} Access</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Access Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div class="mb-0">
+                    <label class="form-label">Description (Comment)</label>
+                    <input type="text" name="comment" class="form-control" placeholder="Optional identifier">
+                </div>
+            </div>
+            <div class="modal-footer bg-light p-3">
+                <button type="button" class="btn btn-link text-muted text-decoration-none" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary px-4 rounded-3 fw-bold shadow">PROVISION ACCOUNT</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ==========================================
+     MODAL: EDIT USER
+     ========================================== -->
+<div class="modal fade" id="editUserModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header bg-warning p-4">
+                <h5 class="modal-title fw-bold text-dark"><i class="fas fa-user-edit me-2"></i>Modify: <span id="display_username" class="text-primary"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/mikrotik/system/users/edit" method="POST">
+                <div class="modal-body p-4">
+                    <input type="hidden" name="user_id" id="edit_user_id">
+                    
+                    <div class="mb-4 p-3 bg-warning-subtle rounded-4 border border-warning-subtle">
+                        <p class="small text-dark mb-0 fw-bold"><i class="fas fa-info-circle me-1"></i> Changes will affect new and active terminal sessions for this user.</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Permission Group</label>
+                        <select name="group" id="edit_group" class="form-select">
+                            <option value="read">Read Only</option>
+                            <option value="write">Write Access</option>
+                            <option value="full">Full Administrative</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Change Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Leave empty to keep current">
+                    </div>
+
+                    <div class="mb-0">
+                        <label class="form-label fw-bold">Administrative Note</label>
+                        <input type="text" name="comment" id="edit_comment" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer bg-light p-3">
+                    <button type="button" class="btn btn-white border px-4" data-bs-dismiss="modal">Discard</button>
+                    <button type="submit" class="btn btn-warning px-4 fw-bold shadow-sm">COMMIT CHANGES</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     MODAL: DELETE CONFIRMATION
+     ========================================== -->
+<!-- DELETE MODAL -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow text-center p-4">
+            <div class="text-danger mb-3"><i class="fas fa-exclamation-triangle fa-3x"></i></div>
+            <h5 class="fw-bold">Confirm Delete?</h5>
+            <p class="small text-muted">Are you sure you want to delete <br><b id="del_display_name"></b>?</p>
+            <div class="d-grid gap-2 mt-3">
+                <a href="#" id="del_confirm_btn" class="btn btn-danger rounded-pill">Delete Now</a>
+                <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var addModal, editModal, deleteModal;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize all modals
+        addModal = new bootstrap.Modal(document.getElementById('userModal'), { backdrop: false });
+        editModal = new bootstrap.Modal(document.getElementById('editUserModal'), { backdrop: false });
+        deleteModal = new bootstrap.Modal(document.getElementById('deleteUserModal'), { backdrop: false });
+    });
+
+    function openAddModal() {
+        addModal.show();
+    }
+
+    function openEditModal(id, name, group, comment) {
+        document.getElementById('edit_user_id').value = id;
+        document.getElementById('display_username').innerText = name;
+        document.getElementById('edit_group').value = group;
+        document.getElementById('edit_comment').value = (comment === 'None' || comment === '') ? '' : comment;
+        
+        editModal.show();
+    }
+
+    // Fixed Delete Function
+    function openDeleteModal(id, name) {
+        const deleteUrl = "/mikrotik/system/users/delete?id=" + encodeURIComponent(id) + "&name=" + encodeURIComponent(name);
+        
+        document.getElementById('del_display_name').innerText = name;
+        document.getElementById('del_confirm_btn').href = deleteUrl;
+        
+        deleteModal.show();
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,225 @@
+{% extends "layout.html" %}
+
+{% block title %}System Overview - NetAuto Pro{% endblock %}
+
+{% block content %}
+<style>
+    .overview-card {
+        border: none;
+        border-radius: 24px;
+        background: #fff;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    }
+    .overview-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    .progress-custom {
+        height: 8px;
+        border-radius: 10px;
+        background: #f1f5f9;
+        overflow: visible;
+        position: relative;
+    }
+    .progress-bar-glow {
+        border-radius: 10px;
+        position: relative;
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+    }
+    .table-custom { border-radius: 15px; overflow: hidden; }
+    .table-custom thead { background: #f8fafc; }
+    .table-custom th { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; border: none; }
+    .status-indicator { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+</style>
+
+<div class="container-fluid">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-down">
+        <div>
+            <h2 class="fw-800 text-dark mb-1">Infrastructure Overview</h2>
+            <p class="text-muted small mb-0">Device Model: <span class="text-primary fw-bold">{{ res['board-name'] }}</span> &bull; IP: {{ session['target_ip'] }}</p>
+        </div>
+        <div class="text-end">
+            <span class="badge bg-success-subtle text-success px-4 py-2 rounded-pill fw-bold border border-success-subtle">
+                <i class="fas fa-check-circle me-1"></i> SYSTEM OPERATIONAL
+            </span>
+        </div>
+    </div>
+
+    <!-- Top Stats Grid -->
+    <div class="row g-4 mb-5">
+        <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+            <div class="card overview-card p-4">
+                <div class="stat-icon bg-info-subtle text-info"><i class="fas fa-microchip"></i></div>
+                <h6 class="text-muted small fw-bold text-uppercase">CPU Utilization</h6>
+                <h3 class="fw-800 mb-0">{{ res['cpu-load'] }}%</h3>
+                <div class="progress-custom mt-3">
+                    <div class="progress-bar progress-bar-glow bg-info" style="width: {{ res['cpu-load'] }}%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+            <div class="card overview-card p-4">
+                <div class="stat-icon bg-primary-subtle text-primary"><i class="fas fa-memory"></i></div>
+                <h6 class="text-muted small fw-bold text-uppercase">Available Memory</h6>
+                <h3 class="fw-800 mb-0">{{ (res['free-memory']|int / 1024 / 1024)|round(1) }} <small class="fs-6 text-muted">MB</small></h3>
+                {% set used_mem = res['total-memory']|int - res['free-memory']|int %}
+                {% set mem_percent = (used_mem / res['total-memory']|int * 100)|round(0) %}
+                <div class="progress-custom mt-3">
+                    <div class="progress-bar progress-bar-glow bg-primary" style="width: {{ mem_percent }}%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+            <div class="card overview-card p-4">
+                <div class="stat-icon bg-success-subtle text-success"><i class="fas fa-clock"></i></div>
+                <h6 class="text-muted small fw-bold text-uppercase">System Uptime</h6>
+                <h3 class="fw-800 mb-0" style="font-size: 1.4rem;">{{ res['uptime'] }}</h3>
+                <p class="text-muted small mt-2 mb-0">Stable Connection</p>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+            <div class="card overview-card p-4">
+                <div class="stat-icon bg-purple-subtle text-purple" style="background:#f3e8ff; color:#a855f7;"><i class="fas fa-network-wired"></i></div>
+                <h6 class="text-muted small fw-bold text-uppercase">Total Interfaces</h6>
+                <h3 class="fw-800 mb-0">{{ interfaces|length }} <small class="fs-6 text-muted">Active</small></h3>
+                <p class="text-muted small mt-2 mb-0">{{ ip_addresses|length }} Assigned IPs</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Interface Status List -->
+        <div class="col-lg-7" data-aos="fade-right">
+            <div class="card overview-card">
+                <div class="card-header bg-white py-4 px-4 border-0 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold m-0 text-dark"><i class="fas fa-ethernet me-2 text-primary"></i> Interface Status</h5>
+                    <a href="/mikrotik/interfaces" class="btn btn-light btn-sm rounded-pill px-3">View All</a>
+                </div>
+                <div class="card-body px-4 pb-4 pt-0">
+                    <div class="table-responsive">
+                        <table class="table table-custom align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Interface Name</th>
+                                    <th>Type</th>
+                                    <th>Traffic</th>
+                                    <th class="text-end">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for iface in interfaces[:6] %} 
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="p-2 bg-light rounded-3 me-3 text-muted">
+                                                <i class="fas fa-link small"></i>
+                                            </div>
+                                            <span class="fw-bold text-dark">{{ iface['name'] }}</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="text-muted small">{{ iface['type'] }}</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <i class="fas fa-arrow-up text-info small" title="TX"></i>
+                                            <i class="fas fa-arrow-down text-primary small" title="RX"></i>
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        {% if iface['running'] == 'true' or iface['running'] == True %}
+                                            <span class="badge bg-success-subtle text-success rounded-pill px-3">Running</span>
+                                        {% elif iface['disabled'] == 'true' or iface['disabled'] == True %}
+                                            <span class="badge bg-danger-subtle text-danger rounded-pill px-3">Disabled</span>
+                                        {% else %}
+                                            <span class="badge bg-slate-100 text-muted rounded-pill px-3">Inactive</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IP Status and Resource Visuals -->
+        <div class="col-lg-5" data-aos="fade-left">
+            <div class="card overview-card mb-4">
+                <div class="card-header bg-white py-4 px-4 border-0">
+                    <h5 class="fw-bold m-0 text-dark"><i class="fas fa-map-marker-alt me-2 text-danger"></i> IP Allocations</h5>
+                </div>
+                <div class="card-body px-4 pb-4 pt-0">
+                    <div class="list-group list-group-flush">
+                        {% for ip in ip_addresses %}
+                        <div class="list-group-item px-0 py-3 border-light d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0 fw-bold text-dark">{{ ip['address'] }}</h6>
+                                <small class="text-muted">Bound to {{ ip['interface'] }}</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                {% if ip['disabled'] == 'false' or ip['disabled'] == False %}
+                                    <span class="status-indicator bg-success"></span>
+                                    <span class="small fw-bold text-success">Active</span>
+                                {% else %}
+                                    <span class="status-indicator bg-danger"></span>
+                                    <span class="small fw-bold text-danger">Off</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Memory Distribution -->
+            <div class="card overview-card bg-dark text-white p-4">
+                <h6 class="text-muted small fw-bold text-uppercase mb-4">Resource Distribution</h6>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small">Memory Consumption</span>
+                    <span class="small fw-bold">{{ mem_percent }}% Used</span>
+                </div>
+                <div class="progress" style="height: 6px; background: #334155;">
+                    <div class="progress-bar bg-info" style="width: {{ mem_percent }}%"></div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 border-end border-secondary">
+                        <small class="text-muted d-block">Free HDD</small>
+                        <span class="fw-bold text-info">{{ (res['free-hdd-space']|int / 1024 / 1024)|round(1) }} MB</span>
+                    </div>
+                    <div class="col-6 ps-4">
+                        <small class="text-muted d-block">Architecture</small>
+                        <span class="fw-bold">{{ res['architecture-name'] }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    function preventBack() {
+        window.history.forward();
+    }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () { null };
+    window.onpageshow = function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            window.location.replace("/");
+        }
+    };
+</script>
+{% endblock %}

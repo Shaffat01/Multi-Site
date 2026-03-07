@@ -1,0 +1,204 @@
+{% extends "layout.html" %}
+
+{% block title %}System Clock - NetAuto Pro{% endblock %}
+
+{% block content %}
+<style>
+    .clock-card {
+        border: none;
+        border-radius: 30px;
+        background: #fff;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        overflow: hidden;
+        height: 100%;
+    }
+    .clock-display {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        padding: 50px 20px;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+    #live-clock {
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+        color: #38bdf8;
+    }
+    .section-title {
+        font-size: 11px;
+        font-weight: 800;
+        color: #3b82f6;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .form-control, .form-select {
+        border-radius: 12px;
+        padding: 12px 18px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        font-weight: 600;
+    }
+    .form-switch .form-check-input {
+        width: 3em;
+        height: 1.5em;
+        cursor: pointer;
+    }
+    .btn-update {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        border: none;
+        border-radius: 15px;
+        padding: 12px;
+        font-weight: 700;
+        color: white;
+        transition: all 0.3s;
+    }
+    .btn-update:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        color: white;
+    }
+    .sync-icon {
+        animation: rotate 4s linear infinite;
+    }
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="row g-4 justify-content-center">
+        
+        <!-- Digital Clock & Timezone Section -->
+        <div class="col-lg-5" data-aos="fade-right">
+            <div class="card clock-card">
+                <div class="clock-display">
+                    <h6 class="text-uppercase small opacity-50 mb-2" style="letter-spacing: 3px;">Node Internal Time</h6>
+                    <h1 class="display-3 mb-0" id="live-clock">{{ clock.time }}</h1>
+                    <p class="mt-2 opacity-75 fw-bold"><i class="far fa-calendar-alt me-2"></i>{{ clock.date }}</p>
+                    
+                    <div class="position-absolute top-0 end-0 p-4">
+                        <span class="badge bg-info-subtle text-info border border-info-subtle rounded-pill px-3 py-2">
+                            <i class="fas fa-globe me-1"></i> {{ clock['time-zone-name'] }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-body p-5">
+                    <form action="/mikrotik/system/clock" method="POST">
+                        <input type="hidden" name="action" value="update_clock">
+                        
+                        <div class="section-title"><i class="fas fa-map-marker-alt"></i> Regional Settings</div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-muted">Primary Time Zone</label>
+                            <select name="timezone" class="form-select">
+                                {% for tz in timezones %}
+                                <option value="{{ tz }}" {% if clock['time-zone-name'] == tz %}selected{% endif %}>{{ tz }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-check form-switch mb-4 p-0 d-flex justify-content-between align-items-center">
+                            <label class="form-check-label fw-bold text-dark" for="autoTZ">Auto-Detect via GPS/IP</label>
+                            <input class="form-check-input ms-0" type="checkbox" name="autodetect" id="autoTZ" 
+                                   {% if clock['time-zone-autodetect'] == 'true' or clock['time-zone-autodetect'] == True %}checked{% endif %}>
+                        </div>
+
+                        <button type="submit" class="btn btn-update w-100 shadow-sm mt-3">
+                            <i class="fas fa-sync-alt me-2"></i> COMMIT CLOCK CHANGES
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- NTP Client Section -->
+        <div class="col-lg-5" data-aos="fade-left">
+            <div class="card clock-card">
+                <div class="card-header bg-white p-5 border-0">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="bg-dark p-3 rounded-4 shadow-lg">
+                            <i class="fas fa-satellite-dish fa-2x text-info sync-icon"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-800 m-0">NTP Client</h4>
+                            <p class="text-muted small m-0">External Time Synchronization</p>
+                        </div>
+                    </div>
+
+                    <form action="/mikrotik/system/clock" method="POST">
+                        <input type="hidden" name="action" value="update_ntp">
+                        
+                        <div class="form-check form-switch mb-5 p-3 bg-light rounded-4 d-flex justify-content-between align-items-center border">
+                            <label class="form-check-label fw-bold h6 m-0" for="ntpToggle">Client Status: 
+                                <span id="ntpStatus" class="text-primary ms-2">{{ 'ACTIVE' if ntp.enabled else 'DISABLED' }}</span>
+                            </label>
+                            <input class="form-check-input ms-0" type="checkbox" name="ntp_enabled" id="ntpToggle" 
+                                   {% if ntp.enabled == 'true' or ntp.enabled == True %}checked{% endif %}
+                                   onchange="document.getElementById('ntpStatus').innerText = this.checked ? 'ACTIVE' : 'DISABLED'">
+                        </div>
+
+                        <div class="section-title"><i class="fas fa-server"></i> Stratum Servers</div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted">Primary Source IP</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-muted"><i class="fas fa-network-wired"></i></span>
+                                <input type="text" name="primary_ntp" class="form-control border-start-0" value="{{ ntp['primary-ntp'] }}" placeholder="e.g. 1.1.1.1">
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="form-label small fw-bold text-muted">Secondary Source IP</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 text-muted"><i class="fas fa-network-wired"></i></span>
+                                <input type="text" name="secondary_ntp" class="form-control border-start-0" value="{{ ntp['secondary-ntp'] }}" placeholder="e.g. 8.8.8.8">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100 rounded-4 py-3 fw-bold shadow">
+                            <i class="fas fa-save me-2 text-info"></i> UPDATE SYNC POLICY
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="card-footer bg-light p-4 text-center border-0">
+                    <p class="mb-0 small text-muted"><i class="fas fa-shield-alt me-1"></i> Synchronization ensures system logs and scheduled scripts run on precise intervals.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let timeStr = "{{ clock.time }}";
+    let parts = timeStr.split(':');
+    let h = parseInt(parts[0]) || 0;
+    let m = parseInt(parts[1]) || 0;
+    let s = parseInt(parts[2]) || 0;
+
+    const clockElement = document.getElementById('live-clock');
+
+    setInterval(() => {
+        s++;
+        if(s >= 60) { s = 0; m++; }
+        if(m >= 60) { m = 0; h++; }
+        if(h >= 24) { h = 0; }
+
+        let formattedTime = 
+            (h < 10 ? '0' + h : h) + ':' + 
+            (m < 10 ? '0' + m : m) + ':' + 
+            (s < 10 ? '0' + s : s);
+            
+        clockElement.innerText = formattedTime;
+    }, 1000);
+</script>
+{% endblock %}

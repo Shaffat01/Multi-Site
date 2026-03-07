@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    /* Modal Styling */
+    .modal { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 10000 !important; }
+    .modal-backdrop { display: none !important; }
+    .modal-content { border-radius: 20px; border: none; }
+    .modal-backdrop { 
+        background-color: rgba(15, 23, 42, 0.6) !important; 
+        opacity: 1 !important;
+    }
+    .modal-content {
+        border-radius: 25px !important;
+</style>
+<div class="container-fluid py-4">
+    
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white shadow-sm rounded">
+        <div>
+            <h3 class="fw-bold text-dark m-0">Guest Network Active Users</h3>
+        </div>
+        <div>
+            <a href="{{ url_for('hotspot_active') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-sync-alt"></i> Refresh</a>
+            <span class="badge bg-dark ms-2 p-2 fs-6">Total: {{ hosts|length }}</span>
+        </div>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- HOSTS TABLE -->
+    <div class="card shadow border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-center table-sm" style="font-size: 0.9rem;">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th class="py-3">Username</th>
+                            <th class="py-3">MAC Address</th>
+                            <th class="py-3">Hostname</th>
+                            <th class="py-3">Address (IP)</th>
+                            <th class="py-3">Download</th>
+                            <th class="py-3">Upload</th>
+                            <th class="py-3">Status</th>
+                            <th class="py-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for host in hosts %}
+                        <tr class="{{ host.row_class }}">
+                            <td class="fw-bold">{{ host.username }}</td>
+                            <td class="font-monospace">{{ host.mac }}</td>
+                            <td class="text-muted">{{ host.hostname }}</td>
+                            <td>{{ host.ip }}</td>
+                            <td>{{ host.bytes_out }}</td>
+                            <td>{{ host.bytes_in }}</td>
+                            <td>
+                                {% if host.status == 'Authenticated' %}
+                                    <span class="badge bg-success">Active</span>
+                                {% elif host.status == 'Bypassed' %}
+                                    <span class="badge bg-primary">Bypassed</span>
+                                {% elif host.status == 'Blocked' %}
+                                    <span class="badge bg-danger">Blocked</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Unauth</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <!-- Detail Button (Modal Trigger) -->
+                                <button class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#detailModal{{ loop.index }}">
+                                    [Detail]
+                                </button>
+                                
+                                <!-- ==========================
+                                     DETAIL MODAL (Like Screenshot)
+                                     ========================== -->
+                                <div class="modal fade text-start" id="detailModal{{ loop.index }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-dark text-white">
+                                                <h5 class="modal-title fw-bold">Active User Detail</h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Details Table -->
+                                                <table class="table table-borderless table-sm">
+                                                    <tr><th width="40%">Status:</th><td><span class="fw-bold">{{ host.status }}</span></td></tr>
+                                                    <tr><th>Username:</th><td>{{ host.username }}</td></tr>
+                                                    <tr><th>MAC Address:</th><td>{{ host.mac }}</td></tr>
+                                                    <tr><th>Hostname:</th><td>{{ host.hostname }}</td></tr>
+                                                    <tr><th>IP Address:</th><td>{{ host.ip }}</td></tr>
+                                                    <tr><th>Server:</th><td>{{ host.server }}</td></tr>
+                                                    <tr><td colspan="2"><hr class="my-1"></td></tr>
+                                                    <tr><th>Uptime:</th><td>{{ host.uptime }}</td></tr>
+                                                    <tr><th>Idle Time:</th><td>{{ host.idle }}</td></tr>
+                                                    <tr><th>Bytes In (Up):</th><td>{{ host.bytes_in }}</td></tr>
+                                                    <tr><th>Bytes Out (Down):</th><td>{{ host.bytes_out }}</td></tr>
+                                                </table>
+
+                                                <!-- Action Buttons inside Modal -->
+                                                <div class="d-grid gap-2 mt-3">
+                                                    
+                                                    {% if host.status != 'Bypassed' %}
+                                                    <a href="{{ url_for('hotspot_active', action='bypass', mac=host.mac) }}" class="btn btn-outline-primary" onclick="return confirm('Allow this device to use internet without login?')">
+                                                        <i class="fas fa-check-circle"></i> Bypass as Device
+                                                    </a>
+                                                    {% endif %}
+
+                                                    {% if host.status != 'Blocked' %}
+                                                    <a href="{{ url_for('hotspot_active', action='block', mac=host.mac) }}" class="btn btn-outline-danger" onclick="return confirm('Block this device permanently?')">
+                                                        <i class="fas fa-ban"></i> Block User
+                                                    </a>
+                                                    {% endif %}
+
+                                                    <a href="{{ url_for('hotspot_active', action='remove', id=host.id, mac=host.mac) }}" class="btn btn-outline-secondary" onclick="return confirm('Kick this user?')">
+                                                        <i class="fas fa-times"></i> Kick / Remove Host
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Back</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                {% if not hosts %}
+                <div class="text-center py-5 text-muted">
+                    <i class="fas fa-wifi fa-3x mb-3 text-secondary"></i>
+                    <p>No active devices found in Guest Network.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

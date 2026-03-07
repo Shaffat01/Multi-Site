@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Logs - NetAuto Pro</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #343a40;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+            padding: 15px 0;
+        }
+        .navbar-brand { font-weight: 800; color: #2d3436; }
+
+        /* --- Card & Table --- */
+        .log-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: white;
+            overflow: hidden;
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e9ecef;
+            padding: 15px;
+        }
+        .table tbody td {
+            vertical-align: middle;
+            padding: 15px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f8f9ff;
+            transition: 0.2s;
+        }
+
+        /* --- Badges --- */
+        .badge-event {
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .bg-checkin { background-color: #d1e7dd; color: #0f5132; }
+        .bg-update { background-color: #cfe2ff; color: #084298; }
+        .bg-void { background-color: #f8d7da; color: #842029; }
+        .bg-default { background-color: #e2e3e5; color: #41464b; }
+
+        /* --- Search Bar --- */
+        .search-box {
+            position: relative;
+            max-width: 300px;
+        }
+        .search-box input {
+            padding-left: 40px;
+            border-radius: 20px;
+            border: 1px solid #dee2e6;
+        }
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+        }
+
+        /* --- Modal (JSON Viewer) --- */
+        .json-pre {
+            background: #2d3436;
+            color: #00cec9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-network-wired text-primary me-2"></i>NetAuto Pro
+            </a>
+            <div class="ms-auto">
+                <a href="/" class="btn btn-outline-secondary btn-sm me-2"><i class="fas fa-home me-1"></i> Dashboard</a>
+                <a href="/logout" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-1">Webhook Activity Logs</h3>
+                <p class="text-muted small mb-0">Tracking real-time events from PMS/IDGuru</p>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="logSearch" class="form-control" placeholder="Search name, room or phone...">
+            </div>
+        </div>
+
+        <!-- Logs Table -->
+        <div class="log-card">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" id="logsTable">
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Timestamp</th>
+                            <th>Guest Name</th>
+                            <th>Room / Phone</th>
+                            <th>Event Status</th>
+                            <th>Router IP</th>
+                            <th class="text-end">Payload</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td class="text-muted">#{{ log.id }}</td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-dark">{{ log.timestamp.split(' ')[0] }}</span>
+                                    <span class="small text-muted">{{ log.timestamp.split(' ')[1].split('.')[0] }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar bg-light rounded-circle p-2 me-2 text-primary">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">{{ log.guest_name }}</div>
+                                        <div class="small text-muted">{{ log.email }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border"><i class="fas fa-door-open me-1"></i> {{ log.room_no }}</span>
+                                <div class="small text-muted mt-1"><i class="fas fa-phone me-1"></i> {{ log.phone }}</div>
+                            </td>
+                            <td>
+                                {% if 'Void:1' in log.event_type or 'Delete' in log.event_type %}
+                                    <span class="badge-event bg-void"><i class="fas fa-ban me-1"></i> VOID/DEL</span>
+                                {% elif 'Update' in log.event_type %}
+                                    <span class="badge-event bg-update"><i class="fas fa-sync me-1"></i> UPDATE</span>
+                                {% elif 'CheckIn' in log.event_type %}
+                                    <span class="badge-event bg-checkin"><i class="fas fa-check-circle me-1"></i> CHECK-IN</span>
+                                {% else %}
+                                    <span class="badge-event bg-default">{{ log.event_type }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="font-monospace small text-primary">{{ log.router_ip }}</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-light border" 
+                                        onclick='showPayload({{ log.full_payload | tojson | safe }})'>
+                                    <i class="fas fa-code text-secondary"></i> View
+                                </button>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="fas fa-inbox fa-2x mb-3 opacity-25"></i>
+                                <p>No logs found in database.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payload Viewer Modal -->
+    <div class="modal fade" id="payloadModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-database me-2"></i>Full JSON Payload</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">This is the raw data received from IDGuru/PMS.</p>
+                    <pre class="json-pre" id="jsonContent"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // --- Show JSON in Modal ---
+        function showPayload(data) {
+            try {
+                const jsonObj = (typeof data === 'string') ? JSON.parse(data) : data;
+                document.getElementById('jsonContent').textContent = JSON.stringify(jsonObj, null, 4);
+                new bootstrap.Modal(document.getElementById('payloadModal')).show();
+            } catch (e) {
+                document.getElementById('jsonContent').textContent = "Invalid JSON Data: " + data;
+                new bootstrap.Modal(document.getElementById('payloadModal')).show();
+            }
+        }
+
+        document.getElementById('logSearch').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#logsTable tbody tr');
+
+            rows.forEach(row => {
+                let text = row.innerText.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

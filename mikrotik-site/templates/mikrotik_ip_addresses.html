@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+
+{% block title %}Interface List - MikroTik Pro{% endblock %}
+
+{% block head %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+    .modal { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 10000 !important; }
+    .modal-backdrop { display: none !important; } 
+
+    /* Glassmorphism Card */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .glass-card:hover { transform: translateY(-5px); }
+
+    .header-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white; border-radius: 15px; padding: 30px; margin-bottom: 30px;
+    }
+
+    .status-pulse {
+        width: 10px; height: 10px; background: #28a745; border-radius: 50%;
+        display: inline-block; margin-right: 8px; animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+    }
+
+    .btn-action { width: 38px; height: 38px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="header-gradient animate__animated animate__fadeInDown">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h1 class="display-6 fw-bold mb-1">IP Management</h1>
+                <p class="opacity-75 mb-0"><i class="fas fa-microchip me-2"></i>Control and monitor your MikroTik Network Interfaces</p>
+            </div>
+            <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                <a href="/mikrotik/gui-main" class="btn btn-light btn-lg rounded-pill px-4 shadow-sm">
+                    <i class="fas fa-th-large me-2 text-primary"></i> Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="glass-card p-4 animate__animated animate__fadeInLeft">
+                <h5 class="fw-bold mb-4 text-primary"><i class="fas fa-plus-circle me-2"></i>Assign New IP</h5>
+                <form action="/mikrotik/add-ip" method="POST">
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">Network Address</label>
+                        <input type="text" name="address" class="form-control form-control-lg" placeholder="e.g. 10.10.10.1/24" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">Interface</label>
+                        <select name="interface" class="form-select form-select-lg">
+                            {% for iface in interfaces %}
+                                <option value="{{ iface['name'] }}">{{ iface['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 shadow" style="background: linear-gradient(to right, #667eea, #764ba2); border:none;">
+                        <i class="fas fa-save me-2"></i> Add Address
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="glass-card p-4 animate__animated animate__fadeInRight">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                    <input type="text" id="ipSearch" class="form-control rounded-pill px-4 w-50" placeholder="Search IPs...">
+                    <div class="badge bg-soft-primary text-primary px-3 py-2" style="background: rgba(102, 126, 234, 0.1);">
+                        Total: {{ ip_addresses|length }} IPs
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle" id="ipTable">
+                        <thead>
+                            <tr class="text-muted small text-uppercase">
+                                <th>IP Address</th>
+                                <th>Interface</th>
+                                <th>Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ip in ip_addresses %}
+                            <tr>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ ip['address'] }}</div>
+                                    <div class="small text-muted">{{ ip['network'] }}</div>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill bg-light text-dark border px-3">
+                                        {{ ip['interface'] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if ip['disabled'] == 'false' or ip['disabled'] == False or ip['disabled'] == 'no' %}
+                                        <div class="text-success"><span class="status-pulse"></span> Active</div>
+                                    {% else %}
+                                        <div class="text-danger"><i class="fas fa-times-circle me-1"></i> Disabled</div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button class="btn-action btn btn-outline-info" 
+                                                onclick="openEditIpModal('{{ ip['.id'] }}', '{{ ip['address'] }}', '{{ ip['interface'] }}')">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>
+
+                                        <form action="/mikrotik/toggle-ip" method="POST" class="m-0">
+                                            <input type="hidden" name="ip_id" value="{{ ip['.id'] }}">
+                                            <input type="hidden" name="current_status" value="{{ ip['disabled'] }}">
+                                            <button type="submit" class="btn-action btn {% if ip['disabled'] == 'true' or ip['disabled'] == 'yes' %}btn-outline-success{% else %}btn-outline-warning{% endif %}">
+                                                <i class="fas {% if ip['disabled'] == 'true' or ip['disabled'] == 'yes' %}fa-play{% else %}fa-pause{% endif %}"></i>
+                                            </button>
+                                        </form>
+
+                                        <button class="btn-action btn btn-outline-danger" onclick="confirmDelete('{{ ip['.id'] }}')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        
+                                        <form id="delete-form-{{ ip['.id'] }}" action="/mikrotik/delete-ip" method="POST" class="d-none">
+                                            <input type="hidden" name="ip_id" value="{{ ip['.id'] }}">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editIpModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0" style="border-radius: 20px;">
+            <div class="modal-header border-0 p-4">
+                <h5 class="fw-bold"><i class="fas fa-edit text-primary me-2"></i>Update Configuration</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/mikrotik/edit-ip" method="POST">
+                <div class="modal-body px-4">
+                    <input type="hidden" name="ip_id" id="edit_ip_id">
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">IP Address</label>
+                        <input type="text" name="address" id="edit_address" class="form-control form-control-lg" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Interface</label>
+                        <select name="interface" id="edit_interface" class="form-select form-select-lg">
+                            {% for iface in interfaces %}
+                                <option value="{{ iface['name'] }}">{{ iface['name'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 p-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 shadow">Apply Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    var editIpModal;
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        editIpModal = new bootstrap.Modal(document.getElementById('editIpModal'), { backdrop: false });
+    });
+
+    function openEditIpModal(id, address, interfaceName) {
+        document.getElementById('edit_ip_id').value = id;
+        document.getElementById('edit_address').value = address;
+        document.getElementById('edit_interface').value = interfaceName;
+        editIpModal.show();
+    }
+
+    // Search
+    document.getElementById('ipSearch').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#ipTable tbody tr');
+        rows.forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+        });
+    });
+
+    // Delete
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'Yes, Delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
+</script>
+{% endblock %}

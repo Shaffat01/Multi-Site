@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MikroTik Pro Manager{% endblock %}</title>
+    <!-- Bootstrap 5 & Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sidebar-bg: #0f172a;
+            --sidebar-hover: #1e293b;
+            --accent-color: #38bdf8;
+            --text-muted: #94a3b8;
+            --main-bg: #f8fafc;
+            --glass-header: rgba(255, 255, 255, 0.8);
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--main-bg);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        /* --- Sidebar Style --- */
+        .sidebar { 
+            width: 280px; 
+            min-width: 280px; 
+            flex-shrink: 0;   
+            background: var(--sidebar-bg); 
+            color: white; 
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-box {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .nav-container {
+            flex-grow: 1;
+            padding: 10px 15px;
+            overflow-y: auto;
+        }
+
+        .menu-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 25px 0 10px 15px;
+        }
+
+        .nav-link-custom {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 5px;
+            gap: 12px;
+        }
+
+        .nav-link-custom:hover {
+            background: var(--sidebar-hover);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-link-custom i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-link-custom.active {
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0) 100%);
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        /* --- Nested Menu --- */
+        .collapse-box {
+            padding-left: 15px;
+            border-left: 1px solid #334155;
+            margin-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .sub-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: block;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .sub-link:hover { color: var(--accent-color); }
+
+        .chevron-icon { font-size: 10px; transition: transform 0.3s; }
+        [aria-expanded="true"] .chevron-icon { transform: rotate(180deg); color: var(--accent-color); }
+
+        /* --- Main Content --- */
+        .main-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .top-header {
+            background: var(--glass-header) !important;
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: var(--main-bg);
+        }
+
+        /* --- Profile Card --- */
+        .router-status {
+            background: #fff;
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .pulse-online {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse-sm 2s infinite;
+        }
+
+        @keyframes pulse-sm {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                     alt="Logo" 
+                     style="width: 200px; height: 80px;border-radius: 30px; object-fit: contain;">
+            </div>
+        </div>
+
+        <div class="nav-container">
+            <div class="menu-label">Main Menu</div>
+            <a href="/mikrotik/gui-main" class="nav-link-custom active">
+                <i class="fas fa-grid-2 text-info"></i> Dashboard
+            </a>
+
+            <div class="menu-label">Configuration</div>
+            
+            <!-- System Menu -->
+            <a class="nav-link-custom d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#systemMenu">
+                <span><i class="fas fa-microchip"></i> System</span>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </a>
+            <div class="collapse collapse-box" id="systemMenu">
+                <a href="/mikrotik/isp-setup" class="sub-link">ISP Setup</a>
+                <a href="/mikrotik/system/identity" class="sub-link">Identity & Location</a>
+                <a href="/mikrotik/system/clock" class="sub-link">System Clock</a>
+                <a href="/mikrotik/system/users" class="sub-link">Admin Users</a>
+                <a href="/mikrotik/system/backup" class="sub-link">Backup / Restore</a>
+                <a href="/mikrotik/system/reboot" class="sub-link text-danger">Router Reboot</a>
+            </div>
+
+            <a class="nav-link-custom d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#configMenu">
+                <span><i class="fas fa-ethernet"></i> Configuration</span>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </a>
+            <div class="collapse collapse-box" id="configMenu">
+                <a href="/mikrotik/interfaces" class="sub-link">Interfaces</a>
+                <a href="/mikrotik/bridge" class="sub-link">Bridge Config</a>
+                <a href="/mikrotik/networks/vlan" class="sub-link">VLAN Config</a>
+            </div>
+
+            <!-- Networks Menu -->
+            <a class="nav-link-custom d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#networksMenu">
+                <span><i class="fas fa-network-wired"></i> Networks</span>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </a>
+            <div class="collapse collapse-box" id="networksMenu">
+                <a href="/mikrotik/ip-list" class="sub-link">IP Addresses</a>
+                <a href="/mikrotik/networks/dhcp-server" class="sub-link">DHCP Config</a>
+                <a href="/mikrotik/networks/dhcp-leases" class="sub-link">Lease Management</a>
+            </div>
+
+            <!-- Radius Menu -->
+            <a class="nav-link-custom d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#devicesMenu">
+                <span><i class="fas fa-users-gear"></i> Radius / Hotspot</span>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </a>
+            <div class="collapse collapse-box" id="devicesMenu">
+                <a href="/mikrotik/radius/profiles" class="sub-link">Service Profiles</a>
+                <a href="/mikrotik/radius/users" class="sub-link">Radius Users</a>
+                <a href="/mikrotik/hotspot/active" class="sub-link">Client Management</a>
+            </div>
+
+            <!-- Advanced -->
+            <a class="nav-link-custom d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#advancedMenu">
+                <span><i class="fas fa-shield-halved"></i> Security</span>
+                <i class="fas fa-chevron-down chevron-icon"></i>
+            </a>
+            <div class="collapse collapse-box" id="advancedMenu">
+                <a href="/mikrotik/firewall" class="sub-link">Firewall Rules</a>
+                <a href="/mikrotik/firewall/port-forwarding" class="sub-link">Port Forwarding</a>
+                <a href="/mikrotik/system/services" class="sub-link">IP Services</a>
+            </div>
+
+            <!-- Logs -->
+            <a class="nav-link-custom" href="{{ url_for('system_logs') }}">
+                <i class="fas fa-file-waveform"></i> System Logs
+            </a>
+
+            <div class="mt-5 p-2">
+                <a href="/" class="btn btn-outline-danger btn-sm w-100 border-0 rounded-4">
+                    <i class="fas fa-power-off me-2"></i> Terminate Link
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+        <!-- Top Bar -->
+        <header style="background: glass-header;" class="top-header">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-light d-lg-none"><i class="fas fa-bars"></i></button>
+                <h5 class="fw-bold m-0 text-dark">Management Panel</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-4">
+                <div class="router-status">
+                    <div class="pulse-online"></div>
+                    <span>{{ session['target_ip'] }}</span>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-white border-0 p-0" data-bs-toggle="dropdown">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=0f172a&color=fff" class="rounded-circle" width="35">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2">
+                        <li class="p-3 text-center border-bottom">
+                            <h6 class="mb-0 fw-bold">Administrator</h6>
+                            <small class="text-muted">{{ session['target_user'] }}</small>
+                        </li>
+                        <li><a class="dropdown-item py-2 mt-2" href="/logout"><i class="fas fa-sign-out-alt me-2 text-danger"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content -->
+        <main class="content-area" data-aos="fade-in">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        document.querySelectorAll('.nav-link-custom, .sub-link').forEach(link => {
+            if (link.getAttribute('href') === window.location.pathname) {
+                link.classList.add('active');
+                // Open parent collapse if it's a sub-link
+                const parentCollapse = link.closest('.collapse');
+                if (parentCollapse) {
+                    parentCollapse.classList.add('show');
+                    const trigger = document.querySelector(`[href="#${parentCollapse.id}"]`);
+                    if(trigger) trigger.setAttribute('aria-expanded', 'true');
+                }
+            }
+        });
+
+        function preventBack() {
+            window.history.forward();
+        }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+        window.onpageshow = function(event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                window.location.replace("/");
+            }
+        };
+    </script>
+    <script>
+        setTimeout(function() {
+            let alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 2000);
+   </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

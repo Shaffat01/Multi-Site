@@ -1,0 +1,310 @@
+{% extends "layout.html" %}
+
+{% block title %}User Packages - MikroTik Pro{% endblock %}
+
+{% block content %}
+<style>
+    /* --- UI Consistency & Animations --- */
+    .package-card { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); background: #fff; }
+    
+    .table thead th {
+        background-color: #f8fafc;
+        color: #64748b;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 2px solid #edf2f7;
+    }
+
+    .package-icon {
+        width: 40px; height: 40px;
+        background: #f0fdf4; color: #16a34a;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 12px; font-size: 1.2rem;
+    }
+
+    .badge-bw { background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; font-weight: 600; }
+    .badge-price { background: #fffbeb; color: #92400e; border: 1px solid #fef3c7; font-weight: 700; }
+    .search-box { max-width: 300px; border-radius: 20px; padding-left: 40px; background: #f8fafc; }
+
+    /* Modal Backdrop Blur */
+    .modal { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 10000 !important; }
+    .modal-backdrop { display: none !important; }
+    .modal-content { border-radius: 20px; border: none; }
+    
+    .timeout-select { font-size: 0.85rem; background-color: #f8fafc !important; }
+</style>
+
+<div class="container py-4">
+    <!-- HEADER -->
+    <div class="row align-items-center mb-4">
+        <div class="col-md-6">
+            <h2 class="fw-bold text-dark mb-1">User Packages</h2>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-success rounded-pill">Total: {{ profiles|length }} Profiles</span>
+                <span class="text-muted small">Radius & Hotspot Bandwidth Plans</span>
+            </div>
+        </div>
+        <div class="col-md-6 text-md-end mt-3 mt-md-0">
+            <button class="btn btn-primary rounded-pill shadow-sm px-4" data-bs-toggle="modal" data-bs-target="#addProfileModal">
+                <i class="fas fa-plus-circle me-1"></i> Create New Package
+            </button>
+        </div>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm border-0 mb-4">
+            {{ message }} <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+
+    <!-- PACKAGE TABLE CARD -->
+    <div class="package-card overflow-hidden">
+        <div class="card-header bg-white py-3 border-0">
+            <div class="position-relative">
+                <i class="fas fa-search position-absolute text-muted" style="left: 15px; top: 12px;"></i>
+                <input type="text" id="packageSearch" class="form-control search-box border-0" placeholder="Search package name...">
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="packageTable">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Package Name</th>
+                        <th>Price</th>
+                        <th>Bandwidth (Up/Down)</th>
+                        <th>Session Limit</th>
+                        <th>Shared</th>
+                        <th class="text-end pe-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in profiles %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                <div class="package-icon me-3"><i class="fas fa-box-open"></i></div>
+                                <div class="fw-bold text-dark">{{ p.name }}</div>
+                            </div>
+                        </td>
+                        <td><span class="badge badge-price px-3 py-2">{{ p.price }} USDT</span></td>
+                        <td>
+                            {% if p.bw.max_up %}
+                                <span class="badge badge-bw px-2"><i class="fas fa-tachometer-alt me-1"></i>{{ p.bw.max_up }} / {{ p.bw.max_down }}</span>
+                            {% else %}
+                                <span class="text-muted small fst-italic">Unlimited</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="small fw-medium"><i class="far fa-clock me-1 text-primary"></i>{{ p.session_str }}</span></td>
+                        <td><span class="badge bg-light text-dark border px-2">{{ p.shared_users }} User(s)</span></td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group shadow-sm">
+                                <button class="btn btn-sm btn-light text-info" onclick="openViewModal('{{ p.name }}', '{{ p.price }}', '{{ p.bw.max_up }}', '{{ p.bw.max_down }}', '{{ p.shared_users }}', '{{ p.pool }}', '{{ p.session_str }}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-light text-warning" onclick="openEditModal('{{ p.id }}', '{{ p.name }}', '{{ p.price }}', '{{ p.bw.max_up }}', '{{ p.bw.max_down }}', '{{ p.shared_users }}', '{{ p.pool }}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                {% if p.name != 'default' %}
+                                <button class="btn btn-sm btn-light text-danger" onclick="openDeleteModal('{{ p.id }}', '{{ p.name }}')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- MODALS SECTION -->
+<!-- ============================================ -->
+
+<!-- 1. VIEW MODAL -->
+<div class="modal fade" id="viewProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header bg-info text-white border-0">
+                <h5 class="modal-title fw-bold"><i class="fas fa-info-circle me-2"></i>Package Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold text-primary mb-0" id="v_name"></h3>
+                    <div class="badge badge-price mt-2" id="v_price"></div>
+                </div>
+                <ul class="list-group list-group-flush small">
+                    <li class="list-group-item d-flex justify-content-between"><span>Bandwidth:</span><strong id="v_bw"></strong></li>
+                    <li class="list-group-item d-flex justify-content-between"><span>Shared Users:</span><strong id="v_shared"></strong></li>
+                    <li class="list-group-item d-flex justify-content-between"><span>Address Pool:</span><strong id="v_pool"></strong></li>
+                    <li class="list-group-item d-flex justify-content-between"><span>Session Limit:</span><strong id="v_session"></strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. DELETE MODAL -->
+<div class="modal fade" id="deleteProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-danger text-white border-0">
+                <h6 class="modal-title fw-bold"><i class="fas fa-trash me-2"></i>Delete Package</h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center p-4">
+                <p class="text-muted mb-1">Confirm delete package?</p>
+                <h5 class="fw-bold text-danger" id="delete_package_name"></h5>
+            </div>
+            <div class="modal-footer border-0 d-flex justify-content-center pt-0 pb-4">
+                <button type="button" class="btn btn-light btn-sm px-3 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                <a href="#" id="confirm_delete_btn" class="btn btn-danger btn-sm px-4 rounded-pill fw-bold">Confirm Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. EDIT MODAL -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-warning border-0">
+                <h5 class="modal-title fw-bold text-dark"><i class="fas fa-edit me-2"></i>Modify Package</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="" method="POST">
+                <div class="modal-body p-4">
+                    <input type="hidden" name="edit_profile" value="1">
+                    <input type="hidden" name="profile_id" id="edit_id">
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">PACKAGE NAME</label>
+                            <input type="text" name="name" id="edit_name" class="form-control bg-light border-0" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">PRICE (USDT)</label>
+                            <input type="text" name="price" id="edit_price" class="form-control bg-light border-0">
+                        </div>
+                    </div>
+
+                    <h6 class="text-primary fw-bold border-bottom pb-2 mb-3">Speed Limits</h6>
+                    <div class="row mb-3">
+                        <div class="col-6"><label class="small text-muted">Upload (e.g. 5M)</label><input type="text" name="limit_up" id="edit_up" class="form-control bg-light border-0"></div>
+                        <div class="col-6"><label class="small text-muted">Download (e.g. 10M)</label><input type="text" name="limit_down" id="edit_down" class="form-control bg-light border-0"></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6"><label class="form-label small fw-bold">Address Pool</label><select name="pool" id="edit_pool" class="form-select bg-light border-0"><option value="none">None</option>{% for pool in pools %}<option value="{{ pool }}">{{ pool }}</option>{% endfor %}</select></div>
+                        <div class="col-md-6"><label class="form-label small fw-bold">Shared Users</label><input type="number" name="shared_users" id="edit_shared" class="form-control bg-light border-0"></div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold">Update Package</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 4. ADD MODAL (GLOBAL) -->
+<div class="modal fade" id="addProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title fw-bold"><i class="fas fa-plus-circle me-2"></i>Create New Package</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="" method="POST">
+                <div class="modal-body p-4">
+                    <input type="hidden" name="add_profile" value="1">
+                    <div class="row mb-3">
+                        <div class="col-md-6"><label class="form-label small fw-bold">Package Name</label><input type="text" name="name" class="form-control bg-light border-0" required placeholder="e.g. 10Mbps_Plan"></div>
+                        <div class="col-md-6"><label class="form-label small fw-bold">Price (USDT)</label><input type="text" name="price" class="form-control bg-light border-0" placeholder="500"></div>
+                    </div>
+                    
+                    <h6 class="text-primary fw-bold border-bottom pb-2 mb-3">Speed Limits</h6>
+                    <div class="row mb-3">
+                        <div class="col-6"><input type="text" name="limit_up" class="form-control bg-light border-0" placeholder="Upload (5M)"></div>
+                        <div class="col-6"><input type="text" name="limit_down" class="form-control bg-light border-0" placeholder="Download (10M)"></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Session Limit (Days/Hrs/Mins)</label>
+                            <div class="input-group">
+                                <select name="session_d" class="form-select timeout-select border-0">{% for i in range(32) %}<option value="{{ i }}">{{ i }}d</option>{% endfor %}</select>
+                                <select name="session_h" class="form-select timeout-select border-0">{% for i in range(24) %}<option value="{{ i }}">{{ i }}h</option>{% endfor %}</select>
+                                <select name="session_m" class="form-select timeout-select border-0">{% for i in range(60) %}<option value="{{ i }}">{{ i }}m</option>{% endfor %}</select>
+                            </div>
+                        </div>
+                        <div class="col-md-3"><label class="form-label small fw-bold">Shared</label><input type="number" name="shared_users" class="form-control bg-light border-0" value="1"></div>
+                        <div class="col-md-3"><label class="form-label small fw-bold">Pool</label><select name="pool" class="form-select bg-light border-0"><option value="none">None</option>{% for pool in pools %}<option value="{{ pool }}">{{ pool }}</option>{% endfor %}</select></div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="submit" class="btn btn-primary px-5 fw-bold w-100 rounded-pill">Create New Plan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Search Filter Logic
+        document.getElementById('packageSearch').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#packageTable tbody tr');
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(filter) ? '' : 'none';
+            });
+        });
+    });
+
+    // View Modal Population
+    function openViewModal(name, price, up, down, shared, pool, session) {
+        document.getElementById('v_name').innerText = name;
+        document.getElementById('v_price').innerText = price + " USDT";
+        document.getElementById('v_bw').innerText = up + " / " + down;
+        document.getElementById('v_shared').innerText = shared + " User(s)";
+        document.getElementById('v_pool').innerText = pool;
+        document.getElementById('v_session').innerText = session;
+        new bootstrap.Modal(document.getElementById('viewProfileModal')).show();
+    }
+
+    // Edit Modal Population
+    function openEditModal(id, name, price, up, down, shared, pool) {
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_name').value = name;
+        document.getElementById('edit_price').value = price;
+        document.getElementById('edit_up').value = up;
+        document.getElementById('edit_down').value = down;
+        document.getElementById('edit_shared').value = shared;
+        document.getElementById('edit_pool').value = pool;
+        new bootstrap.Modal(document.getElementById('editProfileModal')).show();
+    }
+
+    // Delete Modal Logic
+    function openDeleteModal(id, name) {
+        const deleteUrl = "{{ url_for('radius_profiles', action='delete', id='PLACEHOLDER', name='NAMEPLACEHOLDER') }}"
+                          .replace('PLACEHOLDER', id)
+                          .replace('NAMEPLACEHOLDER', name);
+        document.getElementById('delete_package_name').innerText = name;
+        document.getElementById('confirm_delete_btn').setAttribute('href', deleteUrl);
+        new bootstrap.Modal(document.getElementById('deleteProfileModal')).show();
+    }
+</script>
+{% endblock %}

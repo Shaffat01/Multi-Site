@@ -1,0 +1,482 @@
+{% extends "layout.html" %}
+
+{% block title %}DHCP & Networks Manager - MikroTik{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom Styling */
+    .dhcp-card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        background: #fff;
+        overflow: hidden;
+    }
+    .table thead th {
+        background-color: #f8fafc;
+        color: #475569;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        border-bottom: 2px solid #e2e8f0;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .table-hover tbody tr:hover { background-color: #f1f5f9; transform: scale(1.001); transition: all 0.2s; }
+    
+    .interface-tag { background: #eff6ff; color: #1d4ed8; border: 1px solid #dbeafe; padding: 3px 10px; border-radius: 6px; font-family: monospace; font-weight: 600; font-size: 0.85rem; }
+    .pool-tag { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; padding: 3px 10px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; }
+
+    .status-badge { padding: 6px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+    .status-active { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .status-disabled { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    
+    .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background-color: currentColor; animation: pulse-green 2s infinite; }
+    @keyframes pulse-green { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+    .nav-tabs { border-bottom: 2px solid #e2e8f0; margin-bottom: 1.5rem; }
+    .nav-tabs .nav-link { border: none; color: #64748b; font-weight: 500; padding: 12px 24px; transition: all 0.3s; }
+    .nav-tabs .nav-link:hover { color: #0ea5e9; }
+    .nav-tabs .nav-link.active { color: #0ea5e9; background: transparent; border-bottom: 2px solid #0ea5e9; font-weight: 600; }
+    
+    .input-group-text { background-color: #f1f5f9; border-color: #cbd5e1; color: #64748b; }
+    .modal { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 10000 !important; }
+    .modal-backdrop { display: none !important; } 
+</style>
+
+<div class="container py-4">
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm border-0">
+                    <i class="fas fa-info-circle me-2"></i>{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-dark mb-1">DHCP Manager</h2>
+            <p class="text-muted small mb-0">Manage Servers, Networks, and IP Pools</p>
+        </div>
+        <div>
+            <button class="btn btn-success shadow-sm rounded-pill px-4 fw-bold" data-bs-toggle="modal" data-bs-target="#dhcpSetupModal">
+                <i class="fas fa-magic me-2"></i>Setup Wizard
+            </button>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="dhcpTabs" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active" id="servers-tab" data-bs-toggle="tab" data-bs-target="#servers-pane">
+                <i class="fas fa-server me-2"></i>DHCP Servers
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="networks-tab" data-bs-toggle="tab" data-bs-target="#networks-pane">
+                <i class="fas fa-network-wired me-2"></i>Networks
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="pools-tab" data-bs-toggle="tab" data-bs-target="#pools-pane">
+                <i class="fas fa-swimming-pool me-2"></i>IP Pools
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="dhcpTabContent">
+        
+        <!-- TAB 1: SERVERS -->
+        <div class="tab-pane fade show active" id="servers-pane">
+            <div class="dhcp-card">
+                <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-white">
+                    <h5 class="mb-0 text-dark fw-bold">Active Servers</h5>
+                    <button class="btn btn-primary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#addDhcpModal">
+                        <i class="fas fa-plus me-2"></i>Add Server
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">Name</th>
+                                <th>Interface</th>
+                                <th>Address Pool</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for srv in servers %}
+                            <tr>
+                                <td class="ps-4 fw-bold text-dark">{{ srv['name'] }}</td>
+                                <td><span class="interface-tag">{{ srv['interface'] }}</span></td>
+                                <td><span class="text-secondary small fw-bold">{{ srv['pool_name'] }}</span></td>
+                                <td>
+                                    {% if srv['disabled'] == 'false' or srv['disabled'] == False or srv['disabled'] == 'no' %}
+                                        <span class="status-badge status-active"><span class="pulse-dot"></span> Active</span>
+                                    {% else %}
+                                        <span class="status-badge status-disabled"><i class="fas fa-ban"></i> Disabled</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="btn btn-sm btn-light text-primary border me-1" data-bs-toggle="modal" data-bs-target="#editDhcpModal" onclick="populateDhcpModal('{{ srv['.id'] }}', '{{ srv['name'] }}', '{{ srv['interface'] }}', '{{ srv['pool_name'] }}')"><i class="fas fa-pen"></i></button>
+                                    <a href="/mikrotik/networks/dhcp-server/delete/{{ srv['.id'] }}" class="btn btn-sm btn-light text-danger border" onclick="return confirm('Delete DHCP Server?');"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="5" class="text-center py-5 text-muted">No DHCP Servers Configured.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: NETWORKS -->
+        <div class="tab-pane fade" id="networks-pane">
+            <div class="dhcp-card">
+                <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-white">
+                    <h5 class="mb-0 text-dark fw-bold">Network Configurations</h5>
+                    <button class="btn btn-primary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#addNetworkModal">
+                        <i class="fas fa-plus me-2"></i>Add Network
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">Network ID</th>
+                                <th>Netmask</th>
+                                <th>Gateway</th>
+                                <th>DNS</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for net in networks %}
+                            <tr>
+                                <td class="ps-4 font-monospace text-dark fw-bold">{{ net['address'].split('/')[0] }}</td>
+                                <td><span class="badge bg-secondary">/{{ net['address'].split('/')[1] if '/' in net['address'] else '?' }}</span></td>
+                                <td>{{ net['gateway'] or '-' }}</td>
+                                <td>{{ net.get('dns-server', '-') }}</td>
+                                <td class="text-end pe-4">
+                                    {% set ip_part = net['address'].split('/')[0] %}
+                                    {% set mask_part = net['address'].split('/')[1] if '/' in net['address'] else '' %}
+                                    <button class="btn btn-sm btn-light text-primary border me-1" data-bs-toggle="modal" data-bs-target="#editNetworkModal" onclick="populateNetModal('{{ net['.id'] }}', '{{ ip_part }}', '{{ mask_part }}', '{{ net.get('gateway', '') }}', '{{ net.get('dns-server', '') }}', '{{ net.get('domain', '') }}')"><i class="fas fa-pen"></i></button>
+                                    <a href="/mikrotik/networks/dhcp-network/delete/{{ net['.id'] }}" class="btn btn-sm btn-light text-danger border" onclick="return confirm('Delete this network?');"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="5" class="text-center py-5 text-muted">No Networks Configured.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: POOLS (NEW) -->
+        <div class="tab-pane fade" id="pools-pane">
+            <div class="dhcp-card">
+                <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-white">
+                    <h5 class="mb-0 text-dark fw-bold">IP Address Pools</h5>
+                    <button class="btn btn-primary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#addPoolModal">
+                        <i class="fas fa-plus me-2"></i>Add Pool
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">Pool Name</th>
+                                <th>IP Ranges</th>
+                                <th>Next Pool</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pool in pools %}
+                            <tr>
+                                <td class="ps-4 fw-bold text-primary">{{ pool['name'] }}</td>
+                                <td><span class="pool-tag">{{ pool['ranges'] }}</span></td>
+                                <td><small class="text-muted">{{ pool.get('next-pool', 'none') }}</small></td>
+                                <td class="text-end pe-4">
+                                    <button class="btn btn-sm btn-light text-primary border me-1" data-bs-toggle="modal" data-bs-target="#editPoolModal" onclick="populatePoolModal('{{ pool['.id'] }}', '{{ pool['name'] }}', '{{ pool['ranges'] }}')"><i class="fas fa-pen"></i></button>
+                                    <a href="/mikrotik/networks/pool/delete/{{ pool['.id'] }}" class="btn btn-sm btn-light text-danger border" onclick="return confirm('Delete IP Pool: {{ pool.name }}?');"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="4" class="text-center py-5 text-muted">No IP Pools Configured.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= MODALS ================= -->
+
+<!-- Add DHCP Server -->
+<div class="modal fade" id="addDhcpModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/mikrotik/networks/dhcp-server/add" method="POST">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white"><h5 class="modal-title fw-bold">Add DHCP Server</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-4">
+                    <div class="mb-3"><label class="fw-bold">Name</label><input type="text" name="name" class="form-control" placeholder="dhcp1" required></div>
+                    <div class="mb-3"><label class="fw-bold">Interface</label><select name="interface" class="form-select">{% for i in interfaces %}<option value="{{ i.name }}">{{ i.name }}</option>{% endfor %}</select></div>
+                    <div class="mb-3"><label class="fw-bold">Pool</label><select name="pool" class="form-select"><option value="static-only">static-only</option>{% for p in pools %}<option value="{{ p.name }}">{{ p.name }}</option>{% endfor %}</select></div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-primary px-4">Create</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit DHCP Server -->
+<div class="modal fade" id="editDhcpModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/mikrotik/networks/dhcp-server/edit" method="POST">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-info text-white"><h5 class="modal-title fw-bold">Edit DHCP Server</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-4">
+                    <input type="hidden" name="server_id" id="edit_srv_id">
+                    <div class="mb-3"><label class="fw-bold">Name</label><input type="text" name="name" id="edit_srv_name" class="form-control" required></div>
+                    <div class="mb-3"><label class="fw-bold">Interface</label><select name="interface" id="edit_srv_interface" class="form-select">{% for i in interfaces %}<option value="{{ i.name }}">{{ i.name }}</option>{% endfor %}</select></div>
+                    <div class="mb-3"><label class="fw-bold">Pool</label><select name="pool" id="edit_srv_pool" class="form-select"><option value="static-only">static-only</option>{% for p in pools %}<option value="{{ p.name }}">{{ p.name }}</option>{% endfor %}</select></div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-info text-white px-4">Update</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Network -->
+<div class="modal fade" id="addNetworkModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/mikrotik/networks/dhcp-network/add" method="POST">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white"><h5 class="modal-title fw-bold">Add Network</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-8 mb-3"><label class="fw-bold">Address</label><input type="text" name="address" class="form-control" placeholder="192.168.88.0" required></div>
+                        <div class="col-4 mb-3"><label class="fw-bold">Mask</label><div class="input-group"><span class="input-group-text">/</span><input type="number" name="netmask" class="form-control" placeholder="24" required></div></div>
+                    </div>
+                    <div class="mb-3"><label class="fw-bold">Gateway</label><input type="text" name="gateway" class="form-control" placeholder="192.168.88.1" required></div>
+                    <div class="mb-3"><label class="fw-bold">DNS</label><input type="text" name="dns" class="form-control" placeholder="8.8.8.8, 1.1.1.1"></div>
+                    <div class="mb-3"><label class="fw-bold">Domain</label><input type="text" name="domain" class="form-control" placeholder="lan"></div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-primary px-4">Add Network</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Network -->
+<div class="modal fade" id="editNetworkModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/mikrotik/networks/dhcp-network/edit" method="POST">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-info text-white"><h5 class="modal-title fw-bold">Edit Network</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-4">
+                    <input type="hidden" name="net_id" id="edit_net_id">
+                    <div class="row">
+                        <div class="col-8 mb-3"><label class="fw-bold">Address</label><input type="text" name="address" id="edit_net_addr" class="form-control" required></div>
+                        <div class="col-4 mb-3"><label class="fw-bold">Mask</label><div class="input-group"><span class="input-group-text">/</span><input type="number" name="netmask" id="edit_net_mask" class="form-control" required></div></div>
+                    </div>
+                    <div class="mb-3"><label class="fw-bold">Gateway</label><input type="text" name="gateway" id="edit_net_gw" class="form-control" required></div>
+                    <div class="mb-3"><label class="fw-bold">DNS</label><input type="text" name="dns" id="edit_net_dns" class="form-control"></div>
+                    <div class="mb-3"><label class="fw-bold">Domain</label><input type="text" name="domain" id="edit_net_dom" class="form-control"></div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-info text-white px-4">Update</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Pool (New) -->
+<div class="modal fade" id="addPoolModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/mikrotik/networks/pool/add" method="POST">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white"><h5 class="modal-title fw-bold">Add IP Pool</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-4">
+                    <div class="mb-3"><label class="fw-bold">Pool Name</label><input type="text" name="name" class="form-control" placeholder="pool1" required></div>
+                    <div class="mb-3"><label class="fw-bold">Ranges</label><input type="text" name="ranges" class="form-control" placeholder="192.168.88.10-192.168.88.254" required></div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-primary px-4">Add Pool</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Pool (New) -->
+<div class="modal fade" id="editPoolModal" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/mikrotik/networks/pool/edit" method="POST">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-info text-white"><h5 class="modal-title fw-bold">Edit IP Pool</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body p-4">
+                    <input type="hidden" name="pool_id" id="edit_pool_id">
+                    <div class="mb-3"><label class="fw-bold">Pool Name</label><input type="text" name="name" id="edit_pool_name" class="form-control" required></div>
+                    <div class="mb-3"><label class="fw-bold">Ranges</label><input type="text" name="ranges" id="edit_pool_range" class="form-control" required></div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-info text-white px-4">Update Pool</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Setup Wizard Modal (With Lease Time) -->
+<div class="modal fade" id="dhcpSetupModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="/mikrotik/networks/dhcp-server/setup" method="POST">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-magic me-2"></i>Quick Setup Wizard</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="alert alert-success bg-opacity-10 border-success mb-3 small">
+                        Creates: <b>IP Pool</b>, <b>Network</b>, and <b>DHCP Server</b> in one step.
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="fw-bold form-label">Interface</label>
+                        <select name="interface" class="form-select">
+                            {% for i in interfaces %}
+                                <option value="{{ i.name }}">{{ i.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-8 mb-3">
+                            <label class="fw-bold form-label">Gateway IP</label>
+                            <input type="text" name="gateway" id="wiz_gateway" class="form-control" placeholder="192.168.88.1" onkeyup="calculateRange()" required>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label class="fw-bold form-label">Netmask</label>
+                            <div class="input-group">
+                                <span class="input-group-text">/</span>
+                                <input type="number" name="netmask" id="wiz_netmask" class="form-control" value="24" min="8" max="30" onkeyup="calculateRange()" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold form-label">IP Range (Pool)</label>
+                        <input type="text" name="ip_range" id="wiz_range" class="form-control" placeholder="Auto-generated..." required>
+                        <div class="form-text text-muted" style="font-size: 0.75rem;">Range is auto-calculated based on Gateway/Netmask.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="fw-bold form-label">DNS Servers</label>
+                        <input type="text" name="dns" class="form-control" value="8.8.8.8,1.1.1.1">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="fw-bold form-label">Lease Time</label>
+                        <input type="text" name="lease_time" class="form-control" value="1h" placeholder="e.g. 30m, 1h, 1d">
+                        <div class="form-text text-muted" style="font-size: 0.75rem;">Format: 10m (minutes), 1h (hours), 3d (days)</div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success px-4 fw-bold">Run Setup</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function populateDhcpModal(id, name, interface, pool) {
+        document.getElementById('edit_srv_id').value = id;
+        document.getElementById('edit_srv_name').value = name;
+        document.getElementById('edit_srv_interface').value = interface;
+        document.getElementById('edit_srv_pool').value = pool;
+    }
+
+    function populateNetModal(id, addr, mask, gw, dns, dom) {
+        document.getElementById('edit_net_id').value = id;
+        document.getElementById('edit_net_addr').value = addr;
+        document.getElementById('edit_net_mask').value = mask;
+        document.getElementById('edit_net_gw').value = gw;
+        document.getElementById('edit_net_dns').value = dns;
+        document.getElementById('edit_net_dom').value = dom;
+    }
+
+    function populatePoolModal(id, name, ranges) {
+        document.getElementById('edit_pool_id').value = id;
+        document.getElementById('edit_pool_name').value = name;
+        document.getElementById('edit_pool_range').value = ranges;
+    }
+
+    function calculateRange() {
+        const gateway = document.getElementById('wiz_gateway').value;
+        const cidrInput = document.getElementById('wiz_netmask').value;
+        const rangeInput = document.getElementById('wiz_range');
+        const ipParts = gateway.split('.');
+        if (ipParts.length !== 4 || ipParts.some(part => isNaN(part) || part === '')) return;
+        
+        const cidr = parseInt(cidrInput);
+        if (isNaN(cidr) || cidr < 8 || cidr > 30) return;
+
+        try {
+            const ipToLong = (ip) => ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0) >>> 0;
+            // Helper: Convert Integer to IP
+            const longToIp = (long) => [long >>> 24, (long >> 16) & 255, (long >> 8) & 255, long & 255].join('.');
+
+            const gwLong = ipToLong(gateway);
+            const maskLong = -1 << (32 - cidr);
+            const networkLong = gwLong & maskLong;
+            const broadcastLong = networkLong | ~maskLong;
+
+            let startIP = networkLong + 1;
+            const endIP = broadcastLong - 1;
+
+            // If Start IP matches Gateway, shift by 1
+            if (startIP === gwLong) startIP++;
+
+            if (startIP <= endIP) {
+                rangeInput.value = `${longToIp(startIP)}-${longToIp(endIP)}`;
+            } else {
+                rangeInput.value = "Invalid Subnet";
+            }
+        } catch (e) {
+            console.error("Calculation Error:", e);
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeTab = urlParams.get('tab');
+
+        if (activeTab) {
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('show', 'active'));
+            const targetBtn = document.querySelector(`#${activeTab}-tab`);
+            const targetPane = document.querySelector(`#${activeTab}-pane`);
+
+            if (targetBtn && targetPane) {
+                targetBtn.classList.add('active');
+                targetPane.classList.add('show', 'active');
+            }
+        }
+    });
+</script>
+{% endblock %}

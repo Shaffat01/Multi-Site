@@ -1,0 +1,174 @@
+{% extends "layout.html" %}
+
+{% block title %}System Identity - NetAuto Pro{% endblock %}
+
+{% block content %}
+<style>
+    .identity-card {
+        border: none;
+        border-radius: 30px;
+        background: #fff;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+    .identity-banner {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        padding: 40px;
+        color: white;
+        text-align: center;
+    }
+    .section-title {
+        font-size: 11px;
+        font-weight: 800;
+        color: #3b82f6;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+    .form-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: #64748b;
+        margin-bottom: 8px;
+    }
+    .form-control {
+        border-radius: 12px;
+        padding: 12px 18px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+    .form-control:focus {
+        background: #fff;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+    .btn-save {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        border: none;
+        border-radius: 15px;
+        padding: 16px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: white;
+        transition: all 0.3s;
+    }
+    .btn-save:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        color: white;
+    }
+    .input-icon-wrap {
+        position: relative;
+    }
+    .input-icon-wrap i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8" data-aos="fade-up">
+            <div class="card identity-card">
+                <!-- Header Banner -->
+                <div class="identity-banner">
+                    <div class="mb-3">
+                        <div class="bg-primary d-inline-flex p-3 rounded-circle shadow-lg">
+                            <i class="fas fa-map-marked-alt fa-2x"></i>
+                        </div>
+                    </div>
+                    <!-- CHANGED: Title updated -->
+                    <h3 class="fw-800 mb-1">Identity & Location</h3>
+                    <p class="text-muted-light opacity-75 mb-0 small">Define system identity and administrative location data</p>
+                </div>
+
+                <div class="card-body p-5">
+                    <form action="/mikrotik/system/identity" method="POST">
+                        
+                        <!-- System Identity -->
+                        <div class="section-title">
+                            <i class="fas fa-fingerprint"></i> System Core Identity
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- CHANGED: Label updated to System Identity -->
+                                <label class="form-label">System Identity</label>
+                                <div class="input-icon-wrap">
+                                    <input type="text" name="identity" class="form-control form-control-lg fw-bold" value="{{ identity.name }}" placeholder="e.g. Core-Edge-01">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <small class="text-muted mt-2 d-block small">This name will appear in Winbox, Terminal, and SNMP queries.</small>
+                            </div>
+                        </div>
+
+                        <!-- Contact Details -->
+                        <div class="section-title">
+                            <i class="fas fa-user-tie"></i> Administrative Contact
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Admin Full Name</label>
+                                <input type="text" name="admin_name" class="form-control" value="{{ contact_info.name }}" placeholder="John Doe">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email Endpoint</label>
+                                <input type="email" name="email" class="form-control" value="{{ contact_info.email }}" placeholder="admin@network.pro">
+                            </div>
+                        </div>
+
+                        <!-- Location Details -->
+                        <div class="section-title">
+                            <i class="fas fa-map-location-dot"></i> Deployment Geography
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-md-12">
+                                <label class="form-label">Primary Address</label>
+                                <input type="text" name="addr1" class="form-control" value="{{ contact_info.addr1 }}" placeholder="Data Center / Building No">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Secondary Address (Optional)</label>
+                                <input type="text" name="addr2" class="form-control" value="{{ contact_info.addr2 }}" placeholder="Suite / Floor">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">City / State</label>
+                                <input type="text" name="city" class="form-control" value="{{ contact_info.city }}" placeholder="Dhaka">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Postal Code</label>
+                                <input type="text" name="zip" class="form-control" value="{{ contact_info.zip }}" placeholder="1212">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Region / Country</label>
+                                <input type="text" name="country" class="form-control" value="{{ contact_info.country }}" placeholder="Bangladesh">
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <div class="mt-5">
+                            <button type="submit" class="btn btn-save w-100 shadow">
+                                <i class="fas fa-cloud-upload-alt me-2"></i> COMMIT CHANGES TO NODE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="card-footer bg-light p-4 border-0">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fas fa-info-circle text-primary fs-4"></i>
+                        <p class="mb-0 small text-muted">Node identity changes may affect SNMP monitoring and automated script references. Please verify before committing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

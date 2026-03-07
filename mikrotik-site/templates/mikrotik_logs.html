@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .log-card { cursor: pointer; transition: transform 0.2s; border: none; }
+    .log-card:hover { transform: translateY(-5px); }
+    .log-critical { border-left: 5px solid #dc3545; background-color: #f8d7da; }
+    .log-error { border-left: 5px solid #fd7e14; background-color: #fff3cd; }
+    .log-warning { border-left: 5px solid #ffc107; background-color: #fff9db; }
+    .log-info { border-left: 5px solid #0dcaf0; background-color: #e3f2fd; }
+    .filter-active { outline: 3px solid #000; }
+</style>
+
+<div class="container-fluid py-4">
+    
+    <!-- TOP STAT CARDS (Filter Buttons) -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card log-card bg-danger text-white shadow-sm" onclick="filterLogs('critical')">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div><h6 class="mb-0 text-uppercase small">Critical</h6><h2 class="mb-0 fw-bold">{{ counts.critical }}</h2></div>
+                    <i class="fas fa-radiation fa-2x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card log-card bg-warning text-dark shadow-sm" onclick="filterLogs('error')">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div><h6 class="mb-0 text-uppercase small">Errors</h6><h2 class="mb-0 fw-bold">{{ counts.error }}</h2></div>
+                    <i class="fas fa-exclamation-circle fa-2x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card log-card bg-info text-white shadow-sm" onclick="filterLogs('info')">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div><h6 class="mb-0 text-uppercase small">Info</h6><h2 class="mb-0 fw-bold">{{ counts.info }}</h2></div>
+                    <i class="fas fa-info-circle fa-2x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card log-card bg-secondary text-white shadow-sm" onclick="filterLogs('all')">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div><h6 class="mb-0 text-uppercase small">Total Logs</h6><h2 class="mb-0 fw-bold">{{ logs|length }}</h2></div>
+                    <i class="fas fa-list fa-2x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH & ACTIONS -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div class="input-group w-50">
+                <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
+                <input type="text" id="logSearch" class="form-control border-start-0" placeholder="Search message, topics or time..." onkeyup="searchLogs()">
+            </div>
+            <div class="btn-group">
+                <a href="{{ url_for('system_logs') }}" class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh</a>
+                <a href="{{ url_for('clear_logs') }}" class="btn btn-danger" onclick="return confirm('Clear all log history from router memory?')">
+                    <i class="fas fa-trash"></i> Clear Logs
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOG TABLE -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                <table class="table table-hover align-middle mb-0" id="logTable">
+                    <thead class="bg-dark text-white sticky-top">
+                        <tr>
+                            <th class="ps-4" style="width: 150px;">Time</th>
+                            <th style="width: 200px;">Topics</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr class="log-row log-{{ log.type }}" data-type="{{ log.type }}">
+                            <td class="ps-4 small font-monospace fw-bold">{{ log.time }}</td>
+                            <td><span class="badge bg-white text-dark border small">{{ log.topics }}</span></td>
+                            <td class="log-message text-dark">{{ log.message }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchLogs() {
+        let input = document.getElementById("logSearch").value.toLowerCase();
+        let rows = document.querySelectorAll(".log-row");
+
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+
+    function filterLogs(type) {
+        let rows = document.querySelectorAll(".log-row");
+        
+        rows.forEach(row => {
+            if (type === 'all') {
+                row.style.display = "";
+            } else {
+                row.style.display = row.getAttribute("data-type") === type ? "" : "none";
+            }
+        });
+
+        document.querySelectorAll(".log-card").forEach(c => c.classList.remove("filter-active"));
+        event.currentTarget.classList.add("filter-active");
+    }
+</script>
+
+{% endblock %}

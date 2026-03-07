@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container py-4">
+    
+    <!-- Title Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white rounded shadow-sm border-start border-5 border-primary">
+        <div>
+            <h2 class="fw-bold text-dark m-0"><i class="fas fa-server text-primary me-2"></i>System Backup</h2>
+            <small class="text-muted">Create, restore, and manage router configuration files securely.</small>
+        </div>
+        <div>
+            <span class="badge bg-dark p-2"><i class="fas fa-terminal me-1"></i> SSH Mode Active</span>
+        </div>
+    </div>
+
+    <!-- Create Backup Card -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-light fw-bold text-uppercase text-secondary">
+            <i class="fas fa-plus-circle me-1"></i> Create New Backup
+        </div>
+        <div class="card-body">
+            <form action="/mikrotik/system/backup/create" method="POST" class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="filename" class="col-form-label fw-bold">Backup Name:</label>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fas fa-file-alt text-secondary"></i></span>
+                        <input type="text" id="filename" name="filename" class="form-control" placeholder="e.g. daily_config" required>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary fw-bold px-4">
+                        <i class="fas fa-save me-1"></i> Save Backup
+                    </button>
+                </div>
+                <div class="col-12">
+                    <small class="text-muted"><i class="fas fa-info-circle me-1"></i> Current date and time will be automatically appended to the filename.</small>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Backup List Card -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+            <span class="fw-bold"><i class="fas fa-list me-1"></i> Available Backup Files</span>
+            <span class="badge bg-light text-dark">{{ backups|length }} Files Found</span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4" style="width: 40%;">File Name</th>
+                            <th style="width: 20%;">Creation Time</th>
+                            <th style="width: 15%;">Size</th>
+                            <th class="text-center" style="width: 25%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for backup in backups %}
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded p-2 me-3 text-primary">
+                                        <i class="far fa-file-archive fa-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-bold text-dark">{{ backup.name }}</h6>
+                                        <small class="text-muted">Type: .backup</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-muted">{{ backup.time }}</td>
+                            <td><span class="badge bg-info text-dark">{{ backup.size }}</span></td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <!-- Restore Button -->
+                                    <a href="/mikrotik/system/backup/restore/{{ backup.name }}" 
+                                       class="btn btn-sm btn-outline-warning text-dark fw-bold" 
+                                       onclick="return confirm('⚠️ CRITICAL WARNING:\n\nRestoring will overwrite all current router settings and REBOOT the device immediately.\n\nAre you sure you want to restore: {{ backup.name }}?')">
+                                        <i class="fas fa-undo-alt me-1"></i> Restore
+                                    </a>
+                                    
+                                    <!-- Delete Button -->
+                                    <a href="/mikrotik/system/backup/delete?name={{ backup.name }}" 
+                                       class="btn btn-sm btn-outline-danger fw-bold" 
+                                       onclick="return confirm('Confirm Deletion:\n\nAre you sure you want to permanently delete this file?\nFile: {{ backup.name }}')">
+                                        <i class="fas fa-trash-alt me-1"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5">
+                                <div class="text-muted">
+                                    <i class="fas fa-folder-open fa-3x mb-3 opacity-50"></i>
+                                    <h5>No backup files found.</h5>
+                                    <p class="mb-0">Create a new backup to see it listed here.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

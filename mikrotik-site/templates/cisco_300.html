@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MikroTik GUI Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { display: flex; min-height: 100vh; background-color: #f8f9fa; }
+        .sidebar { width: 250px; background: #2c3e50; color: white; padding: 20px; }
+        .sidebar a { color: #bdc3c7; text-decoration: none; display: block; padding: 10px; border-bottom: 1px solid #34495e; }
+        .sidebar a:hover { background: #34495e; color: white; }
+        .main-content { flex-grow: 1; padding: 30px; }
+        .card { border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h4>MikroTik Pro</h4>
+        <hr>
+        <a href="/cisco/gui-manager">
+            <i class="fas fa-th-large me-2"></i> Dashboard
+        </a>
+
+        <!-- <a href="/mikrotik/ip-list">
+            <i class="fas fa-network-wired me-2"></i> IP Addresses
+        </a>
+
+        <a href="/mikrotik/interfaces">
+            <i class="fas fa-ethernet me-2"></i> Interfaces
+        </a>
+
+        <a href="/mikrotik/firewall">
+            <i class="fas fa-user-shield me-2"></i> Firewall
+        </a> -->
+
+        <div class="mt-auto">
+            <a href="/home" class="btn btn-danger btn-sm text-white w-100">Back to Home</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-server text-primary"></i> Cisco SG300 Management</h2>
+            <span class="badge bg-success p-2">SSH Connected</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group shadow-sm">
+                    <a class="list-group-item list-group-item-action active" data-bs-toggle="pill" href="#tab-interfaces"><i class="fas fa-ethernet me-2"></i> Interfaces</a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="pill" href="#tab-vlan"><i class="fas fa-layer-group me-2"></i> VLAN Config</a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="pill" href="#tab-stp"><i class="fas fa-project-diagram me-2"></i> STP / Gateway</a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="pill" href="#tab-snmp"><i class="fas fa-cog me-2"></i> SNMP & Smartport</a>
+                    <a href="/cisco/login" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-sign-out-alt"></i> Disconnect Switch
+                    </a>
+                </div>
+            </div>
+
+            <div class="tab-content card p-4 shadow-sm border-0">
+                <div class="tab-pane fade show active" id="tab-interfaces">
+                    <h5><i class="fas fa-ethernet text-primary me-2"></i> Interface Status</h5>
+                    <pre class="bg-dark text-success p-3 rounded shadow-inner"><code>{{ config.interfaces }}</code></pre>
+                </div>
+                
+                <div class="tab-pane fade" id="tab-vlan">
+                    <h5><i class="fas fa-layer-group text-warning me-2"></i> VLAN Database</h5>
+                    <pre class="bg-dark text-light p-3 rounded"><code>{{ config.vlan }}</code></pre>
+                </div>
+
+                <div class="tab-pane fade" id="tab-stp">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>STP Summary</h6>
+                            <pre class="bg-light p-2 border"><code>{{ config.stp }}</code></pre>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>SSH Status</h6>
+                            <pre class="bg-light p-2 border"><code>{{ config.ssh }}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-snmp">
+                    <h5>SNMP & Smartport Configuration</h5>
+                    <pre class="bg-light p-3 border"><code>{{ config.snmp }}\n\n{{ config.smartport }}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

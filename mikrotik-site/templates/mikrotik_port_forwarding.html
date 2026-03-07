@@ -1,0 +1,260 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- External Resources -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+        --glass-bg: rgba(255, 255, 255, 0.95);
+    }
+
+    body {
+        background-color: #f0f2f9;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .page-header {
+        background: var(--primary-gradient);
+        padding: 50px 0 100px;
+        border-radius: 0 0 50px 50px;
+        color: white;
+        margin-bottom: -60px;
+    }
+
+    .main-card {
+        border: none;
+        border-radius: 24px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+    }
+
+    /* Table Styling */
+    .custom-table thead th {
+        background: #f8faff;
+        color: #4361ee;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 20px;
+        border: none;
+    }
+
+    .custom-table tbody tr {
+        transition: all 0.2s;
+        border-bottom: 1px solid #eee;
+    }
+
+    .custom-table tbody tr:hover {
+        background: #fcfdff;
+        transform: scale(1.005);
+    }
+
+    /* UI Elements */
+    .port-badge {
+        background: #eef2ff;
+        color: #4361ee;
+        font-weight: 700;
+        padding: 8px 15px;
+        border-radius: 12px;
+        font-family: 'Monaco', monospace;
+    }
+
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        border-radius: 10px;
+        border: none;
+        transition: 0.3s;
+    }
+
+    .btn-edit { background: #fff4e5; color: #ff9800; }
+    .btn-delete { background: #ffe5e5; color: #ef233c; }
+
+    /* Modal Fixes */
+    .modal-content { border-radius: 20px; border: none; }
+    .modal-backdrop { opacity: 0.5 !important; }
+    
+    /* Animation */
+    .hover-up:hover { transform: translateY(-3px); transition: 0.3s; }
+
+    /* Modal Styling */
+    .modal { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 10000 !important; }
+    .modal-backdrop { display: none !important; }
+    .modal-content { border-radius: 20px; border: none; }
+</style>
+
+<!-- Header -->
+<div class="page-header shadow-lg">
+    <div class="container animate__animated animate__fadeInDown">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1"><i class="fas fa-network-wired me-2"></i>Port Forwarding</h2>
+                <p class="opacity-75 mb-0">Manage NAT rules and external access.</p>
+            </div>
+            <button class="btn btn-light fw-bold px-4 py-2 rounded-pill shadow hover-up" onclick="openAddModal()">
+                <i class="fas fa-plus-circle me-1"></i> Add New Rule
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <!-- Alerts -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show shadow rounded-3 mb-4 animate__animated animate__shakeX">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="main-card card animate__animated animate__fadeInUp">
+        <div class="table-responsive">
+            <table class="table custom-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">External Port</th>
+                        <th>Protocol</th>
+                        <th>Internal IP</th>
+                        <th>Int. Port</th>
+                        <th>Comment</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in rules %}
+                    <tr>
+                        <td class="ps-4">
+                            <span class="port-badge">{{ r.ext_port }}</span>
+                        </td>
+                        <td>
+                            <span class="badge {% if r.protocol == 'tcp' %}bg-primary{% else %}bg-info{% endif %} text-uppercase px-2">
+                                {{ r.protocol }}
+                            </span>
+                        </td>
+                        <td class="fw-600"><i class="fas fa-desktop text-muted me-2"></i>{{ r.int_address }}</td>
+                        <td><span class="badge bg-light text-dark border">{{ r.int_port }}</span></td>
+                        <td class="small text-muted">{{ r.comment or '---' }}</td>
+                        <td class="text-end pe-4">
+                            <button class="btn-action btn-edit me-1" 
+                                    onclick="openEditModal('{{ r.id }}', '{{ r.ext_port }}', '{{ r.protocol }}', '{{ r.int_address }}', '{{ r.int_port }}', '{{ r.comment }}')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <a href="{{ url_for('port_forwarding', action='delete', id=r.id) }}" 
+                               class="btn btn-action btn-delete d-inline-flex align-items-center justify-content-center" 
+                               onclick="return confirm('Delete this NAT rule?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="fas fa-shield-alt fa-3x mb-3 opacity-25"></i>
+                            <p>No NAT rules found.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SINGLE ADD/EDIT MODAL -->
+<div class="modal fade" id="natModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="" method="POST" class="modal-content shadow-lg">
+            <!-- Hidden inputs to tell backend what to do -->
+            <input type="hidden" name="add_rule" id="modal_add_rule" value="1">
+            <input type="hidden" name="edit_rule" id="modal_edit_rule" value="0">
+            <input type="hidden" name="rule_id" id="modal_rule_id">
+
+            <div class="modal-header border-0 p-4">
+                <h5 class="fw-bold m-0" id="modalTitle">Add New NAT Rule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4 pt-0">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">EXTERNAL PORT</label>
+                        <input type="text" name="ext_port" id="modal_ext_port" class="form-control" placeholder="e.g. 8080" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold">PROTOCOL</label>
+                        <select name="protocol" id="modal_protocol" class="form-select">
+                            <option value="tcp">TCP</option>
+                            <option value="udp">UDP</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold">INTERNAL IP ADDRESS</label>
+                        <input type="text" name="int_address" id="modal_int_address" class="form-control" placeholder="192.168.88.10" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold">INTERNAL PORT</label>
+                        <input type="text" name="int_port" id="modal_int_port" class="form-control" placeholder="e.g. 80" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold">COMMENT / LABEL</label>
+                        <input type="text" name="comment" id="modal_comment" class="form-control" placeholder="Web Server / DVR">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 p-4">
+                <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold" id="modalSubmitBtn">Save Rule</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const natModal = new bootstrap.Modal(document.getElementById('natModal'));
+
+    function openAddModal() {
+        document.getElementById('modalTitle').innerText = "Add New NAT Rule";
+        document.getElementById('modalSubmitBtn').innerText = "Save Rule";
+        document.getElementById('modalSubmitBtn').className = "btn btn-primary w-100 py-3 rounded-pill fw-bold";
+        
+        // Reset fields
+        document.getElementById('modal_add_rule').value = "1";
+        document.getElementById('modal_edit_rule').value = "0";
+        document.getElementById('modal_rule_id').value = "";
+        document.getElementById('modal_ext_port').value = "";
+        document.getElementById('modal_int_address').value = "";
+        document.getElementById('modal_int_port').value = "";
+        document.getElementById('modal_comment').value = "";
+        
+        natModal.show();
+    }
+
+    function openEditModal(id, extPort, protocol, intAddr, intPort, comment) {
+        document.getElementById('modalTitle').innerText = "Update NAT Rule";
+        document.getElementById('modalSubmitBtn').innerText = "Update Rule";
+        document.getElementById('modalSubmitBtn').className = "btn btn-warning w-100 py-3 rounded-pill fw-bold text-white";
+        
+        // Set fields
+        document.getElementById('modal_add_rule').value = "0";
+        document.getElementById('modal_edit_rule').value = "1";
+        document.getElementById('modal_rule_id').value = id;
+        document.getElementById('modal_ext_port').value = extPort;
+        document.getElementById('modal_protocol').value = protocol;
+        document.getElementById('modal_int_address').value = intAddr;
+        document.getElementById('modal_int_port').value = intPort;
+        document.getElementById('modal_comment').value = (comment === 'None' || comment === '') ? '' : comment;
+        
+        natModal.show();
+    }
+</script>
+{% endblock %}
