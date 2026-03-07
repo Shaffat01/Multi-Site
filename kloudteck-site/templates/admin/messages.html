@@ -7,6 +7,9 @@
     .msg-card:hover { border-color: var(--accent-cyan); }
     .badge-unread { background: var(--accent-cyan); color: #000; font-size: 10px; padding: 3px 8px; border-radius: 5px; }
     .text-cyan { color: var(--accent-cyan); }
+    /* নতুন বাটনের স্টাইল */
+    .btn-reply { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+    .btn-reply:hover { background-color: var(--accent-cyan); color: #000; }
 </style>
 
 <div class="container-fluid p-4">
@@ -32,6 +35,17 @@
                     </div>
                     <div class="text-end">
                         <small class="text-secondary d-block mb-2">{{ msg.created_at.strftime('%d %b, %Y | %I:%M %p') }}</small>
+                        {% set mail_subject = 'Re: ' ~ msg.subject %}
+                        {% set mail_body = 'Dear ' ~ msg.name ~ ',\n\nThank you for contacting us regarding "' ~ msg.subject ~ '".\n\n[Please write your reply here]\n\nBest regards,\nAdmin Team' %}
+
+                        <!-- Reply Button Start -->
+                        <a href="mailto:{{ msg.email }}?subject={{ mail_subject|urlencode }}&body={{ mail_body|urlencode }}" 
+                           class="btn btn-sm btn-reply me-2" 
+                           title="Reply via Email">
+                           <i class="fas fa-reply"></i> Reply
+                        </a>
+                        <!-- Reply Button End -->
+
                         <a href="{{ url_for('delete_message', id=msg.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this message?')"><i class="fas fa-trash"></i></a>
                     </div>
                 </div>
