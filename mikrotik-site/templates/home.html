@@ -188,9 +188,9 @@
         
         <!-- Added Logs Button in Navbar -->
         <div class="ms-auto d-flex align-items-center gap-3">
-            <a href="{{ url_for('view_logs') }}" class="btn btn-light btn-sm rounded-pill fw-bold px-3 shadow-sm">
+            <!-- <a href="{{ url_for('view_logs') }}" class="btn btn-light btn-sm rounded-pill fw-bold px-3 shadow-sm">
                 <i class="fas fa-file-contract me-2 text-primary"></i>View PMS Logs 
-            </a>
+            </a> -->
             <span class="d-none d-md-block text-primary opacity-75 border-start ps-3">Network Suite v2.0</span>
         </div>
     </div>
@@ -290,7 +290,7 @@
     </div>
 
     <!-- Router List Header (UPDATED with Log Button) -->
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <!-- <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h4 class="fw-bold m-0"><i class="fas fa-microchip me-2 text-primary"></i>Active Node List</h4>
         
         <div class="d-flex align-items-center">
@@ -300,7 +300,7 @@
             </a>
             <span class="badge bg-dark rounded-pill px-3 py-2" id="routerCount">{{ routers|length }} Devices</span>
         </div>
-    </div>
+    </div> -->
 
     <div class="row" id="routerListContainer">
         {% if not routers %}
@@ -482,3 +482,4 @@
 </html>
 
 ```
+
