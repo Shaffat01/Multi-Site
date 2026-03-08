@@ -18,7 +18,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22ে
+          port: 22
           source: "docker-compose.yml,nginx/,postgres-init/,kloudteck-site/,mikrotik-site/"
           target: "/home/${{ secrets.USERNAME }}/kloudteck"
 
@@ -40,3 +40,4 @@ jobs:
          
 
             sudo docker image prune -f
+
