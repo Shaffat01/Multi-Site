@@ -739,6 +739,33 @@
         margin-bottom: 20px;
         font-style: italic;
     }
+    .marquee-container {
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        background: #ffffff;
+        padding: 10px 0;
+    }
+
+    .marquee-content {
+        display: inline-flex;
+        align-items: center;
+        animation: scroll 30s linear infinite; 
+    }
+
+    .marquee-content img {
+        margin: 0 30px; 
+    }
+
+
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } 
+    }
+
+    .marquee-container:hover .marquee-content {
+        animation-play-state: paused;
+    }
 
     @keyframes fadeUp {
         from { opacity: 0; transform: translateY(30px); }
