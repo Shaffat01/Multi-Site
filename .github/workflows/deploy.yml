@@ -12,19 +12,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # ১. পুরো প্রজেক্টের সব ফোল্ডার ও ফাইল সার্ভারে কপি করা (SCP)
       - name: Copy files via SSH
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          # এখানে সব প্রয়োজনীয় ফোল্ডার ও ফাইল উল্লেখ করা হয়েছে
+          port: 22ে
           source: "docker-compose.yml,nginx/,postgres-init/,kloudteck-site/,mikrotik-site/"
           target: "/home/${{ secrets.USERNAME }}/kloudteck"
 
-      # ২. সার্ভারে ঢুকে Docker Compose চালানো
       - name: Execute Remote SSH Commands
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -33,14 +30,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            # প্রজেক্ট ফোল্ডারে যাওয়া
+   
             cd /home/${{ secrets.USERNAME }}/kloudteck
-            
-            # আগের কন্টেইনার বন্ধ করা (সার্ভারের .env ফাইলটি ব্যবহার করে)
+        
             sudo docker-compose --env-file .env down
             
-            # নতুন করে বিল্ড এবং রান করা
+         
             sudo docker-compose --env-file .env up -d --build
-            
-            # অব্যবহৃত ইমেজ ডিলিট করা
+         
+
             sudo docker image prune -f
