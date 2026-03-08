@@ -96,8 +96,12 @@
               <h2 class="fw-bold mb-3">Live Remote Assistance</h2>
               <p class="opacity-75 fs-5">Need an engineer to look at your system right now? Download our secure remote support tool, and we'll solve your issue instantly.</p>
               <div class="d-flex flex-wrap gap-3 mt-4">
-                <a href="#" class="btn btn-light fw-bold px-4 py-2"><i class="fa-brands fa-windows me-2"></i>Windows</a>
-                <a style="border:solid 1px white;" href="#" class="btn btn-outline-light px-4 py-2"><i class="fa-brands fa-apple me-2"></i>Mac</a>
+                <a href="{{ url_for('static', filename='downloads/SetMe_Client.exe') }}" download class="btn btn-light fw-bold px-4 py-2">
+                  <i class="fa-brands fa-windows me-2"></i>Windows
+                </a>
+                <a style="border:solid 1px white;" href="{{ url_for('static', filename='downloads/SetMe_Client.dmg') }}" download class="btn btn-outline-light px-4 py-2">
+                  <i class="fa-brands fa-apple me-2"></i>Mac 
+                </a>
               </div>
             </div>
             <div class="col-lg-5 text-center mt-4 mt-lg-0">
