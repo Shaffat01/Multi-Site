@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
@@ -890,6 +890,12 @@ def logout():
     session.clear()
     flash('🔒 Logged out.', 'info')
     return redirect(url_for('login'))
+
+####################### sitemap ##################################
+@app.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 
+                               'sitemap.xml', mimetype='application/xml')
 
 if __name__ == '__main__':
     app.run(debug=True)
