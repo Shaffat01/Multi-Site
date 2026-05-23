@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "docker-compose.yml,nginx/,postgres-init/,kloudteck-site/,mikrotik-site/"
+          source: "docker-compose.yml,nginx/,postgres-init/,kloudteck-site/,mikrotik-site/,netmonitor-site/"
           target: "/home/${{ secrets.USERNAME }}/kloudteck"
 
       - name: Execute Remote SSH Commands
@@ -30,14 +30,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-   
             cd /home/${{ secrets.USERNAME }}/kloudteck
-        
+            
             sudo docker-compose --env-file .env down
             
-         
             sudo docker-compose --env-file .env up -d --build
-         
-
+            
             sudo docker image prune -f
-
