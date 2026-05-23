@@ -1,0 +1,11 @@
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+Flask-APScheduler==1.13.1
+APScheduler==3.10.4
+icmplib==3.0.4
+pysnmp==4.4.12
+pandas==2.0.3
+plotly==5.17.0
+gunicorn==21.2.0
+psycopg2-binary==2.9.9
+Werkzeug==2.3.7

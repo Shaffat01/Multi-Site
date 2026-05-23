@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # --- Shared Database (PostgreSQL) ---
   db:
     image: postgres:13
     container_name: shared_postgres
@@ -14,7 +13,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./postgres-init:/docker-entrypoint-initdb.d
 
-  # --- App 1: KloudTeck ---
   kloudteck:
     build: ./kloudteck-site
     container_name: kloudteck_app
@@ -27,7 +25,6 @@ services:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/db_kloudteck
       - SECRET_KEY=${SECRET_KEY_A}
 
-  # --- App 2: Mikrotik ---
   mikrotik:
     build: ./mikrotik-site
     container_name: mikrotik_app
@@ -40,18 +37,40 @@ services:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/db_mikrotik
       - SECRET_KEY=${SECRET_KEY_B}
 
-  # --- Nginx Reverse Proxy ---
+  # --- App 3: NetMonitor (Network Monitoring Dashboard) ---
+  netmonitor:
+    build: ./netmonitor-site
+    container_name: netmonitor_app
+    restart: always
+    expose:
+      - "3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/db_netmonitor
+      - SECRET_KEY=${SECRET_KEY_C}
+    # ICMP ping er jonno required capabilities
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ping_group_range=0 2147483647
+    volumes:
+      - ./netmonitor-site/uploads:/app/uploads
+
   nginx:
     image: nginx:latest
     container_name: gateway_nginx
     restart: always
     ports:
       - "80:80"
+      - "8080:8080" 
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - kloudteck
       - mikrotik
+      - netmonitor
 
 volumes:
   postgres_data:
