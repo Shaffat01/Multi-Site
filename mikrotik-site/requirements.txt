@@ -1,5 +1,6 @@
 flask
-psycopg2-binary
+flask-session
 librouteros
+psycopg2-binary
 paramiko
 gunicorn
