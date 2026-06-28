@@ -9,6 +9,7 @@ import os, sys
 import time
 from datetime import datetime, timedelta
 from flask_session import Session
+from functools import wraps
 import paramiko
 import ipaddress
 import hmac
@@ -28,9 +29,16 @@ WEBHOOK_SECRET = b'Wal@#2026ton'
 ALLOWED_IP = "54.235.3.84"
 CORE_LICENSE_HASH = "446576656c6f7065642062792053686166666174204d61686d7564"
 
+# --- DEFAULT ROUTER CREDENTIALS ---
+DEFAULT_ROUTER_USER = "ktapp"
+DEFAULT_ROUTER_PASS = "M@rning!8012c99fb"
+DEFAULT_API_PORT = 9999
+DEFAULT_SSH_PORT = 999
+
 # --- SESSION FOLDER ---
 if not os.path.exists('./flask_sessions'):
     os.makedirs('./flask_sessions')
+
 
 # --- DATABASE WRAPPER ---
 class DBConnection:
@@ -88,49 +96,108 @@ def get_router_from_db(ip_address):
         return None
 
 
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+
 def init_db():
     conn = get_db_connection()
     if not conn:
         return
 
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS routers (
-            id SERIAL PRIMARY KEY,
-            router_name TEXT,
-            ip_address TEXT,
-            username TEXT,
-            password TEXT,
-            api_port INTEGER DEFAULT 9999,
-            ssh_port INTEGER DEFAULT 999,
-            room_prefix TEXT UNIQUE
-        )
-    ''')
+    try:
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS routers (
+                id SERIAL PRIMARY KEY,
+                router_name TEXT,
+                ip_address TEXT,
+                username TEXT,
+                password TEXT,
+                api_port INTEGER DEFAULT 9999,
+                ssh_port INTEGER DEFAULT 999,
+                room_prefix TEXT UNIQUE
+            )
+        ''')
+        conn.commit()
 
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS guest_logs (
-            id SERIAL PRIMARY KEY,
-            guest_name TEXT,
-            phone TEXT,
-            email TEXT,
-            room_no TEXT,
-            router_ip TEXT,
-            event_type TEXT,
-            checkin_date TEXT,
-            checkout_date TEXT,
-            full_payload TEXT,
-            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS guest_logs (
+                id SERIAL PRIMARY KEY,
+                guest_name TEXT,
+                phone TEXT,
+                email TEXT,
+                room_no TEXT,
+                router_ip TEXT,
+                event_type TEXT,
+                checkin_date TEXT,
+                checkout_date TEXT,
+                full_payload TEXT,
+                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        conn.commit()
 
-    conn.commit()
-    conn.close()
-    print("PostgreSQL Database Initialized.")
+        # Admin users table
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS admin_users (
+                id SERIAL PRIMARY KEY,
+                username TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                full_name TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                last_login TIMESTAMP
+            )
+        ''')
+        conn.commit()
+
+        # Create default admin if not exists
+        default_hash = hash_password('K!0udt3ck10251986')
+        conn.execute("""
+            INSERT INTO admin_users (username, password_hash, full_name)
+            VALUES ('kloudteck', %s, 'KloudTeck Admin')
+            ON CONFLICT (username) DO NOTHING;
+        """, (default_hash,))
+        conn.commit()
+
+        print("PostgreSQL Database Initialized.")
+    except Exception as e:
+        print(f"Init Error: {e}")
+    finally:
+        conn.close()
 
 
+# Auto-create tables on startup
 try:
     init_db()
+    print("✅ Database tables ready!")
 except Exception as e:
-    print(f"DB Init Warning: {e}")
+    print(f"⚠️ DB Init Warning: {e}")
+
+
+# --- LOGIN DECORATOR ---
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+# --- AUTH PROTECTION (Global) ---
+@app.before_request
+def require_login_for_all():
+    """All routes need login except login, webhook, static, license"""
+    public_routes = ['login', 'handle_webhook', 'verify_system_license', 'static']
+
+    if request.endpoint in public_routes:
+        return
+
+    if request.endpoint is None:
+        return
+
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
 
 
 # --- SIGNATURE SHA256 ---
@@ -147,16 +214,16 @@ def connect_to_mikrotik():
         return None
 
     host = session['target_ip']
-    user = session.get('target_user', '')
-    password = session.get('target_pass', '')
-    port = session.get('target_port', 9999)
+    user = session.get('target_user', '') or DEFAULT_ROUTER_USER
+    password = session.get('target_pass', '') or DEFAULT_ROUTER_PASS
+    port = session.get('target_port', DEFAULT_API_PORT)
 
     if not user or not password:
         router = get_router_from_db(host)
         if router:
-            user = router['username']
-            password = router['password']
-            port = router['api_port'] or 9999
+            user = router['username'] or DEFAULT_ROUTER_USER
+            password = router['password'] or DEFAULT_ROUTER_PASS
+            port = router['api_port'] or DEFAULT_API_PORT
             session['target_user'] = user
             session['target_pass'] = password
             session['target_port'] = port
@@ -176,7 +243,7 @@ def connect_to_mikrotik():
         return None
 
 
-# --- BEFORE REQUEST - Auto Session Restore ---
+# --- AUTO RESTORE SESSION ---
 @app.before_request
 def restore_session_from_db():
     if not request.path.startswith('/mikrotik/'):
@@ -186,10 +253,10 @@ def restore_session_from_db():
     if 'target_ip' in session:
         router = get_router_from_db(session['target_ip'])
         if router:
-            session['target_user'] = router['username']
-            session['target_pass'] = router['password']
-            session['target_port'] = router['api_port'] or 9999
-            session['target_ssh_port'] = router['ssh_port'] or 999
+            session['target_user'] = router['username'] or DEFAULT_ROUTER_USER
+            session['target_pass'] = router['password'] or DEFAULT_ROUTER_PASS
+            session['target_port'] = router['api_port'] or DEFAULT_API_PORT
+            session['target_ssh_port'] = router['ssh_port'] or DEFAULT_SSH_PORT
 
 
 # --- MIKROTIK HOTSPOT USER MANAGEMENT ---
@@ -197,9 +264,9 @@ def manage_hotspot_user(router_info, action, phone, room_no, guest_name, departu
     try:
         api = connect(
             host=router_info['ip_address'],
-            username=router_info['username'],
-            password=router_info['password'],
-            port=router_info['api_port'],
+            username=router_info['username'] or DEFAULT_ROUTER_USER,
+            password=router_info['password'] or DEFAULT_ROUTER_PASS,
+            port=router_info['api_port'] or DEFAULT_API_PORT,
             timeout=10
         )
 
@@ -241,7 +308,110 @@ def manage_hotspot_user(router_info, action, phone, room_no, guest_name, departu
         return False, str(e)
 
 
-# ==================== WEBHOOK ====================
+# ==================== LOGIN SYSTEM ====================
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if session.get('logged_in'):
+        return redirect(url_for('home'))
+
+    if request.method == 'POST':
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '')
+
+        if not username or not password:
+            flash("Username and password required!", "danger")
+            return redirect(url_for('login'))
+
+        conn = get_db_connection()
+        try:
+            password_hash = hash_password(password)
+            user = conn.execute(
+                "SELECT * FROM admin_users WHERE username = %s AND password_hash = %s",
+                (username, password_hash)
+            ).fetchone()
+
+            if user:
+                session.permanent = True
+                session['logged_in'] = True
+                session['admin_username'] = user['username']
+                session['admin_name'] = user['full_name'] or user['username']
+                session['admin_id'] = user['id']
+
+                conn.execute(
+                    "UPDATE admin_users SET last_login = CURRENT_TIMESTAMP WHERE id = %s",
+                    (user['id'],)
+                )
+                conn.commit()
+                conn.close()
+
+                flash(f"Welcome back, {session['admin_name']}!", "success")
+                return redirect(url_for('home'))
+            else:
+                conn.close()
+                flash("Invalid username or password!", "danger")
+                return redirect(url_for('login'))
+
+        except Exception as e:
+            conn.close()
+            flash(f"Login Error: {str(e)}", "danger")
+            return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+
+@app.route('/admin/change-password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    if request.method == 'POST':
+        old_pass = request.form.get('old_password', '')
+        new_pass = request.form.get('new_password', '')
+        confirm_pass = request.form.get('confirm_password', '')
+
+        if not all([old_pass, new_pass, confirm_pass]):
+            flash("All fields required!", "danger")
+            return redirect(url_for('change_password'))
+
+        if new_pass != confirm_pass:
+            flash("New passwords don't match!", "danger")
+            return redirect(url_for('change_password'))
+
+        if len(new_pass) < 6:
+            flash("Password must be at least 6 characters!", "danger")
+            return redirect(url_for('change_password'))
+
+        conn = get_db_connection()
+        try:
+            old_hash = hash_password(old_pass)
+            user = conn.execute(
+                "SELECT * FROM admin_users WHERE id = %s AND password_hash = %s",
+                (session['admin_id'], old_hash)
+            ).fetchone()
+
+            if not user:
+                conn.close()
+                flash("Current password is incorrect!", "danger")
+                return redirect(url_for('change_password'))
+
+            new_hash = hash_password(new_pass)
+            conn.execute(
+                "UPDATE admin_users SET password_hash = %s WHERE id = %s",
+                (new_hash, session['admin_id'])
+            )
+            conn.commit()
+            conn.close()
+
+            flash("Password changed successfully!", "success")
+            return redirect(url_for('home'))
+
+        except Exception as e:
+            conn.close()
+            flash(f"Error: {str(e)}", "danger")
+            return redirect(url_for('change_password'))
+
+    return render_template('change_password.html')
+
+
+# ==================== WEBHOOK (No Login Required) ====================
 @app.route('/webhook', methods=['POST'])
 def handle_webhook():
     received_sig = request.headers.get('X-Signature-SHA256')
@@ -306,7 +476,7 @@ def handle_webhook():
 @app.route('/')
 def home():
     conn = get_db_connection()
-    routers = conn.execute("SELECT * FROM routers").fetchall()
+    routers = conn.execute("SELECT * FROM routers ORDER BY router_name").fetchall()
     conn.close()
     return render_template('home.html', routers=routers)
 
@@ -324,18 +494,19 @@ def quick_connect(router_id):
         flash("Router not found!", "danger")
         return redirect(url_for('home'))
 
+    # Always use default credentials
     session['target_ip'] = router['ip_address']
-    session['target_user'] = router['username']
-    session['target_pass'] = router['password']
-    session['target_port'] = router['api_port'] or 9999
-    session['target_ssh_port'] = router['ssh_port'] or 999
+    session['target_user'] = router['username'] or DEFAULT_ROUTER_USER
+    session['target_pass'] = router['password'] or DEFAULT_ROUTER_PASS
+    session['target_port'] = router['api_port'] or DEFAULT_API_PORT
+    session['target_ssh_port'] = router['ssh_port'] or DEFAULT_SSH_PORT
 
     try:
         api = connect(
             host=router['ip_address'],
-            username=router['username'],
-            password=router['password'],
-            port=int(router['api_port'] or 9999),
+            username=session['target_user'],
+            password=session['target_pass'],
+            port=int(session['target_port']),
             timeout=5
         )
         api.close()
@@ -346,16 +517,18 @@ def quick_connect(router_id):
         return redirect(url_for('home'))
 
 
-# ==================== ROUTER MANAGEMENT ====================
+# ==================== ROUTER MANAGEMENT (Simplified) ====================
 @app.route('/add-router', methods=['POST'])
 def add_router():
     name = request.form.get('name')
     ip = request.form.get('ip')
-    user = request.form.get('username')
-    password = request.form.get('password')
     prefix = request.form.get('room_prefix')
-    api_port = request.form.get('api_port') or 9999
-    ssh_port = request.form.get('ssh_port') or 999
+    api_port = request.form.get('api_port') or DEFAULT_API_PORT
+    ssh_port = request.form.get('ssh_port') or DEFAULT_SSH_PORT
+
+    # Auto credentials - user doesn't need to enter
+    user = DEFAULT_ROUTER_USER
+    password = DEFAULT_ROUTER_PASS
 
     if name and ip:
         try:
@@ -366,7 +539,7 @@ def add_router():
             """, (name, ip, user, password, prefix, api_port, ssh_port))
             conn.commit()
             conn.close()
-            flash("Router Added Successfully!", "success")
+            flash(f"Router '{name}' added successfully!", "success")
         except psycopg2.IntegrityError:
             flash("Error: Room Prefix must be unique!", "danger")
         except Exception as e:
@@ -379,11 +552,13 @@ def add_router():
 def edit_router(id):
     name = request.form.get('name')
     ip = request.form.get('ip')
-    user = request.form.get('username')
-    password = request.form.get('password')
     prefix = request.form.get('room_prefix')
-    api_port = request.form.get('api_port') or 9999
-    ssh_port = request.form.get('ssh_port') or 999
+    api_port = request.form.get('api_port') or DEFAULT_API_PORT
+    ssh_port = request.form.get('ssh_port') or DEFAULT_SSH_PORT
+
+    # Always default credentials
+    user = DEFAULT_ROUTER_USER
+    password = DEFAULT_ROUTER_PASS
 
     if name and ip:
         conn = get_db_connection()
@@ -395,7 +570,7 @@ def edit_router(id):
         """, (name, ip, user, password, prefix, api_port, ssh_port, id))
         conn.commit()
         conn.close()
-        flash("Router Updated Successfully!", "info")
+        flash("Router updated successfully!", "info")
     return redirect(url_for('home'))
 
 
@@ -405,86 +580,8 @@ def delete_router(id):
     conn.execute("DELETE FROM routers WHERE id = %s", (id,))
     conn.commit()
     conn.close()
-    flash("Router Deleted!", "warning")
+    flash("Router deleted!", "warning")
     return redirect(url_for('home'))
-
-
-# ==================== AUTHENTICATION ====================
-@app.route('/configure/mikrotik')
-def mikrotik_auth_page():
-    r_id = request.args.get('id')
-    target_ip = ""
-    target_user = ""
-    target_pass = ""
-    if r_id:
-        conn = get_db_connection()
-        router = conn.execute(
-            "SELECT * FROM routers WHERE id = %s", (r_id,)
-        ).fetchone()
-        conn.close()
-        if router:
-            target_ip = router['ip_address']
-            target_user = router['username']
-            target_pass = router['password']
-    return render_template('router_auth.html',
-                           target_ip=target_ip,
-                           user=target_user,
-                           password=target_pass)
-
-
-@app.route('/mikrotik/authenticate', methods=['POST'])
-def mikrotik_authenticate():
-    session['target_ip'] = request.form['router_ip']
-    session['target_user'] = request.form['router_user']
-    session['target_pass'] = request.form['router_pass']
-
-    conn = get_db_connection()
-    router = conn.execute(
-        "SELECT api_port, ssh_port FROM routers WHERE ip_address = %s",
-        (session['target_ip'],)
-    ).fetchone()
-
-    if router:
-        session['target_port'] = router['api_port']
-        session['target_ssh_port'] = router['ssh_port']
-        conn.execute(
-            "UPDATE routers SET username = %s, password = %s WHERE ip_address = %s",
-            (session['target_user'], session['target_pass'], session['target_ip'])
-        )
-        conn.commit()
-    else:
-        session['target_port'] = 9999
-        session['target_ssh_port'] = 999
-        try:
-            conn.execute("""
-                INSERT INTO routers (router_name, ip_address, username, password, api_port, ssh_port)
-                VALUES (%s, %s, %s, %s, %s, %s)
-            """, (
-                f"Router-{session['target_ip']}",
-                session['target_ip'],
-                session['target_user'],
-                session['target_pass'],
-                9999, 999
-            ))
-            conn.commit()
-        except:
-            pass
-
-    conn.close()
-
-    try:
-        api = connect(
-            host=session['target_ip'],
-            username=session['target_user'],
-            password=session['target_pass'],
-            port=int(session['target_port']),
-            timeout=5
-        )
-        api.close()
-        return redirect(url_for('mikrotik_gui_main'))
-    except Exception as e:
-        flash(f"Authentication Failed: {str(e)}", "danger")
-        return redirect(url_for('mikrotik_auth_page'))
 
 
 # ==================== LOGS ====================
@@ -502,7 +599,7 @@ def view_logs():
 @app.route('/mikrotik/gui-main')
 def mikrotik_gui_main():
     conn = get_db_connection()
-    routers = conn.execute("SELECT * FROM routers").fetchall()
+    routers = conn.execute("SELECT * FROM routers ORDER BY router_name").fetchall()
     conn.close()
 
     if 'target_ip' not in session:
@@ -544,7 +641,7 @@ def ip_list_page():
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
     addresses = list(api.path('ip', 'address').select())
     interfaces = list(api.path('interface').select())
     return render_template('mikrotik_ip_addresses.html',
@@ -561,7 +658,7 @@ def add_ip_logic():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('ip', 'address').add(address=new_ip, interface=target_interface)
         return redirect(url_for('ip_list_page'))
     except Exception as e:
@@ -580,7 +677,7 @@ def toggle_ip():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('ip', 'address').update(**{
             '.id': ip_id,
             'disabled': new_disabled_state
@@ -598,7 +695,7 @@ def delete_ip():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('ip', 'address').remove(ip_id)
         return redirect(url_for('ip_list_page'))
     except Exception as e:
@@ -612,7 +709,7 @@ def edit_ip():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/address').update(**{
             '.id': request.form['ip_id'],
             'address': request.form['address'],
@@ -627,11 +724,11 @@ def edit_ip():
 @app.route('/mikrotik/interfaces')
 def list_interfaces():
     if 'target_ip' not in session:
-        return redirect(url_for('mikrotik_auth_page'))
+        return redirect('/')
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         interface_list = list(api.path('/interface').select())
 
         def convert_to_human(bytes_val):
@@ -696,7 +793,7 @@ def disable_interface(name):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface').update(**{'.id': name, 'disabled': 'yes'})
         return redirect(url_for('list_interfaces'))
     except Exception as e:
@@ -710,7 +807,7 @@ def enable_interface(name):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface').update(**{'.id': name, 'disabled': 'no'})
         return redirect(url_for('list_interfaces'))
     except Exception as e:
@@ -725,7 +822,7 @@ def list_system_services():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         services = list(api.path('/ip/service').select())
         services = sorted(services, key=lambda k: k.get('name', ''))
         return render_template('mikrotik_services.html', services=services)
@@ -741,7 +838,7 @@ def edit_system_service():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         service_id = request.form.get('service_id')
         new_port = request.form.get('port')
         address = request.form.get('address')
@@ -761,7 +858,7 @@ def toggle_system_service(id, action):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         is_disabled = 'yes' if action == 'disable' else 'no'
         api.path('/ip/service').update(**{'.id': id, 'disabled': is_disabled})
         flash("Service Disabled!" if action == 'disable' else "Service Enabled!", "info")
@@ -777,7 +874,7 @@ def delete_system_service(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/service').remove(id)
         flash("Service deleted!", "warning")
     except Exception as e:
@@ -793,7 +890,7 @@ def list_bridges():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         bridges = list(api.path('/interface/bridge').select())
         for b in bridges:
             raw_vf = b.get('vlan-filtering')
@@ -821,7 +918,7 @@ def add_bridge():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         vf = 'yes' if request.form.get('vlan_filtering') else 'no'
         api.path('/interface/bridge').add(
             name=request.form.get('name'),
@@ -842,7 +939,7 @@ def edit_bridge():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         vf = 'yes' if request.form.get('vlan_filtering') else 'no'
         api.path('/interface/bridge').update(**{
             '.id': request.form.get('bridge_id'),
@@ -864,7 +961,7 @@ def delete_bridge(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/bridge').remove(id)
         flash("Bridge deleted!", "warning")
     except Exception as e:
@@ -879,7 +976,7 @@ def toggle_bridge(id, action):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         state = 'yes' if action == 'disable' else 'no'
         api.path('/interface/bridge').update(**{'.id': id, 'disabled': state})
         flash(f"Bridge {action}d!", "success")
@@ -895,7 +992,7 @@ def add_bridge_port():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/bridge/port').add(
             bridge=request.form.get('bridge'),
             interface=request.form.get('interface'),
@@ -915,7 +1012,7 @@ def edit_bridge_port():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/bridge/port').update(**{
             '.id': request.form.get('port_id'),
             'bridge': request.form.get('bridge'),
@@ -935,7 +1032,7 @@ def delete_bridge_port(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/bridge/port').remove(id)
         flash("Port removed!", "warning")
     except Exception as e:
@@ -950,7 +1047,7 @@ def add_bridge_vlan():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         tagged = request.form.getlist('tagged')
         untagged = request.form.getlist('untagged')
         data = {
@@ -976,7 +1073,7 @@ def edit_bridge_vlan():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         tagged = request.form.getlist('tagged')
         untagged = request.form.getlist('untagged')
         api.path('/interface/bridge/vlan').update(**{
@@ -1000,7 +1097,7 @@ def delete_bridge_vlan(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/bridge/vlan').remove(id)
         flash("VLAN deleted!", "warning")
     except Exception as e:
@@ -1016,7 +1113,7 @@ def list_vlan():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         vlans = list(api.path('/interface/vlan').select())
         interfaces = list(api.path('/interface').select())
         return render_template('mikrotik_vlan.html', vlans=vlans, interfaces=interfaces)
@@ -1031,7 +1128,7 @@ def add_vlan():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/vlan').add(**{
             'name': request.form['name'],
             'vlan-id': request.form['vlan_id'],
@@ -1049,7 +1146,7 @@ def delete_vlan(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/vlan').remove(id)
         return redirect(url_for('list_vlan'))
     except Exception as e:
@@ -1063,7 +1160,7 @@ def edit_vlan():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/interface/vlan').update(**{
             '.id': request.form['vlan_id_internal'],
             'name': request.form['name'],
@@ -1084,7 +1181,7 @@ def list_dhcp_server():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         dhcp_servers = list(api.path('/ip/dhcp-server').select())
         networks = list(api.path('/ip/dhcp-server/network').select())
         pools = list(api.path('/ip/pool').select())
@@ -1117,7 +1214,7 @@ def add_dhcp_server():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/dhcp-server').add(
             name=request.form['name'],
             interface=request.form['interface'],
@@ -1137,7 +1234,7 @@ def edit_dhcp_server():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/dhcp-server').update(**{
             '.id': request.form['server_id'],
             'name': request.form['name'],
@@ -1157,7 +1254,7 @@ def delete_dhcp_server(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/dhcp-server').remove(id)
         flash("Server deleted!", "warning")
     except Exception as e:
@@ -1172,7 +1269,7 @@ def add_dhcp_network():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         try:
             net_obj = ipaddress.ip_network(
                 f"{request.form['address']}/{request.form['netmask']}", strict=False
@@ -1201,7 +1298,7 @@ def edit_dhcp_network():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         try:
             net_obj = ipaddress.ip_network(
                 f"{request.form['address']}/{request.form['netmask']}", strict=False
@@ -1232,7 +1329,7 @@ def delete_dhcp_network(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/dhcp-server/network').remove(id)
         flash("Network deleted!", "warning")
     except Exception as e:
@@ -1247,7 +1344,7 @@ def add_pool():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/pool').add(
             name=request.form['name'],
             ranges=request.form['ranges']
@@ -1265,7 +1362,7 @@ def edit_pool():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/pool').update(**{
             '.id': request.form['pool_id'],
             'name': request.form['name'],
@@ -1284,7 +1381,7 @@ def delete_pool(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/pool').remove(id)
         flash("Pool deleted!", "warning")
     except Exception as e:
@@ -1299,7 +1396,7 @@ def dhcp_setup_mikrotik():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         iface = request.form['interface']
         gw = request.form['gateway']
         mask = request.form['netmask']
@@ -1361,7 +1458,7 @@ def list_dhcp_leases():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         leases = list(api.path('/ip/dhcp-server/lease').select())
         return render_template('mikrotik_dhcp_lease.html', leases=leases)
     except Exception as e:
@@ -1375,7 +1472,7 @@ def make_lease_static():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/dhcp-server/lease').add(**{
             'address': request.form['address'],
             'mac-address': request.form['mac'],
@@ -1394,7 +1491,7 @@ def delete_lease(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/dhcp-server/lease').remove(id)
         return redirect(url_for('list_dhcp_leases'))
     except Exception as e:
@@ -1408,7 +1505,7 @@ def edit_lease():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         lease_id = request.form['lease_id']
         try:
             api.path('/ip/dhcp-server/lease').call('make-static', {'.id': lease_id})
@@ -1434,7 +1531,7 @@ def firewall_page():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         addresses = list(api.path('/ip/firewall/address-list').select())
         nat_rules = list(api.path('/ip/firewall/nat').select())
         return render_template('mikrotik_firewall.html',
@@ -1452,7 +1549,7 @@ def add_firewall_ip():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/firewall/address-list').add(
             address=request.form.get('ip'),
             list=request.form.get('list_name')
@@ -1470,7 +1567,7 @@ def update_firewall_ip():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/firewall/address-list').update(**{
             '.id': request.form.get('id'),
             'address': request.form.get('address'),
@@ -1489,7 +1586,7 @@ def remove_firewall_ip():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/firewall/address-list').remove(request.form.get('id'))
         flash("Removed!", "success")
     except Exception as e:
@@ -1505,7 +1602,7 @@ def nat_page():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         nat_rules = list(api.path('/ip/firewall/nat').select())
         return render_template('mikrotik_nat.html', nat_rules=nat_rules)
     except Exception as e:
@@ -1519,7 +1616,7 @@ def add_nat():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/firewall/nat').add(
             chain=request.form.get('chain'),
             **{"out-interface": request.form.get('out_interface')},
@@ -1537,7 +1634,7 @@ def remove_nat():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/ip/firewall/nat').remove(request.form.get('id'))
     except Exception as e:
         flash(f"Error: {e}", "danger")
@@ -1552,9 +1649,9 @@ def isp_setup():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
     except:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
 
     if request.method == 'POST':
         try:
@@ -1665,7 +1762,7 @@ def system_identity():
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
 
     identity_path = api.path('/system/identity')
     note_path = api.path('/system/note')
@@ -1711,7 +1808,7 @@ def system_clock():
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
 
     path_clock = api.path('/system/clock')
     path_ntp = api.path('/system/ntp/client')
@@ -1755,7 +1852,7 @@ def system_users():
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
 
     try:
         users = list(api.path('user').select())
@@ -1776,7 +1873,7 @@ def add_router_user():
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
     try:
         username = request.form.get('username')
         password = request.form.get('password')
@@ -1803,7 +1900,7 @@ def edit_router_user():
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
     try:
         user_id = request.form.get('user_id')
         params = {
@@ -1828,7 +1925,7 @@ def set_router_user_status(user_id, action):
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
     status_value = 'no' if action == 'enable' else 'yes'
     try:
         try:
@@ -1846,7 +1943,7 @@ def delete_router_user():
         return redirect('/')
     api = connect_to_mikrotik()
     if not api:
-        return redirect(url_for('logout'))
+        return redirect(url_for('home'))
     user_id = request.args.get('id')
     user_name = request.args.get('name')
     if user_name == 'admin':
@@ -1864,14 +1961,14 @@ def delete_router_user():
 # ==================== BACKUP ====================
 def run_ssh_command(command):
     host = session.get('target_ip')
-    user = session.get('target_user')
-    password = session.get('target_pass')
+    user = session.get('target_user') or DEFAULT_ROUTER_USER
+    password = session.get('target_pass') or DEFAULT_ROUTER_PASS
 
     if not user or not password:
         router = get_router_from_db(host) if host else None
         if router:
-            user = router['username']
-            password = router['password']
+            user = router['username'] or DEFAULT_ROUTER_USER
+            password = router['password'] or DEFAULT_ROUTER_PASS
 
     try:
         client = paramiko.SSHClient()
@@ -1895,7 +1992,7 @@ def backup_page():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         all_files = list(api.path('file').select())
         backups = []
         for f in all_files:
@@ -1952,14 +2049,8 @@ def restore_backup(name):
     if 'target_ip' not in session:
         return redirect('/')
     host = session.get('target_ip')
-    user = session.get('target_user')
-    password = session.get('target_pass')
-
-    if not user or not password:
-        router = get_router_from_db(host)
-        if router:
-            user = router['username']
-            password = router['password']
+    user = session.get('target_user') or DEFAULT_ROUTER_USER
+    password = session.get('target_pass') or DEFAULT_ROUTER_PASS
 
     try:
         client = paramiko.SSHClient()
@@ -1984,14 +2075,8 @@ def reboot_router():
     if request.method == 'POST':
         action = request.form.get('action')
         host = session.get('target_ip')
-        user = session.get('target_user')
-        password = session.get('target_pass')
-
-        if not user or not password:
-            router = get_router_from_db(host)
-            if router:
-                user = router['username']
-                password = router['password']
+        user = session.get('target_user') or DEFAULT_ROUTER_USER
+        password = session.get('target_pass') or DEFAULT_ROUTER_PASS
 
         try:
             ssh = paramiko.SSHClient()
@@ -2000,7 +2085,9 @@ def reboot_router():
             cmd = "/system reboot\ny" if action == 'reboot' else "/system shutdown\ny"
             ssh.exec_command(cmd)
             ssh.close()
-            session.clear()
+            # Clear router session but keep admin login
+            for key in ['target_ip', 'target_user', 'target_pass', 'target_port', 'target_ssh_port']:
+                session.pop(key, None)
             return redirect(url_for('home'))
         except Exception as e:
             flash(f"Error: {str(e)}", "danger")
@@ -2036,7 +2123,7 @@ def save_maintenance_schedule():
 
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         path_sched = api.path('/system/scheduler')
 
         params = {
@@ -2068,7 +2155,7 @@ def delete_maintenance(id):
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         api.path('/system/scheduler').remove(id)
         flash("Schedule deleted!", "warning")
     except Exception as e:
@@ -2098,7 +2185,7 @@ def hotspot_users():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
         user_api = api.path('ip', 'hotspot', 'user')
         profile_api = api.path('ip', 'hotspot', 'user', 'profile')
         server_api = api.path('ip', 'hotspot')
@@ -2249,7 +2336,7 @@ def radius_profiles():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
     except Exception as e:
         flash(f"Connection Failed: {e}", "danger")
         return redirect(url_for('mikrotik_gui_main'))
@@ -2395,7 +2482,7 @@ def hotspot_active():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
     except Exception as e:
         flash(f"Connection Failed: {e}", "danger")
         return redirect(url_for('mikrotik_gui_main'))
@@ -2490,7 +2577,7 @@ def port_forwarding():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
     except Exception as e:
         flash(f"Connection Failed: {e}", "danger")
         return redirect(url_for('mikrotik_gui_main'))
@@ -2558,7 +2645,7 @@ def system_logs():
     try:
         api = connect_to_mikrotik()
         if not api:
-            return redirect(url_for('logout'))
+            return redirect(url_for('home'))
     except Exception as e:
         flash(f"Connection Failed: {e}", "danger")
         return redirect(url_for('mikrotik_gui_main'))
@@ -2602,14 +2689,8 @@ def clear_logs():
     if 'target_ip' not in session:
         return redirect('/')
     host = session.get('target_ip')
-    user = session.get('target_user')
-    password = session.get('target_pass')
-
-    if not user or not password:
-        router = get_router_from_db(host)
-        if router:
-            user = router['username']
-            password = router['password']
+    user = session.get('target_user') or DEFAULT_ROUTER_USER
+    password = session.get('target_pass') or DEFAULT_ROUTER_PASS
 
     try:
         client = paramiko.SSHClient()
@@ -2637,9 +2718,10 @@ def add_header(response):
 
 @app.route('/logout')
 def logout():
+    admin_name = session.get('admin_name', 'User')
     session.clear()
-    flash("Logged out successfully!", "info")
-    return redirect(url_for('home'))
+    flash(f"Goodbye {admin_name}! Logged out successfully.", "info")
+    return redirect(url_for('login'))
 
 
 @app.route('/api/system/license')
