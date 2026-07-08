@@ -358,6 +358,18 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/maker')
+def maker():
+    return """
+    <html>
+    <body style="font-family: Arial; padding: 40px;">
+        <h2>👨‍💻 App Maker</h2>
+        <h3>Name: Shaffat Mahmud</h3>
+        <h3>Email: shaffa3x@gmail.com</h3>
+    </body>
+    </html>
+    """
+
 
 @app.route('/admin/change-password', methods=['GET', 'POST'])
 @login_required
