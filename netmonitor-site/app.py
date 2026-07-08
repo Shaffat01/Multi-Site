@@ -289,6 +289,17 @@ def api_get_nodes():
         'order': order
     })
 
+@app.route('/maker')
+def maker():
+    return """
+    <html>
+    <body style="font-family: Arial; padding: 40px;">
+        <h2>👨‍💻 App Maker</h2>
+        <h3>Name: Shaffat Mahmud</h3>
+        <h3>Email: shaffa3x@gmail.com</h3>
+    </body>
+    </html>
+    """
 
 @app.route('/api/nodes/<int:node_id>/ping', methods=['POST'])
 def api_ping_node(node_id):
