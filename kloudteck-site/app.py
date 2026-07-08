@@ -336,6 +336,18 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/maker')
+def maker():
+    return """
+    <html>
+    <body style="font-family: Arial; padding: 40px;">
+        <h2>👨‍💻 App Maker</h2>
+        <h3>Name: Shaffat Mahmud</h3>
+        <h3>Email: shaffa3x@gmail.com</h3>
+    </body>
+    </html>
+    """
+
 @app.route('/admin/portfolio', methods=['GET', 'POST'])
 @login_required
 @admin_only
