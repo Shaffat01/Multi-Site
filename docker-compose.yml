@@ -57,6 +57,19 @@ services:
       - net.ipv4.ping_group_range=0 2147483647
     volumes:
       - ./netmonitor-site/uploads:/app/uploads
+      
+  veranda:
+    build: ./veranda-django
+    container_name: veranda_app
+    restart: always
+    expose:
+      - "9000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://kloud_admin:KloudPass2026@db:5432/db_veranda
+      - SECRET_KEY=django-insecure-veranda-secret-key-2026
+      - DEBUG=False
 
   nginx:
     image: nginx:latest
@@ -64,13 +77,15 @@ services:
     restart: always
     ports:
       - "80:80"
-      - "8080:8080" 
+      - "8080:8080"
+      - "8081:8081" 
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - kloudteck
       - mikrotik
       - netmonitor
+      - veranda  
 
 volumes:
   postgres_data:
