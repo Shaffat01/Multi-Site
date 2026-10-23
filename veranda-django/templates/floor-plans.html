@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg') center/cover no-repeat;">
+        <div class="container">
+            <h1>Floor Plans & Capacity</h1>
+            <p>Explore our flexible space configurations</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="floorplan-content">
+                <div class="floorplan-image">
+                    <h2>Ballroom Floor Plan</h2>
+                    <img src="images/floor-plan.jpg" alt="Veranda Ballroom Floor Plan">
+                    <div class="specs">
+                        <div class="spec-item">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Square Footage: 5,000 sq ft</span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-ruler-vertical"></i>
+                            <span>Ceiling Height: 14 feet</span>
+                        </div>
+                        <div class="spec-item">
+                            <i class="fas fa-door-open"></i>
+                            <span>Private Entrance & Exit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="outdoor-space">
+                    <h2>Outdoor Terrace</h2>
+                    <img src="images/patio-aerial.jpg" alt="Aerial View of Patio">
+                    <div class="patio-features">
+                        <h3>Patio Features:</h3>
+                        <ul>
+                            <li>2,000 sq ft covered terrace</li>
+                            <li>Multiple firepit areas</li>
+                            <li>String lighting throughout</li>
+                            <li>Outdoor seating arrangements</li>
+                            <li>Accessible from ballroom</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="capacity-charts">
+                    <h2>Capacity Charts</h2>
+                    <p>Maximum capacities for different setup styles:</p>
+                    
+                    <div class="capacity-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Setup Style</th>
+                                    <th>Description</th>
+                                    <th>Maximum Capacity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Theater Style</strong></td>
+                                    <td>Chairs only, facing stage/presentation area</td>
+                                    <td>250 guests</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Classroom Style</strong></td>
+                                    <td>Tables and chairs for note-taking</td>
+                                    <td>120 guests</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Banquet Style</strong></td>
+                                    <td>Round tables with seating all around</td>
+                                    <td>200 guests</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Reception Style</strong></td>
+                                    <td>Standing room with cocktail tables</td>
+                                    <td>300 guests</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>U-Shape Style</strong></td>
+                                    <td>Tables in U-formation for meetings</td>
+                                    <td>50 guests</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Conference Style</strong></td>
+                                    <td>Large rectangular table setup</td>
+                                    <td>40 guests</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="setup-details">
+                        <h3>Round Table Setup Details</h3>
+                        <div class="setup-grid">
+                            <div class="setup-detail">
+                                <div class="table-size">60" Round Table</div>
+                                <div class="guest-count">8-10 Guests</div>
+                                <p>Ideal for banquet dinners</p>
+                            </div>
+                            <div class="setup-detail">
+                                <div class="table-size">72" Round Table</div>
+                                <div class="guest-count">10-12 Guests</div>
+                                <p>Perfect for larger groups</p>
+                            </div>
+                            <div class="setup-detail">
+                                <div class="table-size">Cocktail Table</div>
+                                <div class="guest-count">Standing</div>
+                                <p>For cocktail hours</p>
+                            </div>
+                            <div class="setup-detail">
+                                <div class="table-size">Sweetheart Table</div>
+                                <div class="guest-count">2 Guests</div>
+                                <p>For bride and groom</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="additional-info">
+                    <h3>Additional Space Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <h4><i class="fas fa-wheelchair"></i> Accessibility</h4>
+                            <p>Fully ADA compliant with wheelchair access throughout</p>
+                        </div>
+                        <div class="info-item">
+                            <h4><i class="fas fa-truck-loading"></i> Load-in/Load-out</h4>
+                            <p>Dedicated loading area with ramp access</p>
+                        </div>
+                        <div class="info-item">
+                            <h4><i class="fas fa-restroom"></i> Restrooms</h4>
+                            <p>Multiple restrooms including accessible facilities</p>
+                        </div>
+                        <div class="info-item">
+                            <h4><i class="fas fa-kitchen-set"></i> Kitchen Access</h4>
+                            <p>Catering kitchen with prep space</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="download-section">
+                    <a href="#" class="btn-secondary">
+                        <i class="fas fa-download"></i> Download Floor Plans (PDF)
+                    </a>
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-calendar-check"></i> Schedule a Site Visit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VERANDA</h3>
+                    <p>Bensalem's modern event venue for celebrations of all kinds.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Bensalem, PA</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@verandavenue.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <p>In partnership with</p>
+                    <div class="spark-logo">
+                        <strong>Spark by Hilton</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Veranda Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* লগইন পেজের জন্য আলাদা কিছু স্টাইল */
+        .login-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f4f4f4;
+        }
+        .login-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .error-msg {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo" style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size: 2rem; margin: 0;">VERANDA</h1>
+                <p style="font-size: 0.8rem; letter-spacing: 2px;">EVENT VENUE</p>
+            </div>
+
+            <h2>Admin Login</h2>
+
+            {% if form.errors %}
+                <div class="error-msg">
+                    <p>Invalid username or password. Please try again.</p>
+                </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %} <div class="form-group">
+                    <label for="id_username">Username</label>
+                    <input type="text" name="username" id="id_username" required placeholder="Enter your username">
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    <input type="password" name="password" id="id_password" required placeholder="Enter your password">
+                </div>
+
+                <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">
+                    Login to Dashboard
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="{% url 'home' %}" style="text-decoration: none; color: #666; font-size: 0.9rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Website
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

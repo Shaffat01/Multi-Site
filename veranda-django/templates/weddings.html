@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg') center/cover no-repeat;">
+        <div class="container">
+            <h1>Weddings at Veranda</h1>
+            <p>Create your perfect day in our elegant, flexible space</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="wedding-content">
+                <div class="wedding-package">
+                    <h2>Wedding Package Overview</h2>
+                    <p>Our comprehensive wedding packages include everything you need for your special day:</p>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check-circle"></i> 8-hour venue rental</li>
+                        <li><i class="fas fa-check-circle"></i> Elegant ballroom with adjustable lighting</li>
+                        <li><i class="fas fa-check-circle"></i> Outdoor terrace with firepits</li>
+                        <li><i class="fas fa-check-circle"></i> Bridal suite for getting ready</li>
+                        <li><i class="fas fa-check-circle"></i> Groom's lounge</li>
+                        <li><i class="fas fa-check-circle"></i> Setup and cleanup services</li>
+                        <li><i class="fas fa-check-circle"></i> Event coordinator assistance</li>
+                    </ul>
+                </div>
+
+                <div class="indian-weddings">
+                    <h2>Indian Wedding Readiness</h2>
+                    <div class="indian-features">
+                        <div class="feature">
+                            <i class="fas fa-archway"></i>
+                            <h3>Mandap Space</h3>
+                            <p>Dedicated area for traditional mandap setup</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-utensils"></i>
+                            <h3>Outside Catering</h3>
+                            <p>Bring your preferred Indian caterer</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-music"></i>
+                            <h3>Baraat-Friendly</h3>
+                            <p>Spacious entrance for grand baraat processions</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-restroom"></i>
+                            <h3>Separate Changing Areas</h3>
+                            <p>Multiple dressing rooms for bride and groom</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bridal-suite">
+                    <h2>Bridal Getting-Ready Space</h2>
+                    <p>Our luxurious bridal suite features:</p>
+                    <ul>
+                        <li>Spacious, well-lit room with full-length mirrors</li>
+                        <li>Private bathroom with vanity area</li>
+                        <li>Comfortable seating for bridal party</li>
+                        <li>Mini refrigerator and coffee station</li>
+                        <li>Separate entrance for privacy</li>
+                    </ul>
+                </div>
+
+                <div class="cta-section">
+                    <a href="contact.html?type=wedding" class="btn-primary">
+                        <i class="fas fa-envelope"></i> Request Wedding Info
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VERANDA</h3>
+                    <p>Bensalem's modern event venue for celebrations of all kinds.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Bensalem, PA</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@verandavenue.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <p>In partnership with</p>
+                    <div class="spark-logo">
+                        <strong>Spark by Hilton</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

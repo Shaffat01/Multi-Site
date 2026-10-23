@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="active cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{% static 'images/hero-bg.jpg' %}') center/cover no-repeat;">
+        <div class="container">
+            <h1>Contact Veranda</h1>
+            <p>Let's start planning your perfect event</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-form-section">
+                    <h2>Event Inquiry Form</h2>
+                    <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+                    
+                    {% if success %}
+                    <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+                        <i class="fas fa-check-circle"></i> Thank you! Your inquiry has been sent. Our team will contact you soon.
+                    </div>
+                    {% endif %}
+                    
+                    <form id="contactForm" class="contact-form" method="POST" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventType">Event Type *</label>
+                                <select id="eventType" name="eventType" required>
+                                    <option value="">Select Event Type</option>
+                                    <option value="wedding">Wedding</option>
+                                    <option value="corporate">Corporate Event</option>
+                                    <option value="social">Social Event</option>
+                                    <option value="sweet16">Sweet 16 / Quinceañera</option>
+                                    <option value="mitzvah">Bar/Bat Mitzvah</option>
+                                    <option value="shower">Bridal/Baby Shower</option>
+                                    <option value="birthday">Birthday Party</option>
+                                    <option value="cultural">Cultural Celebration</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Preferred Event Date *</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guests">Estimated Guest Count *</label>
+                                <select id="guests" name="guests" required>
+                                    <option value="">Select Guest Count</option>
+                                    <option value="1-50">1-50 guests</option>
+                                    <option value="51-100">51-100 guests</option>
+                                    <option value="101-150">101-150 guests</option>
+                                    <option value="151-200">151-200 guests</option>
+                                    <option value="201-250">201-250 guests</option>
+                                    <option value="251-300">251-300 guests</option>
+                                    <option value="300+">300+ guests</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="catering">Catering Preference *</label>
+                            <select id="catering" name="catering" required>
+                                <option value="">Select Option</option>
+                                <option value="in-house">Interested in in-house catering</option>
+                                <option value="outside">Bringing outside caterer</option>
+                                <option value="undecided">Undecided, need recommendations</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Tell us about your event *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Please share details about your event vision, specific needs, or questions you have..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary" style="cursor: pointer; border: none; padding: 12px 25px;">
+                                <i class="fas fa-paper-plane"></i> Send Inquiry
+                            </button>
+                            <button type="reset" class="btn-secondary" style="cursor: pointer; border: none; padding: 12px 25px;">
+                                <i class="fas fa-redo"></i> Reset Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="contact-info-section">
+                    <div class="contact-methods">
+                        <h2>Get in Touch</h2>
+                        <div class="contact-method">
+                            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                            <div class="contact-details">
+                                <h3>Call Us</h3>
+                                <p>(555) 123-4567</p>
+                                <p>Mon-Fri: 9am-6pm</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="contact-details">
+                                <h3>Email Us</h3>
+                                <p>info@verandavenue.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="contact-details">
+                                <h3>Visit Us</h3>
+                                <p>123 Event Center Drive, Bensalem, PA 19020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

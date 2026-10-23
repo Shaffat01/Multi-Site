@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+           <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg') center/cover no-repeat;">
+        <div class="container">
+            <h1>Corporate & Meetings</h1>
+            <p>Professional settings for business success</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="corporate-content">
+                <div class="setup-options">
+                    <h2>Meeting Room Setups</h2>
+                    <div class="setup-grid">
+                        <div class="setup-item">
+                            <i class="fas fa-users"></i>
+                            <h3>U-Shape Setup</h3>
+                            <p>Ideal for interactive meetings and training sessions</p>
+                            <span>Capacity: 20-40 people</span>
+                        </div>
+                        <div class="setup-item">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h3>Classroom Style</h3>
+                            <p>Perfect for workshops and educational sessions</p>
+                            <span>Capacity: 30-80 people</span>
+                        </div>
+                        <div class="setup-item">
+                            <i class="fas fa-theater-masks"></i>
+                            <h3>Theater Style</h3>
+                            <p>Great for presentations and company announcements</p>
+                            <span>Capacity: 50-200 people</span>
+                        </div>
+                        <div class="setup-item">
+                            <i class="fas fa-utensils"></i>
+                            <h3>Banquet Style</h3>
+                            <p>Perfect for corporate dinners and awards ceremonies</p>
+                            <span>Capacity: 40-150 people</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="packages-section">
+                    <h2>Corporate Packages</h2>
+                    <div class="package-options">
+                        <div class="package-card">
+                            <h3>Half-Day Meeting</h3>
+                            <ul>
+                                <li>4-hour venue rental</li>
+                                <li>Classroom or theater setup</li>
+                                <li>Basic AV equipment</li>
+                                <li>Water and coffee service</li>
+                                <li>Wi-Fi access</li>
+                            </ul>
+                            <div class="package-price">Starting at $500</div>
+                        </div>
+                        <div class="package-card">
+                            <h3>Full-Day Conference</h3>
+                            <ul>
+                                <li>8-hour venue rental</li>
+                                <li>Flexible setup options</li>
+                                <li>Full AV package</li>
+                                <li>Lunch catering options</li>
+                                <li>Dedicated coordinator</li>
+                            </ul>
+                            <div class="package-price">Starting at $900</div>
+                        </div>
+                        <div class="package-card">
+                            <h3>Corporate Event</h3>
+                            <ul>
+                                <li>Full day rental</li>
+                                <li>Custom setup</li>
+                                <li>Premium AV</li>
+                                <li>Catering coordination</li>
+                                <li>Event planning support</li>
+                            </ul>
+                            <div class="package-price">Starting at $1,500</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="av-capabilities">
+                    <h2>AV Capabilities</h2>
+                    <div class="av-features">
+                        <div class="av-item">
+                            <i class="fas fa-video"></i>
+                            <span>HD Projector & Screen</span>
+                        </div>
+                        <div class="av-item">
+                            <i class="fas fa-microphone"></i>
+                            <span>Wireless Microphones</span>
+                        </div>
+                        <div class="av-item">
+                            <i class="fas fa-music"></i>
+                            <span>Sound System</span>
+                        </div>
+                        <div class="av-item">
+                            <i class="fas fa-wifi"></i>
+                            <span>High-Speed Wi-Fi</span>
+                        </div>
+                        <div class="av-item">
+                            <i class="fas fa-laptop"></i>
+                            <span>Video Conferencing</span>
+                        </div>
+                        <div class="av-item">
+                            <i class="fas fa-charging-station"></i>
+                            <span>Power Stations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="benefits-section">
+                    <h2>Location Benefits</h2>
+                    <div class="benefits-grid">
+                        <div class="benefit">
+                            <h3>Spark Hotel Partnership</h3>
+                            <p>Exclusive room blocks for training sessions, conferences, and corporate retreats at Spark by Hilton Bensalem.</p>
+                        </div>
+                        <div class="benefit">
+                            <h3>Easy Accessibility</h3>
+                            <p>Convenient location near major highways with ample parking for attendees.</p>
+                        </div>
+                        <div class="benefit">
+                            <h3>Professional Environment</h3>
+                            <p>Modern, clean, and professional setting that impresses clients and motivates teams.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="corporate-cta">
+                    <a href="contact.html?type=corporate" class="btn-primary">
+                        <i class="fas fa-file-invoice-dollar"></i> Request Corporate Pricing
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VERANDA</h3>
+                    <p>Bensalem's modern event venue for celebrations of all kinds.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Bensalem, PA</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@verandavenue.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <p>In partnership with</p>
+                    <div class="spark-logo">
+                        <strong>Spark by Hilton</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg') center/cover no-repeat;">
+        <div class="container">
+            <h1>About Veranda</h1>
+            <p>Modern, welcoming event venue designed for gatherings that matter</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p>Veranda is a modern, welcoming event venue designed for gatherings that matter. Inspired by the warmth of a veranda, a place where people naturally come together, our space brings comfort, connection, and celebration under one roof.</p>
+                    <p>With a flexible ballroom, private entrance, outdoor terrace with firepits, and seamless access to Spark by Hilton Bensalem, Veranda blends contemporary style with heartfelt hospitality. From weddings and cultural celebrations to milestone events and corporate functions, we provide an elevated, adaptable setting where every occasion feels genuinely welcomed.</p>
+                    <p>At Veranda, our brand is built on simplicity, sincerity, and service. We offer a beautiful space, a supportive team, and the freedom to create an event that feels like you.</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-users"></i>
+                        <h3>Capacity</h3>
+                        <p>Accommodates up to 300 guests for various event setups</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-utensils"></i>
+                        <h3>Outside Catering Friendly</h3>
+                        <p>Bring your preferred caterer or choose from our trusted partners</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-hotel"></i>
+                        <h3>Spark Hotel Partnership</h3>
+                        <p>Exclusive room blocks at Spark by Hilton Bensalem</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-parking"></i>
+                        <h3>Ample Parking</h3>
+                        <p>Convenient on-site parking for all guests</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-door-open"></i>
+                        <h3>Private Entrance</h3>
+                        <p>Direct access for privacy and convenience</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-palette"></i>
+                        <h3>Flexible Décor</h3>
+                        <p>Bring your own decorations to personalize your event</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VERANDA</h3>
+                    <p>Bensalem's modern event venue for celebrations of all kinds.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Bensalem, PA</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@verandavenue.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <p>In partnership with</p>
+                    <div class="spark-logo">
+                        <strong>Spark by Hilton</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

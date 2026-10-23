@@ -1,0 +1,286 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+           <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg') center/cover no-repeat;">
+        <div class="container">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about hosting events at Veranda</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="faq-container">
+                <!-- Catering FAQs -->
+                <div class="faq-category">
+                    <h2><i class="fas fa-utensils"></i> Catering & Food</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Can we bring our own caterer?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! Veranda is outside catering friendly. You can choose any licensed and insured caterer you prefer. We also have a list of recommended caterers who are familiar with our space if you need suggestions.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is there a kitchen available for caterers?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we have a catering kitchen with prep space, refrigeration, and warming ovens. However, it is not a full commercial kitchen, so final food preparation should be done off-site.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Can we have food trucks?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, food trucks are welcome! We have designated parking areas for food trucks with easy access to the event space.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment & Booking FAQs -->
+                <div class="faq-category">
+                    <h2><i class="fas fa-file-invoice-dollar"></i> Booking & Payments</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What is the deposit and payment schedule?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A 50% deposit is required to secure your date. The remaining balance is due 30 days before your event. We accept credit cards, checks, and bank transfers.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What is your cancellation policy?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If cancelled more than 90 days before the event, you receive a full refund of your deposit. Between 90-30 days, 50% of the deposit is refunded. Less than 30 days, the deposit is non-refundable.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Do you require event insurance?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we require a certificate of liability insurance for all events. We can provide information about affordable event insurance options.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Décor & Setup FAQs -->
+                <div class="faq-category">
+                    <h2><i class="fas fa-palette"></i> Décor & Setup</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What are your décor rules?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can bring your own decorations! We allow:</p>
+                            <ul>
+                                <li>Balloons (must be weighted)</li>
+                                <li>Candles (enclosed in glass containers)</li>
+                                <li>Floral arrangements</li>
+                                <li>Backdrops and drapery</li>
+                                <li>Themed decorations</li>
+                            </ul>
+                            <p>Not allowed: Confetti, glitter, open flames, nails/screws in walls.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Can we arrive early for setup?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, setup time is included in your rental package. Typically, you can access the venue 2-3 hours before your event start time. Additional setup time can be arranged for an extra fee.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Do you provide tables and chairs?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we provide standard banquet tables and chairs as part of your rental. We also have specialty items like sweetheart tables, cocktail tables, and lounge furniture available for rent.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alcohol & Beverage FAQs -->
+                <div class="faq-category">
+                    <h2><i class="fas fa-glass-cheers"></i> Alcohol & Beverages</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What is your alcohol policy?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can bring your own alcohol (BYOB) or hire a licensed bartending service. If serving alcohol, you must:</p>
+                            <ul>
+                                <li>Provide a licensed bartender</li>
+                                <li>Obtain a one-day liquor permit if required</li>
+                                <li>Ensure no alcohol is served to minors</li>
+                                <li>Have a plan for designated drivers or transportation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Can we have a cash bar?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can have a cash bar. You'll need to work with a licensed bartending service that can handle cash transactions and provide the necessary permits.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel & Accommodation FAQs -->
+                <div class="faq-category">
+                    <h2><i class="fas fa-hotel"></i> Hotel & Accommodations</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How does the Spark hotel room block process work?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We have a partnership with Spark by Hilton Bensalem. We can help you set up a room block for your guests at a discounted rate. The process:</p>
+                            <ol>
+                                <li>Contact us with your estimated room needs</li>
+                                <li>We'll connect you with the hotel sales manager</li>
+                                <li>You'll receive a custom booking link for your guests</li>
+                                <li>Rooms are typically held until 30 days before the event</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is there parking available?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we have ample free parking on-site for all your guests. We also have dedicated parking spaces for vendors and accessible parking near the entrance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- General FAQs -->
+                <div class="faq-category">
+                    <h2><i class="fas fa-question-circle"></i> General Information</h2>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What hours can we host our event?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our standard rental period is 8 hours, which includes setup and cleanup time. Events typically end by midnight. For weddings and special events, we offer extended hours for an additional fee.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Do you have on-site staff during events?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we provide an on-site venue manager during your entire event to assist with any venue-related issues and ensure everything runs smoothly.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is the venue climate controlled?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, our ballroom has full HVAC with both heating and air conditioning to keep your guests comfortable year-round.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="more-questions">
+                    <h3>Still have questions?</h3>
+                    <p>Contact us directly for more specific information about your event.</p>
+                    <a href="contact.html" class="btn-primary">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VERANDA</h3>
+                    <p>Bensalem's modern event venue for celebrations of all kinds.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Bensalem, PA</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@verandavenue.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <p>In partnership with</p>
+                    <div class="spark-logo">
+                        <strong>Spark by Hilton</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

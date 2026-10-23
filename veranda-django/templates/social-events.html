@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg') center/cover no-repeat;">
+        <div class="container">
+            <h1>Social Events</h1>
+            <p>Celebrate life's special moments in style</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <div class="social-events-grid">
+                <div class="event-category">
+                    <div class="event-image">
+                        <img src="images/sweet16.jpg" alt="Sweet 16 Celebration">
+                    </div>
+                    <div class="event-details">
+                        <h3>Sweet 16 / Quinceañera / Bar/Bat Mitzvah</h3>
+                        <p>Make your teen's milestone birthday unforgettable with our customizable party packages. Perfect for themed decorations, dance floors, and entertainment setups.</p>
+                        <ul>
+                            <li>Customizable lighting and sound systems</li>
+                            <li>Space for DJ or live band</li>
+                            <li>Photo booth area setup</li>
+                            <li>Parent lounge available</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-category">
+                    <div class="event-image">
+                        <img src="images/shower.jpg" alt="Bridal Shower">
+                    </div>
+                    <div class="event-details">
+                        <h3>Bridal & Baby Showers</h3>
+                        <p>Intimate gatherings for special pre-celebrations. Our flexible space adapts to your theme, whether elegant and sophisticated or playful and colorful.</p>
+                        <ul>
+                            <li>Perfect for 20-80 guests</li>
+                            <li>Natural lighting options</li>
+                            <li>Gift table and display areas</li>
+                            <li>Easy access for guest arrivals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-category">
+                    <div class="event-image">
+                        <img src="images/birthday.jpg" alt="Birthday Party">
+                    </div>
+                    <div class="event-details">
+                        <h3>Birthday Parties</h3>
+                        <p>From milestone birthdays to surprise parties, create memorable celebrations for all ages. Our venue works for both adult parties and children's celebrations.</p>
+                        <ul>
+                            <li>All-age appropriate setups</li>
+                            <li>Outdoor terrace for additional space</li>
+                            <li>Easy cleanup services</li>
+                            <li>Flexible timing options</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="event-category">
+                    <div class="event-image">
+                        <img src="images/cultural.jpg" alt="Cultural Celebration">
+                    </div>
+                    <div class="event-details">
+                        <h3>Cultural Celebrations</h3>
+                        <p>Host traditional events like Garba, Sangeet, Mehndi, and other cultural festivities. Our space accommodates dance floors, stage setups, and traditional seating.</p>
+                        <ul>
+                            <li>Large dance floor capacity</li>
+                            <li>Stage setup for performances</li>
+                            <li>Traditional floor seating options</li>
+                            <li>Extended hours available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inquiry-section">
+                <h2>Plan Your Social Event</h2>
+                <p>Contact us to discuss your specific needs and get a customized quote.</p>
+                <a href="contact.html?type=social" class="btn-primary">
+                    <i class="fas fa-calendar-alt"></i> Inquire About Social Events
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VERANDA</h3>
+                    <p>Bensalem's modern event venue for celebrations of all kinds.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Bensalem, PA</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@verandavenue.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <p>In partnership with</p>
+                    <div class="spark-logo">
+                        <strong>Spark by Hilton</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

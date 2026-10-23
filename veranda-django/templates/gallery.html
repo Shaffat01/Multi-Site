@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veranda - Bensalem's Modern Event Venue</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+    <nav class="navbar">
+        <div class="container">
+           <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'images/Veranda_Logo/Logo.jpg' %}" alt="Veranda_Logo" style="height: 50px; width: auto;"></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="{% url 'home' %}" class="active">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                <li><a href="{% url 'events' %}">Social Events</a></li>
+                <li><a href="{% url 'corporate' %}">Corporate</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'floor_plans' %}">Floor Plans</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'contact' %}" class="cta-button">Book a Tour</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg') center/cover no-repeat;">
+        <div class="container">
+            <h1>Photo Gallery</h1>
+            <p>See Veranda transformed for different celebrations</p>
+        </div>
+    </section>
+
+    <section class="page-content">
+        <div class="container">
+            <!-- Gallery Filter -->
+            <div class="gallery-filter">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="weddings">Weddings</button>
+                <button class="filter-btn" data-filter="indian-weddings">Indian Weddings</button>
+                <button class="filter-btn" data-filter="sweet16">Sweet 16 / Quinceañera</button>
+                <button class="filter-btn" data-filter="showers">Showers</button>
+                <button class="filter-btn" data-filter="corporate">Corporate Events</button>
+                <button class="filter-btn" data-filter="patio">Patio & Evening</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="gallery-grid">
+                
+                <!-- Weddings Category -->
+                <h3 class="gallery-category" id="weddings">Weddings</h3>
+                <div class="gallery-row weddings">
+                    <div class="gallery-item">
+                        <img src="images/wedding1.jpg" alt="Wedding Ceremony Setup">
+                        <div class="gallery-caption">Elegant Ceremony Setup</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/wedding2.jpg" alt="Wedding Reception">
+                        <div class="gallery-caption">Reception Dinner</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/wedding3.jpg" alt="Wedding Dance Floor">
+                        <div class="gallery-caption">First Dance Moment</div>
+                    </div>
+                </div>
+
+                <!-- Indian Weddings Category -->
+                <h3 class="gallery-category" id="indian-weddings">Indian Weddings</h3>
+                <div class="gallery-row indian-weddings">
+                    <div class="gallery-item">
+                        <img src="images/indian1.jpg" alt="Mandap Setup">
+                        <div class="gallery-caption">Traditional Mandap</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/indian2.jpg" alt="Sangeet Night">
+                        <div class="gallery-caption">Sangeet Celebration</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/indian3.jpg" alt="Mehndi Ceremony">
+                        <div class="gallery-caption">Mehndi Ceremony</div>
+                    </div>
+                </div>
+
+                <!-- Sweet 16 Category -->
+                <h3 class="gallery-category" id="sweet16">Sweet 16 & Quinceañera</h3>
+                <div class="gallery-row sweet16">
+                    <div class="gallery-item">
+                        <img src="images/sweet16-1.jpg" alt="Sweet 16 Party">
+                        <div class="gallery-caption">Sweet 16 Celebration</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/quince1.jpg" alt="Quinceañera">
+                        <div class="gallery-caption">Quinceañera Tradition</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/mitzvah1.jpg" alt="Bar Mitzvah">
+                        <div class="gallery-caption">Bar Mitzvah Party</div>
+                    </div>
+                </div>
+
+                <!-- Showers Category -->
+                <h3 class="gallery-category" id="showers">Bridal & Baby Showers</h3>
+                <div class="gallery-row showers">
+                    <div class="gallery-item">
+                        <img src="images/bridal-shower1.jpg" alt="Bridal Shower">
+                        <div class="gallery-caption">Bridal Shower Gathering</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/baby-shower1.jpg" alt="Baby Shower">
+                        <div class="gallery-caption">Baby Shower Celebration</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/shower3.jpg" alt="Shower Decor">
+                        <div class="gallery-caption">Themed Decorations</div>
+                    </div>
+                </div>
+
+                <!-- Corporate Category -->
+                <h3 class="gallery-category" id="corporate">Corporate Events</h3>
+                <div class="gallery-row corporate">
+                    <div class="gallery-item">
+                        <img src="images/corporate1.jpg" alt="Conference Setup">
+                        <div class="gallery-caption">Corporate Conference</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/corporate2.jpg" alt="Training Session">
+                        <div class="gallery-caption">Training Workshop</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/corporate3.jpg" alt="Awards Dinner">
+                        <div class="gallery-caption">Awards Dinner</div>
+                    </div>
+                </div>
+
+                <!-- Patio Category -->
+                <h3 class="gallery-category" id="patio">Patio & Evening Views</h3>
+                <div class="gallery-row patio">
+                    <div class="gallery-item">
+                        <img src="images/patio1.jpg" alt="Patio Firepits">
+                        <div class="gallery-caption">Evening with Firepits</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/patio2.jpg" alt="String Lighting">
+                        <div class="gallery-caption">String Lighting Ambiance</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/patio3.jpg" alt="Outdoor Terrace">
+                        <div class="gallery-caption">Outdoor Terrace Setup</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Structure -->
+    <div class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="">
+        <div class="lightbox-caption"></div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>VERANDA</h3>
+                    <p>Bensalem's modern event venue for celebrations of all kinds.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'weddings' %}">Weddings</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Bensalem, PA</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@verandavenue.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Partners</h4>
+                    <p>In partnership with</p>
+                    <div class="spark-logo">
+                        <strong>Spark by Hilton</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Veranda Event Venue. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
